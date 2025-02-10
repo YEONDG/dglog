@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body className={`${pretendard.className} antialiased`}>
-        <div className='min-h-screen bg-zinc-950 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <div className='min-h-screen bg-red-300 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <NavBar />
           {children}
         </div>

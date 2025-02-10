@@ -1,5 +1,23 @@
+import { getAllPosts } from '@/lib/mdx';
+import Link from 'next/link';
 import React from 'react';
 
 export default function PostsPage() {
-  return <div className='bg-blue-200 w-full h-full'>어떻게 구성할까</div>;
+  const posts = getAllPosts();
+
+  return (
+    <main>
+      <h1>Blog Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.slug}>
+            <Link href={`/posts/${post.slug}`}>
+              <h2>{post.title}</h2>
+              <p>{post.date}</p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </main>
+  );
 }

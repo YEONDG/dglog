@@ -14,7 +14,6 @@ export default async function Layout({
   return (
     <SidebarProvider defaultOpen={defaultOpen} className=''>
       <AppSidebar />
-
       <main className='w-full'>
         <SidebarTrigger />
         {children}
