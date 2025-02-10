@@ -12,10 +12,10 @@ export default async function Layout({
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
 
   return (
-    <SidebarProvider defaultOpen={defaultOpen}>
+    <SidebarProvider defaultOpen={defaultOpen} className=''>
       <AppSidebar />
 
-      <main className=''>
+      <main className='w-full'>
         <SidebarTrigger />
         {children}
       </main>
