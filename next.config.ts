@@ -1,10 +1,7 @@
 import type { NextConfig } from 'next';
-import withMDX from '@next/mdx';
 
-const nextConfig: NextConfig = withMDX({
-  extension: /\.mdx?$/, // MDX 파일 확장자 처리
-})({
-  pageExtensions: ['ts', 'tsx', 'mdx'], // 지원할 파일 확장자
+const nextConfig: NextConfig = () => ({
+  transpilePackages: ['next-mdx-remote'],
   reactStrictMode: true,
 });
 

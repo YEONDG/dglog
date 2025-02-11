@@ -1,23 +1,37 @@
-import { getAllPosts, getPostBySlug } from '@/lib/mdx';
-import { MDXRemote } from 'next-mdx-remote';
-
-export async function generateStaticParams() {
-  const posts = getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
-}
+import { getPostById } from '@/lib/notion';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { content, data } = getPostBySlug(params.slug);
+  const postId = (await params).slug;
+  const { page, markdownContent } = await getPostById(postId);
 
   return (
-    <article>
-      <h1>{data.title}</h1>
-      <p>{data.date}</p>
-      <MDXRemote source={content} />
+    <article className='prose mx-auto'>
+      <h1 className='text-3xl font-bold'>
+        {page?.properties.이름.title[0]?.plain_text || '제목 없음'}
+      </h1>
+      <p className='text-gray-500'>
+        {new Date(page?.created_time).toLocaleDateString()}
+      </p>
+
+      {/* Markdown 렌더링 */}
+      <div className='prose prose-lg max-w-none'>
+        <MDXRemote
+          source={markdownContent}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm], // 테이블, 체크박스 등 지원
+              rehypePlugins: [rehypeHighlight], // 코드 하이라이팅
+            },
+          }}
+        />
+      </div>
     </article>
   );
 }
