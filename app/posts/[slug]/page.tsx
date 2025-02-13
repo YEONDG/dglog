@@ -21,7 +21,7 @@ export default async function BlogPostPage({
       </p>
 
       {/* Markdown 렌더링 */}
-      <div className='prose prose-lg max-w-none'>
+      <div className='prose max-w-none'>
         <MDXRemote
           source={markdownContent}
           options={{

@@ -3,6 +3,7 @@ import './globals.css';
 import { NavBar } from '@/components/nav-bar';
 
 import localFont from 'next/font/local';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -21,12 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko'>
+    <html lang='ko' suppressHydrationWarning>
       <body className={`${pretendard.className} antialiased`}>
-        <div className='min-h-screen bg-red-300 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <NavBar />
-          {children}
-        </div>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+          <div className='min-h-screen  max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
+            <NavBar />
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -87,3 +87,24 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.prose th {
+  /* background-color: #f8f9fa; */
+  font-weight: bold;
+}
+
+.prose ul li::marker {
+  color: black !important;
+  font-size: 1rem;
+}
