@@ -1,6 +1,5 @@
-import { getNotionPosts } from '@/lib/notion';
 import Link from 'next/link';
-import React from 'react';
+import { getNotionPosts } from '@/lib/notion';
 
 export default async function PostsPage() {
   const data = await getNotionPosts();
@@ -28,7 +27,7 @@ export default async function PostsPage() {
               <Link href={`/posts/${post.id}`} className='flex justify-between items-center'>
                 <div className='text-lg'>
                   {/* @ts-expect-error: post.properties.이름에 대한 타입 에러 무시 */}
-                  {post.properties.이름.title[0]?.plain_text || '이름 없음'}
+                  {post.properties.제목.title[0]?.plain_text || '이름 없음'}
                 </div>
                 <div className='hidden md:flex gap-1'>
                   {/* @ts-expect-error: post.properties.이름에 대한 타입 에러 무시 */}
