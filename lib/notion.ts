@@ -49,7 +49,14 @@ export const getPostById = unstable_cache(
     try {
       const page = (await notion.pages.retrieve({ page_id: pageId })) as PageObjectResponse;
 
+      const blocks = await notion.blocks.children.list({ block_id: pageId });
+
+      console.log(blocks, '블록정보');
+
+      console.log(page, '정보주란');
+
       const mdblocks = await n2m.pageToMarkdown(pageId);
+      console.log(mdblocks, '마크다운블록');
       const markdownContent = n2m.toMarkdownString(mdblocks).parent;
       return { page, markdownContent };
     } catch (error) {
@@ -58,3 +65,14 @@ export const getPostById = unstable_cache(
     }
   }
 );
+
+const convertNotionS3ToProxyUrl = (mdblocks) => {
+  const newBlocks = mdblocks.map((block) => {
+    if (block.type === 'image') {
+      const { id, image } = block;
+      const url = image
+        ? `https://squary.notion.site/image/${encodeURIComponent(image.file.url)}?table=block&id=${id}&cache=v2`
+        : ``;
+    }
+  });
+};
