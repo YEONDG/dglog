@@ -2,6 +2,7 @@ import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
 import { unstable_cache } from 'next/cache';
 import { QueryDatabaseResponse, PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { MdBlock } from 'notion-to-md/build/types';
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY });
 const n2m = new NotionToMarkdown({ notionClient: notion });
@@ -49,15 +50,10 @@ export const getPostById = unstable_cache(
     try {
       const page = (await notion.pages.retrieve({ page_id: pageId })) as PageObjectResponse;
 
-      const blocks = await notion.blocks.children.list({ block_id: pageId });
-
-      console.log(blocks, '블록정보');
-
-      console.log(page, '정보주란');
-
       const mdblocks = await n2m.pageToMarkdown(pageId);
-      console.log(mdblocks, '마크다운블록');
-      const markdownContent = n2m.toMarkdownString(mdblocks).parent;
+      const newMdBlocks = convertNotionS3ToProxyUrl(mdblocks);
+      const markdownContent = n2m.toMarkdownString(newMdBlocks).parent;
+
       return { page, markdownContent };
     } catch (error) {
       console.error('Error fetching Notion post:', error);
@@ -66,13 +62,27 @@ export const getPostById = unstable_cache(
   }
 );
 
-const convertNotionS3ToProxyUrl = (mdblocks) => {
+/**
+ * Notion S3 URL을 Notion 웹사이트에서 제공하는 이미지 URL로 변환하는 함수
+ * @param mdblocks - Markdown 블록 배열
+ */
+const convertNotionS3ToProxyUrl = (mdblocks: MdBlock[]): MdBlock[] => {
   const newBlocks = mdblocks.map((block) => {
     if (block.type === 'image') {
-      const { id, image } = block;
-      const url = image
-        ? `https://squary.notion.site/image/${encodeURIComponent(image.file.url)}?table=block&id=${id}&cache=v2`
-        : ``;
+      const { blockId, parent } = block;
+
+      const baseUrl = parent.split('?')[0];
+      const filename = baseUrl.split('/').pop();
+
+      const imgInfo = parent.split('/')[0];
+      const imgUrl = parent.split('/')[4];
+      const newImageUrl = `${imgInfo}//suave-robe-e2b.notion.site/image/attachment%3A${imgUrl}%3A${filename}?table=block&id=${blockId}&width=1060&userId=&cache=v2)`;
+      block.parent = newImageUrl;
+
+      return { ...block, parent: newImageUrl };
     }
+    return block;
   });
+
+  return newBlocks;
 };
