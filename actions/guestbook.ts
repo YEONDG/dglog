@@ -29,7 +29,10 @@ export async function addGuestEntry(prevState: GuestbookState, formData: FormDat
 
     return { ...prevState, success: true, entry: newEntry };
   } catch (error) {
-    return { ...prevState, error: '데이터 저장 중 오류가 발생했습니다.' };
+    return {
+      ...prevState,
+      error: error instanceof Error ? error.message : '데이터 저장 중 알 수 없는 오류가 발생했습니다.',
+    };
   }
 }
 
@@ -37,25 +40,33 @@ export async function deleteGuestEntry(prevState: GuestbookState, formData: Form
   const id = formData.get('id') as string;
   const password = formData.get('password') as string;
 
-  const existing = await prisma.guestbook.findUnique({
-    where: { id },
-    select: { id: true, password: true },
-  });
+  try {
+    const existing = await prisma.guestbook.findUnique({
+      where: { id },
+      select: { id: true, password: true },
+    });
 
-  if (!existing) {
-    return { ...prevState, success: false, error: '해당 글이 존재하지 않습니다.' };
+    if (!existing) {
+      return { ...prevState, success: false, error: '해당 글이 존재하지 않습니다.' };
+    }
+
+    if (existing.password !== password) {
+      return { ...prevState, success: false, error: '비밀번호가 올바르지 않습니다.' };
+    }
+
+    await prisma.guestbook.delete({
+      where: { id },
+    });
+
+    revalidatePath('/guestbook');
+
+    return { success: true, id };
+  } catch (error) {
+    return {
+      ...prevState,
+      error: error instanceof Error ? error.message : '삭제 중 알 수 없는 오류가 발생했습니다.',
+    };
   }
-
-  if (existing.password !== password) {
-    return { ...prevState, success: false, error: '비밀번호가 올바르지 않습니다.' };
-  }
-
-  await prisma.guestbook.delete({
-    where: { id },
-  });
-
-  revalidatePath('/guestbook');
-  return { success: true, id };
 }
 
 export async function getGuestEntries() {
@@ -64,6 +75,8 @@ export async function getGuestEntries() {
       orderBy: { createdAt: 'desc' },
     });
   } catch (error) {
+    console.error('❌ getGuestEntries Error:', error);
+
     return [];
   }
 }
