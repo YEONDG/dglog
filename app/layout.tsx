@@ -4,6 +4,7 @@ import { NavBar } from '@/components/nav-bar';
 
 import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from 'sonner';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -29,6 +30,7 @@ export default function RootLayout({
             <NavBar />
             {children}
           </div>
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
