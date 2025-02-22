@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useFormStatus } from 'react-dom';
 
 export const SubmitButton = () => {
@@ -5,7 +6,10 @@ export const SubmitButton = () => {
   return (
     <button
       type='submit'
-      className='w-full mt-3 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600'
+      className={cn(
+        'w-full mt-3 p-2 text-white rounded-md transition-colors focus:outline-none',
+        pending ? 'bg-gray-500' : 'bg-blue-500 hover:bg-blue-600'
+      )}
       disabled={pending}
     >
       {pending ? '등록 중...' : '등록'}
