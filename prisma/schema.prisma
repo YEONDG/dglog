@@ -18,5 +18,6 @@ model Guestbook {
   id        String   @id @default(uuid())
   name      String
   message   String
+  password  String
   createdAt DateTime @default(now())
 }
