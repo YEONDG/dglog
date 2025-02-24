@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { getNotionPosts } from '@/lib/notion';
 
-export default async function PostsPage() {
+const PostsPage = async () => {
   const data = await getNotionPosts();
 
   const tags = Array.from(
@@ -59,4 +59,6 @@ export default async function PostsPage() {
       </div>
     </main>
   );
-}
+};
+
+export default PostsPage;

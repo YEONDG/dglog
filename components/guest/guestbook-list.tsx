@@ -9,7 +9,7 @@ interface GuestBookListProps {
   onDelete: (entry: Guestbook) => void;
 }
 
-export function GuestBookList({ entries, onDelete }: GuestBookListProps) {
+export const GuestBookList = ({ entries, onDelete }: GuestBookListProps) => {
   return (
     <ul className='space-y-3'>
       {entries.map((entry) => (
@@ -17,4 +17,4 @@ export function GuestBookList({ entries, onDelete }: GuestBookListProps) {
       ))}
     </ul>
   );
-}
+};

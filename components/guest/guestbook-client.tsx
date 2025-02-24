@@ -11,7 +11,7 @@ interface GuestBookClientProps {
   initialEntries: Guestbook[];
 }
 
-export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
+export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
   const [optimisticList, addOptimisticEntry] = useOptimistic<Guestbook[], FormData>(
     initialEntries,
     (currentList, formData) => {
@@ -42,14 +42,14 @@ export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
     error: undefined as string | undefined,
   });
 
-  async function handleAdd(formData: FormData) {
+  const handleAdd = async (formData: FormData) => {
     startTransition(async () => {
       addOptimisticEntry(formData);
       await addFormAction(formData);
     });
-  }
+  };
 
-  async function handleDelete(entry: Guestbook) {
+  const handleDelete = async (entry: Guestbook) => {
     const pw = prompt('비밀번호를 입력해주세요.');
     if (!pw) return;
 
@@ -60,7 +60,7 @@ export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
     startTransition(async () => {
       await deleteFormAction(formData);
     });
-  }
+  };
 
   useEffect(() => {
     if (addState.success) {
@@ -91,4 +91,4 @@ export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
       <GuestBookList entries={optimisticList} onDelete={handleDelete} />
     </div>
   );
-}
+};

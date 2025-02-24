@@ -3,7 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const postId = (await params).slug;
   const post = await getPostById(postId);
 
@@ -36,4 +36,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </div>
     </article>
   );
-}
+};
+
+export default BlogPostPage;

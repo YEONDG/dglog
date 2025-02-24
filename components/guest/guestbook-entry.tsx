@@ -8,7 +8,7 @@ interface GuestBookEntryProps {
   onDelete: (entry: Guestbook) => void;
 }
 
-export function GuestBookEntry({ entry, onDelete }: GuestBookEntryProps) {
+export const GuestBookEntry = ({ entry, onDelete }: GuestBookEntryProps) => {
   return (
     <li className='flex justify-between items-center p-3 border rounded-md shadow-sm bg-gray-50'>
       <div>
@@ -20,4 +20,4 @@ export function GuestBookEntry({ entry, onDelete }: GuestBookEntryProps) {
       </div>
     </li>
   );
-}
+};

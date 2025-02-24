@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   description: '신입 프론트엔드 개발자 연동근의 개인 사이트입니다.',
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>) => {
   return (
     <html lang='ko' suppressHydrationWarning>
       <body className={`${pretendard.className} antialiased`}>
@@ -35,4 +35,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

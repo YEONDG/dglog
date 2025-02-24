@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { SubmitButton } from '@/components/guest/submit-btn';
 
-export function GuestBookForm({ addFormAction }: { addFormAction: (formData: FormData) => Promise<void> }) {
+export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: FormData) => Promise<void> }) => {
   const form = useForm<GuestbookSchema>({
     resolver: zodResolver(guestbookSchema),
     defaultValues: {
@@ -74,4 +74,4 @@ export function GuestBookForm({ addFormAction }: { addFormAction: (formData: For
       </form>
     </Form>
   );
-}
+};
