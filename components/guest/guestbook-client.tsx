@@ -2,10 +2,10 @@
 
 import { startTransition, useActionState, useEffect, useOptimistic } from 'react';
 import { addGuestEntry, deleteGuestEntry } from '@/actions/guestbook';
-import { SubmitButton } from '@/components/guest/submit-btn';
 import { Guestbook } from '@prisma/client';
-import { X } from 'lucide-react';
 import { toast } from 'sonner';
+import { GuestBookList } from './guestbook-list';
+import { GuestBookForm } from './guestbook-form';
 
 interface GuestBookClientProps {
   initialEntries: Guestbook[];
@@ -30,7 +30,6 @@ export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
       return [newEntry, ...currentList];
     }
   );
-  console.log('리렌더링');
 
   const [addState, addFormAction] = useActionState(addGuestEntry, {
     success: false,
@@ -51,16 +50,13 @@ export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
   }
 
   async function handleDelete(entry: Guestbook) {
-    // 사용자에게 비밀번호 입력받기 (간단히 prompt 예시)
     const pw = prompt('비밀번호를 입력해주세요.');
     if (!pw) return;
 
-    // 폼 데이터 구성
     const formData = new FormData();
     formData.set('id', entry.id);
     formData.set('password', pw);
 
-    // 서버 액션 호출 (일반 방식)
     startTransition(async () => {
       await deleteFormAction(formData);
     });
@@ -87,42 +83,12 @@ export function GuestBookClient({ initialEntries }: GuestBookClientProps) {
       <h1 className='text-2xl font-bold mb-2 text-center'>📖 Guestbook</h1>
 
       {/* 작성창 */}
-      <form action={handleAdd} className='mb-6'>
-        <div className='flex gap-2'>
-          <input type='text' name='name' className='w-full p-2 border rounded-md mb-2' placeholder='이름' required />
-          <input
-            type='password'
-            name='password'
-            className='w-full p-2 border rounded-md mb-2'
-            placeholder='비밀번호'
-            required
-          />
-        </div>
-        <textarea
-          name='message'
-          className='w-full p-2 border rounded-md'
-          placeholder='메시지를 입력하세요...'
-          required
-        />
-        <SubmitButton />
-      </form>
 
+      <GuestBookForm addFormAction={handleAdd} />
       {addState?.error && <p className='text-red-500'>{addState.error}</p>}
 
       {/* 방명록 목록 */}
-      <ul className='space-y-3'>
-        {optimisticList.map((entry) => (
-          <li key={entry.id} className='flex justify-between items-center p-3 border rounded-md shadow-sm bg-gray-50'>
-            <div>
-              <p className='font-semibold'>{entry.name}</p>
-              <p className='text-gray-700'>{entry.message}</p>
-            </div>
-            <div>
-              <X className='transition-transform hover:scale-125 cursor-pointer' onClick={() => handleDelete(entry)} />
-            </div>
-          </li>
-        ))}
-      </ul>
+      <GuestBookList entries={optimisticList} onDelete={handleDelete} />
     </div>
   );
 }
