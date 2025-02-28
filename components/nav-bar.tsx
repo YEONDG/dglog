@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { ModeToggle } from './mode-toggle';
+import { ThemeToggle } from './home/ui/theme-toggle';
 
 export const NavBar = () => {
   return (
@@ -9,7 +9,8 @@ export const NavBar = () => {
         DGlog<span className='absolute -right-1 -bottom-1 w-2 h-2 bg-orange-500 rounded-full'></span>
       </div>
       <div className='flex justify-around '>
-        <ModeToggle />
+        {/* 테마 토글 버튼 */}
+        <ThemeToggle />
         <Link href='/' className='py-2 px-4 '>
           Home
         </Link>
