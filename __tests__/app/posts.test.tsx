@@ -33,11 +33,30 @@ jest.mock('@/lib/notion', () => ({
       },
     },
   ]),
+  getNotionTags: jest.fn().mockResolvedValue(['React', 'TypeScript', 'Next.js']),
+  getNotionPostsByTag: jest.fn().mockImplementation((tag) =>
+    Promise.resolve([
+      {
+        id: 'test-post-1',
+        properties: {
+          제목: {
+            title: [{ plain_text: '테스트 포스트 1' }],
+          },
+          태그: {
+            multi_select: [{ name: 'React' }, { name: 'TypeScript' }],
+          },
+          생성일: {
+            created_time: '2024-03-20T00:00:00.000Z',
+          },
+        },
+      },
+    ])
+  ),
 }));
 
 describe('PostsPage', () => {
   it('포스트 목록 렌더링', async () => {
-    render(await PostsPage());
+    render(await PostsPage({ searchParams: {} }));
 
     // 포스트 제목 확인
     expect(screen.getByText('테스트 포스트 1')).toBeInTheDocument();
@@ -59,10 +78,24 @@ describe('PostsPage', () => {
   });
 
   it('포스트 링크 확인', async () => {
-    render(await PostsPage());
+    render(await PostsPage({ searchParams: {} }));
 
     const links = screen.getAllByRole('link');
     expect(links[0]).toHaveAttribute('href', '/posts/test-post-1');
     expect(links[1]).toHaveAttribute('href', '/posts/test-post-2');
+  });
+
+  it('태그 필터링 확인', async () => {
+    render(await PostsPage({ searchParams: { tag: 'React' } }));
+
+    // React 태그가 있는 포스트만 표시되는지 확인
+    expect(screen.getByText('테스트 포스트 1')).toBeInTheDocument();
+    expect(screen.queryByText('테스트 포스트 2')).not.toBeInTheDocument();
+
+    // 선택된 태그 표시 확인
+    expect(screen.getByText('태그:')).toBeInTheDocument();
+    const selectedTag = screen.getByText('React', { selector: '.bg-gray-100' });
+    expect(selectedTag).toBeInTheDocument();
+    expect(screen.getByText('× 필터 제거')).toBeInTheDocument();
   });
 });
