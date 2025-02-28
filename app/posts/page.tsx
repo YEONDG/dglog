@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getNotionPosts } from '@/lib/notion';
 import { NotionPost } from '@/types';
+import { formatDate } from '@/lib/utils';
 
 const PostsPage = async () => {
   const rawData = await getNotionPosts();
@@ -28,9 +29,7 @@ const PostsPage = async () => {
                     </div>
                   ))}
                 </div>
-                <div className='text-sm text-gray-700'>
-                  {new Date(post.properties.생성일.created_time).toLocaleDateString()}
-                </div>
+                <div className='text-sm text-gray-700'>{formatDate(post.properties.생성일.created_time)}</div>
               </Link>
             </li>
           ))}
