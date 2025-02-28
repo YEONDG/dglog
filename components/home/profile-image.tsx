@@ -1,6 +1,11 @@
 import Image from 'next/image';
 
-export function ProfileImage({ src, alt }) {
+interface ProfileImageProps {
+  src: string;
+  alt: string;
+}
+
+export function ProfileImage({ src, alt }: ProfileImageProps) {
   return (
     <div className='relative w-64 h-80 rounded-2xl overflow-hidden shadow-xl border-4 border-white dark:border-gray-800'>
       <Image

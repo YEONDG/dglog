@@ -1,7 +1,13 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
-export const SkillCard = ({ title, skills, color }) => {
+interface SkillCardProps {
+  title: string;
+  skills: string[];
+  color: 'blue' | 'purple' | 'green';
+}
+
+export const SkillCard = ({ title, skills, color }: SkillCardProps) => {
   const borderColorClasses = {
     blue: 'border-blue-500',
     purple: 'border-purple-500',
@@ -14,7 +20,7 @@ export const SkillCard = ({ title, skills, color }) => {
         <h3 className='text-xl font-bold mb-4'>{title}</h3>
         <div className='flex flex-wrap gap-2'>
           {skills.map((skill) => (
-            <Badge key={skill} variant='secondary' className='py-1'>
+            <Badge key={skill} variant='outline' className='text-sm'>
               {skill}
             </Badge>
           ))}

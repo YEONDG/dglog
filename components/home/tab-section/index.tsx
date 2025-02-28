@@ -6,8 +6,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AboutTab } from './about-tab';
 import { SkillsTab } from './skills-tab';
 import { ProjectsTab } from './projects-tab';
+import { Project, TechStack, Education } from '@/types';
 
-export const TabSection = ({ techStack, projects, education }) => {
+interface TabSectionProps {
+  techStack: TechStack[];
+  projects: Project[];
+  education: Education[];
+}
+
+export const TabSection = ({ techStack, projects, education }: TabSectionProps) => {
   const [activeTab, setActiveTab] = useState('about');
 
   return (

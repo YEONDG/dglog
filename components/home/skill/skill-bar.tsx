@@ -2,19 +2,26 @@
 
 import { motion } from 'framer-motion';
 
-export const SkillBar = ({ name, level, index, animate }) => {
+interface SkillBarProps {
+  name: string;
+  level: number;
+  index: number;
+  animate: boolean;
+}
+
+export const SkillBar = ({ name, level, index, animate }: SkillBarProps) => {
   return (
     <div className='space-y-2'>
       <div className='flex justify-between items-center'>
-        <span className='font-medium'>{name}</span>
-        <span>{level}%</span>
+        <span className='font-medium text-gray-700'>{name}</span>
+        <span className='text-sm text-gray-500'>{level}%</span>
       </div>
-      <div className='h-2 w-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden'>
+      <div className='h-2 bg-gray-200 rounded-full overflow-hidden'>
         <motion.div
-          className='h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full'
-          initial={{ width: 0 }}
-          animate={{ width: animate ? `${level}%` : 0 }}
-          transition={{ duration: 1, delay: index * 0.1 }}
+          className='h-full bg-blue-600 rounded-full'
+          initial={{ width: '0%' }}
+          animate={{ width: animate ? `${level}%` : '0%' }}
+          transition={{ duration: 1, delay: index * 0.2 }}
         />
       </div>
     </div>

@@ -4,8 +4,17 @@ import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Code, Layout, ChevronRight } from 'lucide-react';
+import { Education } from '@/types';
 
-export const AboutTab = ({ education }) => {
+interface AboutTabProps {
+  education: Education[];
+}
+
+interface EducationSectionProps {
+  education: Education[];
+}
+
+export const AboutTab = ({ education }: AboutTabProps) => {
   return (
     <div className='space-y-12'>
       <motion.div
@@ -56,7 +65,7 @@ const DevelopmentPhilosophy = () => {
   );
 };
 
-const EducationSection = ({ education }) => {
+const EducationSection = ({ education }: EducationSectionProps) => {
   return (
     <Card>
       <CardContent className='p-6'>
@@ -64,7 +73,7 @@ const EducationSection = ({ education }) => {
           <Layout className='text-blue-500' /> 교육
         </h2>
         <div className='space-y-4'>
-          {education.map((edu, index) => (
+          {education.map((edu: Education, index: number) => (
             <div key={index} className='flex flex-col md:flex-row md:items-center justify-between gap-2'>
               <div>
                 <h3 className='font-semibold text-lg'>{edu.degree}</h3>

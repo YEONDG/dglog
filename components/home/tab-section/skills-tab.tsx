@@ -6,8 +6,13 @@ import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { SkillBar } from '../skill/skill-bar';
 import { SkillCard } from '@/components/home/skill/skill-card';
+import { TechStack, SkillCategory } from '@/types';
 
-export const SkillsTab = ({ techStack }) => {
+interface SkillsTabProps {
+  techStack: TechStack[];
+}
+
+export const SkillsTab = ({ techStack }: SkillsTabProps) => {
   const [animateSkills, setAnimateSkills] = useState(false);
 
   // 스크롤 위치에 따라 스킬 애니메이션 시작
@@ -26,7 +31,7 @@ export const SkillsTab = ({ techStack }) => {
   }, [animateSkills]);
 
   // 기술 카테고리 데이터
-  const skillCategories = [
+  const skillCategories: SkillCategory[] = [
     {
       title: '프론트엔드',
       color: 'blue',
