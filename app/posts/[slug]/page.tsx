@@ -4,6 +4,7 @@ import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import { formatDate } from '@/lib/utils';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export async function generateStaticParams() {
   const posts = await getNotionPosts();
@@ -94,21 +95,25 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
           }),
         }}
       />
-      <h1 className='text-3xl font-bold'>{title}</h1>
+      <h1 className='text-3xl font-bold dark:text-white'>{title}</h1>
       <p className='text-gray-500'>{formatDate(post.created_time)}</p>
       {/* 태그 표시 */}
       {tags.length > 0 && (
         <div className='flex flex-wrap gap-2 my-4'>
           {tags.map((tag) => (
-            <a key={tag} href={`/tags/${tag}`} className='px-2 py-1 bg-gray-100 rounded-md text-sm hover:bg-gray-200'>
+            <Link
+              key={tag}
+              href={`/tags/${tag}`}
+              className='px-2 py-1 bg-gray-100 rounded-md text-sm hover:bg-gray-200'
+            >
               {tag}
-            </a>
+            </Link>
           ))}
         </div>
       )}
 
       {/* Markdown 렌더링 */}
-      <div className='prose max-w-none'>
+      <div className='prose dark:prose-invert max-w-none'>
         <MDXRemote
           source={post.markdownContent}
           options={{
