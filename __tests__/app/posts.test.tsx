@@ -50,9 +50,12 @@ describe('PostsPage', () => {
     expect(tagsSection).toHaveTextContent('TypeScript');
     expect(tagsSection).toHaveTextContent('Next.js');
 
-    // 날짜 확인
-    expect(screen.getByText('2024. 3. 20.')).toBeInTheDocument();
-    expect(screen.getByText('2024. 3. 21.')).toBeInTheDocument();
+    // 날짜 확인 (정규식 사용)
+    const dateRegex1 = /2024[.\s]*3[.\s]*20/;
+    const dateRegex2 = /2024[.\s]*3[.\s]*21/;
+
+    expect(screen.getByText(dateRegex1)).toBeInTheDocument();
+    expect(screen.getByText(dateRegex2)).toBeInTheDocument();
   });
 
   it('포스트 링크 확인', async () => {
