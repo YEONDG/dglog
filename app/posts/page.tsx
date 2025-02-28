@@ -1,47 +1,35 @@
 import Link from 'next/link';
-import { getNotionPosts } from '@/lib/notion';
-import { NotionPost } from '@/types';
-import { formatDate } from '@/lib/utils';
+import { getNotionTags } from '@/lib/notion';
+import { NotionPosts } from '@/components/posts/notion-posts';
+
+export interface PageProps {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
 const PostsPage = async () => {
-  const rawData = await getNotionPosts();
-  const data = rawData as unknown as NotionPost[];
-
-  const tags = Array.from(new Set(data.flatMap((post) => post.properties.태그.multi_select.map((tag) => tag.name))));
+  const tags = await getNotionTags();
 
   return (
     <main className='flex w-full gap-4 mt-10'>
       {/* 게시물 리스트 */}
       <div className='flex grow flex-col gap-4'>
-        <h1 className='text-2xl font-bold'>Posts</h1>
+        <div className='flex justify-between items-center'>
+          <h1 className='text-2xl font-bold'>Posts</h1>
+        </div>
         <ul className='list-none w-full space-y-2'>
-          {data.map((post) => (
-            <li
-              key={post.id}
-              className='flex flex-col justify-center hover:shadow-lg transition-shadow duration-300 py-1 px-2 rounded-md'
-            >
-              <Link href={`/posts/${post.id}`} className='flex justify-between items-center'>
-                <div className='text-lg'>{post.properties.제목.title[0]?.plain_text || '이름 없음'}</div>
-                <div className='hidden md:flex gap-1'>
-                  {post.properties.태그.multi_select.map((tag) => (
-                    <div key={tag.name} className='px-2 py-1 text-xs'>
-                      {tag.name}
-                    </div>
-                  ))}
-                </div>
-                <div className='text-sm text-gray-700'>{formatDate(post.properties.생성일.created_time)}</div>
-              </Link>
-            </li>
-          ))}
+          <NotionPosts />
         </ul>
       </div>
       {/* 태그 리스트 */}
       <div className='hidden md:flex w-1/5 flex-col gap-4'>
         <h2 className='text-xl font-bold'>Tags</h2>
         <ul className='flex flex-wrap gap-2'>
-          {tags.map((tag) => (
-            <li key={tag} className='px-2 py-1 text-xs'>
-              {tag}
+          {tags.map((tagName) => (
+            <li key={tagName}>
+              <Link href={`/tags/${tagName}`} className='px-2 py-1 text-xs rounded-md hover:bg-gray-100'>
+                {tagName}
+              </Link>
             </li>
           ))}
         </ul>
@@ -49,5 +37,8 @@ const PostsPage = async () => {
     </main>
   );
 };
+
+export const dynamic = 'force-static';
+export const revalidate = 86400; // 선택적: 24시간마다 재검증
 
 export default PostsPage;
