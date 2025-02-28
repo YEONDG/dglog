@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import { formatDate } from '@/lib/utils';
+import { Metadata } from 'next';
 
 export async function generateStaticParams() {
   const posts = await getNotionPosts();
@@ -10,6 +11,50 @@ export async function generateStaticParams() {
   return posts.map((post) => ({
     slug: post.id,
   }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const postId = (await params).slug;
+  const post = await getPostById(postId);
+
+  if (!post) {
+    return {
+      title: '게시글을 찾을 수 없습니다',
+      description: '요청하신 게시글이 존재하지 않습니다.',
+    };
+  }
+
+  const title = post.properties.제목.title[0]?.plain_text || '제목 없음';
+  // 내용의 처음 160자를 설명으로 사용 (또는 별도 description 필드가 있다면 그것 사용)
+  const description = post.markdownContent
+    ? post.markdownContent.slice(0, 160).replace(/[#*`]/g, '') + '...'
+    : '게시글 내용이 없습니다.';
+
+  // 태그가 있다면 키워드로 사용
+  const keywords = post.properties.태그?.multi_select.map((tag) => tag.name) || [];
+
+  return {
+    title: `${title} | Dglog`,
+    description,
+    keywords,
+    openGraph: {
+      title: `${title} | Dglog`,
+      description,
+      type: 'article',
+      publishedTime: post.created_time,
+      modifiedTime: post.last_edited_time,
+      authors: ['연동근'],
+      tags: keywords,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: `/posts/${postId}`,
+    },
+  };
 }
 
 const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
@@ -23,10 +68,44 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
   const titleProperty = post.properties.제목;
   const title = titleProperty.title[0]?.plain_text || '제목 없음';
 
+  const tags = post.properties.태그?.multi_select.map((tag) => tag.name) || [];
+
   return (
     <article className='prose mx-auto'>
+      {/* 구조화된 데이터 추가 */}
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: title,
+            datePublished: post.created_time,
+            dateModified: post.last_edited_time,
+            author: {
+              '@type': 'Person',
+              name: '연동근',
+            },
+            keywords: tags.join(', '),
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `https://dglog.vercel.app/posts/${postId}`,
+            },
+          }),
+        }}
+      />
       <h1 className='text-3xl font-bold'>{title}</h1>
       <p className='text-gray-500'>{formatDate(post.created_time)}</p>
+      {/* 태그 표시 */}
+      {tags.length > 0 && (
+        <div className='flex flex-wrap gap-2 my-4'>
+          {tags.map((tag) => (
+            <a key={tag} href={`/tags/${tag}`} className='px-2 py-1 bg-gray-100 rounded-md text-sm hover:bg-gray-200'>
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
 
       {/* Markdown 렌더링 */}
       <div className='prose max-w-none'>
