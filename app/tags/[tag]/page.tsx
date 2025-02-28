@@ -58,5 +58,4 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
 
 export const dynamic = 'force-static';
 export const revalidate = 86400; // 24시간마다 재검증
-
 export default TagPage;
