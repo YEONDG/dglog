@@ -24,6 +24,9 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang='ko' suppressHydrationWarning>
+      <head>
+        <link rel='alternate' type='application/rss+xml' title='Dglog RSS Feed' href='/feed.xml' />
+      </head>
       <body className={`${pretendard.className} antialiased`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <div className='min-h-screen  max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
