@@ -2,14 +2,17 @@ import { getNotionPosts, getPostById } from '@/lib/notion';
 import RSS from 'rss';
 
 export async function GET() {
+  const currentDate = new Date().toISOString();
+  const currentYear = new Date().getUTCFullYear();
+
   const feed = new RSS({
     title: 'Dglog',
     description: '프론트엔드 개발자 연동근의 블로그입니다.',
     site_url: 'https://dglog.vercel.app',
     feed_url: 'https://dglog.vercel.app/feed.xml',
     language: 'ko',
-    pubDate: new Date(),
-    copyright: `All rights reserved ${new Date().getFullYear()}, 연동근`,
+    pubDate: currentDate,
+    copyright: `All rights reserved ${currentYear}, 연동근`,
   });
 
   const posts = await getNotionPosts();

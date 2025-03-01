@@ -57,8 +57,8 @@ describe('NotionPosts', () => {
     expect(screen.getByText('Next.js')).toBeInTheDocument();
 
     // 날짜 확인
-    const dateRegex1 = /2024[.\s]*3[.\s]*20/;
-    const dateRegex2 = /2024[.\s]*3[.\s]*21/;
+    const dateRegex1 = /2024년 03월 20일/;
+    const dateRegex2 = /2024년 03월 21일/;
     expect(screen.getByText(dateRegex1)).toBeInTheDocument();
     expect(screen.getByText(dateRegex2)).toBeInTheDocument();
 
