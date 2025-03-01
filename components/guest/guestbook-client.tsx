@@ -79,16 +79,15 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
   }, [deleteState.success, deleteState.error, deleteState.id]);
 
   return (
-    <div className='max-w-lg mx-auto p-4 bg-white shadow-lg rounded-lg mt-10'>
-      <h1 className='text-2xl font-bold mb-2 text-center'>📖 Guestbook</h1>
-
-      {/* 작성창 */}
-
-      <GuestBookForm addFormAction={handleAdd} />
-      {addState?.error && <p className='text-red-500'>{addState.error}</p>}
+    <div className='flex flex-col gap-4 max-w-lg mx-auto p-4 shadow-lg rounded-lg mt-10 dark:bg-gray-700'>
+      <h1 className='text-2xl font-bold text-center'>📖 Guestbook</h1>
 
       {/* 방명록 목록 */}
       <GuestBookList entries={optimisticList} onDelete={handleDelete} />
+
+      {/* 작성창 */}
+      <GuestBookForm addFormAction={handleAdd} />
+      {addState?.error && <p className='text-red-500'>{addState.error}</p>}
     </div>
   );
 };

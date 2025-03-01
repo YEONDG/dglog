@@ -3,10 +3,11 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { guestbookSchema, GuestbookSchema } from '@/schemas/guestbook';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Form } from '@/components/ui/form';
 import { SubmitButton } from '@/components/guest/submit-btn';
+import { NameField } from './form/name-field';
+import { PasswordField } from './form/password-field';
+import { MessageField } from './form/message-field';
 
 export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: FormData) => Promise<void> }) => {
   const form = useForm<GuestbookSchema>({
@@ -17,6 +18,8 @@ export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: For
       message: '',
     },
   });
+  const isSubmitting = form.formState.isSubmitting;
+  const control = form.control;
 
   const onSubmit = async (data: GuestbookSchema) => {
     const formData = new FormData();
@@ -30,47 +33,11 @@ export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: For
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='mb-6 space-y-4'>
-        <FormField
-          control={form.control}
-          name='name'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>이름</FormLabel>
-              <FormControl>
-                <Input placeholder='이름을 입력하세요...' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='password'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>비밀번호</FormLabel>
-              <FormControl>
-                <Input type='password' placeholder='비밀번호를 입력하세요...' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='message'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>메시지</FormLabel>
-              <FormControl>
-                <Textarea placeholder='메시지를 입력하세요...' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <SubmitButton />
+      <form onSubmit={form.handleSubmit(onSubmit)} className='mb-6 space-y-2'>
+        <NameField control={control} />
+        <PasswordField control={control} />
+        <MessageField control={control} />
+        <SubmitButton isSubmitting={isSubmitting} />
       </form>
     </Form>
   );

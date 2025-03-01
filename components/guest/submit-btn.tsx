@@ -1,18 +1,16 @@
 import { cn } from '@/lib/utils';
-import { useFormStatus } from 'react-dom';
 
-export const SubmitButton = () => {
-  const { pending } = useFormStatus();
+export const SubmitButton = ({ isSubmitting }: { isSubmitting: boolean }) => {
   return (
     <button
       type='submit'
       className={cn(
         'w-full mt-3 p-2 text-white rounded-md transition-colors focus:outline-none',
-        pending ? 'bg-gray-500' : 'bg-blue-500 hover:bg-blue-600'
+        isSubmitting ? 'bg-gray-500' : 'bg-blue-500 hover:bg-blue-600'
       )}
-      disabled={pending}
+      disabled={isSubmitting}
     >
-      {pending ? '등록 중...' : '등록'}
+      {isSubmitting ? '등록 중...' : '등록'}
     </button>
   );
 };
