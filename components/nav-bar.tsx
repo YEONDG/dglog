@@ -5,9 +5,9 @@ import { ThemeToggle } from './home/ui/theme-toggle';
 export const NavBar = () => {
   return (
     <div className='flex justify-between w-full py-4  items-center'>
-      <div className='relative text-3xl font-bold'>
+      <Link href='/' className='relative text-3xl font-bold'>
         DGlog<span className='absolute -right-1 -bottom-1 w-2 h-2 bg-orange-500 rounded-full'></span>
-      </div>
+      </Link>
       <div className='flex justify-around '>
         {/* 테마 토글 버튼 */}
         <ThemeToggle />
