@@ -30,7 +30,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               {project.highlights.map((highlight) => (
                 <div key={highlight} className='flex items-center'>
                   <div className='w-2 h-2 rounded-full bg-blue-500 mr-2'></div>
-                  <span className='text-gray-700'>{highlight}</span>
+                  <span className='text-gray-700 dark:text-white'>{highlight}</span>
                 </div>
               ))}
             </div>

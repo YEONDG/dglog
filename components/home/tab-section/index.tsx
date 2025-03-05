@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AboutTab } from './about-tab';
@@ -15,8 +14,6 @@ interface TabSectionProps {
 }
 
 export const TabSection = ({ techStack, projects, education }: TabSectionProps) => {
-  const [activeTab, setActiveTab] = useState('about');
-
   return (
     <main className='container mx-auto px-4 pb-24'>
       <motion.div
@@ -25,7 +22,7 @@ export const TabSection = ({ techStack, projects, education }: TabSectionProps) 
         transition={{ delay: 0.5, duration: 0.8 }}
         className='max-w-5xl mx-auto'
       >
-        <Tabs defaultValue='about' value={activeTab} onValueChange={setActiveTab} className='w-full'>
+        <Tabs defaultValue='about' className='w-full'>
           <TabsList className='grid w-full grid-cols-3 mb-12 h-full'>
             <TabsTrigger value='about' className='text-lg py-3'>
               About

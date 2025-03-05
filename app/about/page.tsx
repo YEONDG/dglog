@@ -17,11 +17,11 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-16 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen py-16 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-4xl mx-auto'>
         <Header vision={profileData.vision} />
 
-        <div className='bg-white rounded-xl shadow-lg overflow-hidden'>
+        <div className='rounded-xl shadow-lg overflow-hidden bg-white dark:bg-gray-800'>
           <div className='p-8'>
             <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
 

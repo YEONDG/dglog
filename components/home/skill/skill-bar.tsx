@@ -13,8 +13,8 @@ export const SkillBar = ({ name, level, index, animate }: SkillBarProps) => {
   return (
     <div className='space-y-2'>
       <div className='flex justify-between items-center'>
-        <span className='font-medium text-gray-700'>{name}</span>
-        <span className='text-sm text-gray-500'>{level}%</span>
+        <span className='font-medium text-gray-700 dark:text-white'>{name}</span>
+        <span className='text-sm text-gray-500 dark:text-white'>{level}%</span>
       </div>
       <div className='h-2 bg-gray-200 rounded-full overflow-hidden'>
         <motion.div
