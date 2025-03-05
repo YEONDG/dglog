@@ -20,6 +20,32 @@ export const metadata: Metadata = {
   authors: [{ name: '연동근' }],
   creator: '연동근',
   publisher: '연동근',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: {
+      url: '/apple-touch-icon.png',
+      type: 'image/png',
+    },
+    other: [
+      {
+        url: '/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        url: '/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
+  },
+
+  manifest: '/site.webmanifest',
+
   robots: {
     index: true,
     follow: true,
