@@ -61,7 +61,6 @@ Notion API를 활용한 Next.js 15와 React 19 기반의 기술 블로그 프로
 - **Database**: Notion Database, Supabase (PostgreSQL)
 - **ORM**: Prisma
 - **Validation**: Zod
-- **Authentication**: 비밀번호 기반 인증
 
 ### DevOps
 
