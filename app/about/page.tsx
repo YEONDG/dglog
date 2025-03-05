@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Header } from '@/components/about/Header';
 import { TabNavigation } from '@/components/about/TabNavigation';
-import { ContactSection } from '@/components/about/ContactSection';
+// import { ContactSection } from '@/components/about/ContactSection';
 import { StoryTab } from '@/components/about/tabs/StoryTab';
 import { ProjectsTab } from '@/components/about/tabs/ProjectsTab';
 import { ValuesTab } from '@/components/about/tabs/ValuesTab';
@@ -10,11 +10,11 @@ import { profileData, projects, values } from '@/data/home-data';
 
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState('story');
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsVisible(true);
+  // }, []);
 
   return (
     <div className='min-h-screen py-16 px-4 sm:px-6 lg:px-8'>
@@ -31,7 +31,7 @@ const AboutPage = () => {
           </div>
         </div>
 
-        <ContactSection isVisible={isVisible} />
+        {/* <ContactSection isVisible={isVisible} /> */}
       </div>
     </div>
   );

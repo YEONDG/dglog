@@ -10,12 +10,12 @@ export const profileData = {
 
 // 기술 스택 데이터
 export const techStack = [
-  { name: 'React', level: 90 },
-  { name: 'Next.js', level: 85 },
-  { name: 'TypeScript', level: 80 },
-  { name: 'Tailwind CSS', level: 85 },
-  { name: 'JavaScript', level: 90 },
-  { name: 'HTML/CSS', level: 95 },
+  { name: 'React', level: 70 },
+  { name: 'Next.js', level: 75 },
+  { name: 'TypeScript', level: 60 },
+  { name: 'Tailwind CSS', level: 65 },
+  { name: 'JavaScript', level: 50 },
+  { name: 'HTML/CSS', level: 65 },
 ];
 
 // 프로젝트 데이터
@@ -31,7 +31,7 @@ export const projects = [
       '반응형 UI/UX 디자인',
     ],
     github: 'https://github.com/YEONDG/cutechatting',
-    demo: '#',
+    demo: 'https://www.cutechatting.com/',
   },
   {
     title: 'Image Conversion App',
@@ -57,7 +57,7 @@ export const projects = [
       '포켓몬 상세 정보의 최적화된 렌더링',
     ],
     github: 'https://github.com/YEONDG/pokemon',
-    demo: '#',
+    demo: 'https://pokemon-book-orcin.vercel.app/',
   },
 ];
 

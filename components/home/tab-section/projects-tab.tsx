@@ -1,8 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
 import { ProjectCard } from '@/components/home/project/project-card';
 import { Project } from '@/types';
 
@@ -19,13 +17,15 @@ export const ProjectsTab = ({ projects }: ProjectsTabProps) => {
         ))}
       </div>
 
-      <div className='flex justify-center mt-8'>
-        <Button asChild>
-          <a href='/about'>
-            모든 프로젝트 보기
-            <ChevronRight size={16} />
-          </a>
-        </Button>
+      <div className='flex justify-center pt-4'>
+        <a
+          href='https://github.com/YEONDG'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='inline-flex items-center px-6 py-3 text-lg font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors'
+        >
+          모든 프로젝트 보기 →
+        </a>
       </div>
     </motion.div>
   );
