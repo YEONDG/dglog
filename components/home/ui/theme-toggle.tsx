@@ -26,7 +26,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button variant='outline' size='icon' className='fixed top-4 right-4 z-50 rounded-full' onClick={toggleTheme}>
+    <Button variant='outline' size='icon' className='flex rounded-full' onClick={toggleTheme}>
       {theme === 'light' ? (
         <svg
           xmlns='http://www.w3.org/2000/svg'
