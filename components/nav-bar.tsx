@@ -30,7 +30,7 @@ export const NavBar = () => {
         DGlog<span className='absolute -right-1 -bottom-1 w-2 h-2 bg-orange-500 rounded-full'></span>
       </Link>
 
-      <div className='sm:flex justify-around hidden'>
+      <div className='sm:flex justify-around hidden' data-testid='desktop-menu'>
         <ThemeToggle />
         <Link href='/' className='py-2 px-4 hover:text-orange-500 transition-colors'>
           Home

@@ -1,25 +1,32 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { NavBar } from '@/components/nav-bar';
 
+// ThemeToggle 컴포넌트 모킹
+jest.mock('@/components/home/ui/theme-toggle', () => {
+  return {
+    ThemeToggle: () => <div data-testid='theme-toggle'>Theme Toggle</div>,
+  };
+});
+
 describe('NavBar', () => {
-  it('renders logo and navigation links', () => {
+  it('renders navigation links correctly', () => {
     render(<NavBar />);
 
-    // 로고 확인
-    expect(screen.getByText('DGlog')).toBeInTheDocument();
+    // 메인 로고 확인 (데스크톱 버전)
+    expect(screen.getByText('DGlog', { selector: 'a.text-3xl' })).toBeInTheDocument();
 
-    // 네비게이션 링크 확인
+    // 데스크톱 메뉴 컨테이너 찾기
+    const desktopMenu = screen.getByTestId('desktop-menu');
+    expect(desktopMenu).toBeInTheDocument();
+
+    // 데스크톱 메뉴의 링크들 확인
     const links = ['Home', 'Posts', 'About', 'Guest'];
     links.forEach((link) => {
-      const linkElement = screen.getByText(link);
-      expect(linkElement).toBeInTheDocument();
-      expect(linkElement.closest('a')).toHaveAttribute('href', link === 'Home' ? '/' : `/${link.toLowerCase()}`);
+      const linkElement = within(desktopMenu).getByRole('link', { name: link });
+      expect(linkElement).toHaveAttribute('href', link === 'Home' ? '/' : `/${link.toLowerCase()}`);
     });
-  });
 
-  it('renders theme toggle button', () => {
-    render(<NavBar />);
-    const themeToggleButton = screen.getByRole('button');
-    expect(themeToggleButton).toBeInTheDocument();
+    // 데스크톱 메뉴의 테마 토글 버튼 확인
+    expect(within(desktopMenu).getByTestId('theme-toggle')).toBeInTheDocument();
   });
 });
