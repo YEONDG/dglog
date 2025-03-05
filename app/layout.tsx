@@ -47,10 +47,10 @@ export const metadata: Metadata = {
     canonical: 'https://dglog.vercel.app',
   },
   verification: {
-    google: 'xuknTcuQDLS_sMnQsKsvhkjYbI3rtP3oAM4gI24oFcM', // Google Search Console 인증 코드
-    // other: {
-    //   'naver-site-verification': 'your-naver-verification-code', // 네이버 웹마스터 도구 인증 코드
-    // },
+    google: 'xuknTcuQDLS_sMnQsKsvhkjYbI3rtP3oAM4gI24oFcM',
+    other: {
+      'naver-site-verification': '8f213a61bbe07f7564bf148cb0e758176687b5f3',
+    },
   },
 };
 
