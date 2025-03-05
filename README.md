@@ -27,6 +27,9 @@ Notion API를 활용한 Next.js 15와 React 19 기반의 기술 블로그 프로
 - React 19의 useActionState를 활용한 서버 액션 상태 관리
 - useOptimistic을 통한 낙관적 업데이트 구현
 - 실시간 업데이트와 에러 처리
+- Supabase와 Prisma를 활용한 서버리스 백엔드 구성
+- Zod를 통한 데이터 유효성 검증
+- 비밀번호 기반의 CRUD 기능 구현
 
 ### 4. 최신 React 기능 활용
 
@@ -55,7 +58,10 @@ Notion API를 활용한 Next.js 15와 React 19 기반의 기술 블로그 프로
 ### Backend & Data
 
 - **CMS**: Notion API
-- **Database**: Notion Database
+- **Database**: Notion Database, Supabase (PostgreSQL)
+- **ORM**: Prisma
+- **Validation**: Zod
+- **Authentication**: 비밀번호 기반 인증
 
 ### DevOps
 
@@ -119,6 +125,29 @@ dglog/
 - 증분 정적 재생성(ISR)
 - React 19의 최적화 기능 활용
 
+### 서버리스 백엔드 구성
+
+- Supabase를 활용한 PostgreSQL 데이터베이스 구축
+- Prisma ORM을 통한 타입 안전한 데이터베이스 조작
+  ```typescript
+  // Prisma 스키마 예시
+  model Guestbook {
+    id        String   @id @default(uuid())
+    name      String
+    message   String
+    password  String
+    createdAt DateTime @default(now())
+  }
+  ```
+- Zod를 활용한 입력 데이터 검증
+  ```typescript
+  const GuestbookSchema = z.object({
+    name: z.string().min(2).max(50),
+    message: z.string().min(1).max(500),
+    password: z.string().min(4),
+  });
+  ```
+
 ## 🔧 설치 및 실행
 
 ```bash
@@ -143,8 +172,13 @@ npm run build
 `.env.local` 파일을 생성하고 다음 환경 변수를 설정하세요:
 
 ```env
+# Notion API
 NOTION_API_KEY=your_notion_api_key
 NOTION_DATABASE_ID=your_notion_database_id
+
+# Database
+DATABASE_URL=your_supabase_postgres_url
+DIRECT_URL=your_supabase_direct_url
 ```
 
 ## 📝 라이선스
