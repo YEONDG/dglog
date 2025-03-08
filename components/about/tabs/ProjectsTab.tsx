@@ -44,14 +44,16 @@ export const ProjectsTab = ({ projects }: ProjectsTabProps) => {
             >
               GitHub →
             </a>
-            <a
-              href={project.demo}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='text-blue-600 hover:text-blue-800'
-            >
-              Live Demo →
-            </a>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-blue-600 hover:text-blue-800'
+              >
+                Live Demo →
+              </a>
+            )}
           </div>
         </div>
       ))}

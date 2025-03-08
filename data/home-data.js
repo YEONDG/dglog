@@ -37,14 +37,9 @@ export const projects = [
     title: 'Image Conversion App',
     description: 'Electron과 Sharp를 활용한 이미지 변환 데스크톱 애플리케이션',
     techStack: ['TypeScript', 'Electron', 'Sharp', 'React'],
-    highlights: [
-      '다양한 이미지 포맷 변환 지원',
-      '배치 프로세싱 기능',
-      '크로스 플랫폼 지원',
-      '사용자 친화적 인터페이스',
-    ],
+    highlights: ['다양한 이미지 포맷 변환 지원', '크로스 플랫폼 지원', '사용자 친화적 인터페이스'],
     github: 'https://github.com/YEONDG/image-conversion-app',
-    demo: '#',
+    demo: '',
   },
   {
     title: 'Pokemon Dictionary',

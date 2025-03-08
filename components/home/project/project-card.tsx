@@ -42,12 +42,19 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                 <ExternalLink size={16} className='group-hover:translate-x-1 transition-transform' />
               </a>
             </Button>
-            <Button variant='outline' size='sm' className='flex-1 flex items-center justify-center gap-2 group' asChild>
-              <a href={project.demo} target='_blank' rel='noopener noreferrer'>
-                Demo
-                <ExternalLink size={16} className='group-hover:translate-x-1 transition-transform' />
-              </a>
-            </Button>
+            {project.demo && project.demo !== '' && (
+              <Button
+                variant='outline'
+                size='sm'
+                className='flex-1 flex items-center justify-center gap-2 group'
+                asChild
+              >
+                <a href={project.demo} target='_blank' rel='noopener noreferrer'>
+                  Demo
+                  <ExternalLink size={16} className='group-hover:translate-x-1 transition-transform' />
+                </a>
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>
