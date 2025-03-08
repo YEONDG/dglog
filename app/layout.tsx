@@ -46,14 +46,6 @@ export const metadata: Metadata = {
 
   manifest: '/site.webmanifest',
 
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
