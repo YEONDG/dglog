@@ -3,7 +3,7 @@ export const profileData = {
   name: '연동근',
   title: '프론트엔드 개발자',
   description: '인터랙티브한 웹 경험을 창조합니다',
-  image: '/연동근.jpg',
+  image: '/연동근1.webp',
   vision: '사용자의 일상을 더 나은 방향으로 바꾸는 웹 서비스를 만들고 싶습니다.',
   journey: '프론트엔드 개발에 매료되어 사용자 경험을 개선하는 웹 애플리케이션을 만드는 것에 집중하고 있습니다.',
 };
