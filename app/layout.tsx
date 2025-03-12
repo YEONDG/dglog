@@ -5,6 +5,7 @@ import { NavBar } from '@/components/nav-bar';
 import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from 'sonner';
+import { Analytics } from '@vercel/analytics/react';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -88,6 +89,7 @@ const RootLayout = ({
             {children}
           </div>
           <Toaster richColors />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
