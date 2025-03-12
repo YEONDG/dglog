@@ -27,6 +27,7 @@ describe('GuestBookForm', () => {
       expect(screen.getByText('이름은 필수입니다.')).toBeInTheDocument();
       expect(screen.getByText('비밀번호는 필수입니다.')).toBeInTheDocument();
       expect(screen.getByText('메시지는 필수입니다.')).toBeInTheDocument();
+      expect(screen.getByLabelText(/비밀글로 작성하기/i)).toBeInTheDocument();
     });
   });
 
@@ -43,6 +44,7 @@ describe('GuestBookForm', () => {
 
     await waitFor(() => {
       expect(mockAddFormAction).toHaveBeenCalled();
+      expect(mockAddFormAction.mock.calls[0][0].get('isPrivate')).toBe('false');
     });
   });
 

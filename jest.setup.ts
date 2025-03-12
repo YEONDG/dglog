@@ -53,3 +53,9 @@ jest.mock('next/navigation', () => ({
   },
   usePathname: jest.fn(),
 }));
+
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
