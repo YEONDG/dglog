@@ -30,6 +30,7 @@ export const GuestBookEntry = ({ entry, onDelete, onViewPrivate, isUnlocked = tr
         setError('비밀번호가 일치하지 않습니다.');
       }
     } catch (err) {
+      console.error(err);
       setError('오류가 발생했습니다.');
     } finally {
       setIsVerifying(false);
