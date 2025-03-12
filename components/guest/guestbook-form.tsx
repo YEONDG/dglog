@@ -8,6 +8,7 @@ import { SubmitButton } from '@/components/guest/submit-btn';
 import { NameField } from './form/name-field';
 import { PasswordField } from './form/password-field';
 import { MessageField } from './form/message-field';
+import { PrivateCheckbox } from './form/private-checkbox-field';
 
 export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: FormData) => Promise<void> }) => {
   const form = useForm<GuestbookSchema>({
@@ -16,6 +17,7 @@ export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: For
       name: '',
       password: '',
       message: '',
+      isPrivate: false,
     },
   });
   const isSubmitting = form.formState.isSubmitting;
@@ -26,6 +28,7 @@ export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: For
     formData.set('name', data.name);
     formData.set('password', data.password);
     formData.set('message', data.message);
+    formData.set('isPrivate', data.isPrivate ? 'true' : 'false');
 
     await addFormAction(formData);
     form.reset();
@@ -37,6 +40,7 @@ export const GuestBookForm = ({ addFormAction }: { addFormAction: (formData: For
         <NameField control={control} />
         <PasswordField control={control} />
         <MessageField control={control} />
+        <PrivateCheckbox control={control} />
         <SubmitButton isSubmitting={isSubmitting} />
       </form>
     </Form>

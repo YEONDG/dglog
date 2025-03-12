@@ -18,12 +18,14 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
       const name = formData.get('name') as string;
       const message = formData.get('message') as string;
       const password = formData.get('password') as string;
+      const isPrivate = formData.get('isPrivate') === 'true';
 
       const newEntry: Guestbook = {
         id: crypto.randomUUID(),
         name,
         message,
         password,
+        isPrivate,
         createdAt: new Date(),
       };
 
@@ -62,6 +64,13 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
     });
   };
 
+  const handleViewPrivate = async (entry: Guestbook) => {
+    const pw = prompt('비밀번호를 입력해주세요.');
+    if (!pw) return false;
+
+    return pw === entry.password;
+  };
+
   useEffect(() => {
     if (addState.success) {
       toast.success('등록 완료');
@@ -83,7 +92,7 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
       <h1 className='text-2xl font-bold text-center'>📖 Guestbook</h1>
 
       {/* 방명록 목록 */}
-      <GuestBookList entries={optimisticList} onDelete={handleDelete} />
+      <GuestBookList entries={optimisticList} onDelete={handleDelete} onViewPrivate={handleViewPrivate} />
 
       {/* 작성창 */}
       <GuestBookForm addFormAction={handleAdd} />

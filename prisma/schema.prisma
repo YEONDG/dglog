@@ -19,5 +19,6 @@ model Guestbook {
   name      String
   message   String
   password  String
+  isPrivate Boolean  @default(false)
   createdAt DateTime @default(now())
 }

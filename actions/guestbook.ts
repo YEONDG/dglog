@@ -15,6 +15,7 @@ export async function addGuestEntry(prevState: GuestbookState, formData: FormDat
   const name = formData.get('name') as string;
   const message = formData.get('message') as string;
   const password = formData.get('password') as string;
+  const isPrivate = formData.get('isPrivate') === 'true';
 
   if (!name.trim() || !message.trim()) {
     return { error: '이름과 메시지를 입력하세요.' };
@@ -22,7 +23,7 @@ export async function addGuestEntry(prevState: GuestbookState, formData: FormDat
 
   try {
     const newEntry = await prisma.guestbook.create({
-      data: { name, message, password },
+      data: { name, message, password, isPrivate },
     });
 
     revalidatePath('/guestbook');
@@ -78,5 +79,36 @@ export async function getGuestEntries() {
     console.error('❌ getGuestEntries Error:', error);
 
     return [];
+  }
+}
+
+export async function verifyPrivateEntry(prevState: GuestbookState, formData: FormData): Promise<GuestbookState> {
+  const id = formData.get('id') as string;
+  const password = formData.get('password') as string;
+
+  if (!id || !password) {
+    return { success: false, error: 'ID와 비밀번호가 필요합니다.' };
+  }
+
+  try {
+    const entry = await prisma.guestbook.findUnique({
+      where: { id },
+      select: { id: true, password: true },
+    });
+
+    if (!entry) {
+      return { success: false, error: '해당 글이 존재하지 않습니다.' };
+    }
+
+    if (entry.password !== password) {
+      return { success: false, error: '비밀번호가 올바르지 않습니다.' };
+    }
+
+    return { success: true, id };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : '확인 중 오류가 발생했습니다.',
+    };
   }
 }
