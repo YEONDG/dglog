@@ -1,11 +1,12 @@
 'use client';
 
 import { startTransition, useActionState, useEffect, useOptimistic } from 'react';
-import { addGuestEntry, deleteGuestEntry } from '@/actions/guestbook';
+import { addGuestEntry, deleteGuestEntry, verifyPrivateEntry } from '@/actions/guestbook';
 import { Guestbook } from '@prisma/client';
 import { toast } from 'sonner';
 import { GuestBookList } from './guestbook-list';
 import { GuestBookForm } from './guestbook-form';
+import { nanoid } from 'nanoid';
 
 interface GuestBookClientProps {
   initialEntries: Guestbook[];
@@ -21,7 +22,7 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
       const isPrivate = formData.get('isPrivate') === 'true';
 
       const newEntry: Guestbook = {
-        id: crypto.randomUUID(),
+        id: nanoid(),
         name,
         message,
         password,
@@ -68,7 +69,18 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
     const pw = prompt('비밀번호를 입력해주세요.');
     if (!pw) return false;
 
-    return pw === entry.password;
+    const formData = new FormData();
+    formData.set('id', entry.id);
+    formData.set('password', pw);
+
+    const result = await verifyPrivateEntry(formData);
+    if (result.success) {
+      toast.success('비밀글이 해제되었습니다!');
+    } else {
+      toast.error(result.error ?? '비밀글 해제에 실패했습니다.');
+    }
+
+    return result.success;
   };
 
   useEffect(() => {

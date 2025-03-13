@@ -3,6 +3,7 @@
 import { prisma } from '@/prisma/db';
 import { Guestbook } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import bcrypt from 'bcrypt';
 
 type GuestbookState = {
   success?: boolean;
@@ -11,19 +12,23 @@ type GuestbookState = {
   id?: string;
 };
 
+const SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10');
+
 export async function addGuestEntry(prevState: GuestbookState, formData: FormData): Promise<GuestbookState> {
   const name = formData.get('name') as string;
   const message = formData.get('message') as string;
   const password = formData.get('password') as string;
   const isPrivate = formData.get('isPrivate') === 'true';
 
-  if (!name.trim() || !message.trim()) {
-    return { error: '이름과 메시지를 입력하세요.' };
+  if (!name || !message || !password) {
+    return { success: false, error: '모든 필드를 입력해주세요.' };
   }
+
+  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
   try {
     const newEntry = await prisma.guestbook.create({
-      data: { name, message, password, isPrivate },
+      data: { name, message, password: hashedPassword, isPrivate },
     });
 
     revalidatePath('/guestbook');
@@ -51,8 +56,9 @@ export async function deleteGuestEntry(prevState: GuestbookState, formData: Form
       return { ...prevState, success: false, error: '해당 글이 존재하지 않습니다.' };
     }
 
-    if (existing.password !== password) {
-      return { ...prevState, success: false, error: '비밀번호가 올바르지 않습니다.' };
+    const passwordMatch = await bcrypt.compare(password, existing?.password || '');
+    if (!passwordMatch) {
+      return { success: false, error: '비밀번호가 일치하지 않습니다.' };
     }
 
     await prisma.guestbook.delete({
@@ -65,6 +71,7 @@ export async function deleteGuestEntry(prevState: GuestbookState, formData: Form
   } catch (error) {
     return {
       ...prevState,
+      success: false,
       error: error instanceof Error ? error.message : '삭제 중 알 수 없는 오류가 발생했습니다.',
     };
   }
@@ -82,33 +89,44 @@ export async function getGuestEntries() {
   }
 }
 
-export async function verifyPrivateEntry(prevState: GuestbookState, formData: FormData): Promise<GuestbookState> {
+export async function verifyPrivateEntry(formData: FormData) {
   const id = formData.get('id') as string;
   const password = formData.get('password') as string;
 
-  if (!id || !password) {
-    return { success: false, error: 'ID와 비밀번호가 필요합니다.' };
-  }
-
   try {
+    if (!id || !password) {
+      return { success: false, error: '필수 정보가 누락되었습니다.' };
+    }
+
     const entry = await prisma.guestbook.findUnique({
       where: { id },
-      select: { id: true, password: true },
+      select: {
+        id: true,
+        password: true,
+        isPrivate: true,
+      },
     });
 
     if (!entry) {
-      return { success: false, error: '해당 글이 존재하지 않습니다.' };
+      return { success: false, error: '해당 글을 찾을 수 없습니다.' };
     }
 
-    if (entry.password !== password) {
-      return { success: false, error: '비밀번호가 올바르지 않습니다.' };
+    if (!entry.isPrivate) {
+      return { success: true };
     }
 
-    return { success: true, id };
+    const passwordMatch = await bcrypt.compare(password, entry.password);
+
+    if (!passwordMatch) {
+      return { success: false, error: '비밀번호가 일치하지 않습니다.' };
+    }
+
+    return { success: true };
   } catch (error) {
+    console.error('비밀글 확인 중 오류:', error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : '확인 중 오류가 발생했습니다.',
+      error: error instanceof Error ? error.message : '비밀글 확인 중 오류가 발생했습니다.',
     };
   }
 }

@@ -13,7 +13,7 @@ interface GuestBookListProps {
 export const GuestBookList = ({ entries, onDelete, onViewPrivate }: GuestBookListProps) => {
   const [unlockedEntries, setUnlockedEntries] = useState<Set<string>>(new Set());
 
-  const handleViewPrivate = async (entry: Guestbook) => {
+  const handleViewPrivate = async (entry: Guestbook): Promise<boolean> => {
     const isPasswordCorrect = await onViewPrivate(entry);
 
     if (isPasswordCorrect) {
