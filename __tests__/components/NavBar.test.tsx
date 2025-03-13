@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react';
 import { NavBar } from '@/components/nav-bar';
 
 // ThemeToggle 컴포넌트 모킹
-jest.mock('@/components/home/ui/theme-toggle', () => {
+jest.mock('@/components/theme-toggle', () => {
   return {
     ThemeToggle: () => <div data-testid='theme-toggle'>Theme Toggle</div>,
   };
