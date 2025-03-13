@@ -6,7 +6,8 @@ import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
-import GoogleAnalytics from '@/components/google-analytics';
+import { GoogleAnalytics } from '@next/third-parties/google';
+
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
   display: 'swap',
@@ -91,9 +92,7 @@ const RootLayout = ({
         >
           <div className='min-h-screen  max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
             <NavBar />
-            {process.env.NODE_ENV === 'production' && (
-              <GoogleAnalytics GA_MEASUREMENT_ID={process.env.NEXT_PUBLIC_GA_ID} />
-            )}
+            {process.env.NODE_ENV === 'production' && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />}
             {children}
           </div>
           <Toaster richColors />
