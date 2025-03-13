@@ -83,7 +83,12 @@ const RootLayout = ({
         <link rel='alternate' type='application/rss+xml' title='Dglog RSS Feed' href='/feed.xml' />
       </head>
       <body className={`${pretendard.className} antialiased`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          themes={['light', 'dark', 'forest', 'ocean']}
+        >
           <div className='min-h-screen  max-w-5xl mx-auto px-4 sm:px-6 lg:px-8'>
             <NavBar />
             {children}
