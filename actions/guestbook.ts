@@ -4,6 +4,7 @@ import { prisma } from '@/prisma/db';
 import { Guestbook } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 type GuestbookState = {
   success?: boolean;
@@ -13,6 +14,32 @@ type GuestbookState = {
 };
 
 const SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS || '10');
+const PEPPER = process.env.PASSWORD_PEPPER;
+if (!PEPPER) {
+  console.error('WARNING: PASSWORD_PEPPER is not set. Password security is compromised!');
+  // 개발 환경에서는 경고만 출력하고, 배포 환경에서는 에러를 던지는 방식도 가능
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('PASSWORD_PEPPER must be set in production environment');
+  }
+}
+
+function applyPepper(password: string): string {
+  if (!PEPPER) {
+    throw new Error('PASSWORD_PEPPER is not configured. Cannot proceed with password operations.');
+  }
+  return crypto.createHmac('sha256', PEPPER).update(password).digest('hex');
+}
+
+async function hashPassword(password: string): Promise<string> {
+  const pepperedPassword = applyPepper(password);
+  return bcrypt.hash(pepperedPassword, SALT_ROUNDS);
+}
+
+// 비밀번호 검증 함수
+async function verifyPassword(inputPassword: string, hashedPassword: string): Promise<boolean> {
+  const pepperedPassword = applyPepper(inputPassword);
+  return bcrypt.compare(pepperedPassword, hashedPassword);
+}
 
 export async function addGuestEntry(prevState: GuestbookState, formData: FormData): Promise<GuestbookState> {
   const name = formData.get('name') as string;
@@ -24,7 +51,7 @@ export async function addGuestEntry(prevState: GuestbookState, formData: FormDat
     return { success: false, error: '모든 필드를 입력해주세요.' };
   }
 
-  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+  const hashedPassword = await hashPassword(password);
 
   try {
     const newEntry = await prisma.guestbook.create({
@@ -35,9 +62,20 @@ export async function addGuestEntry(prevState: GuestbookState, formData: FormDat
 
     return { ...prevState, success: true, entry: newEntry };
   } catch (error) {
+    let errorMessage = '데이터 저장 중 알 수 없는 오류가 발생했습니다.';
+
+    if (error instanceof Error) {
+      if (error.message.includes('PASSWORD_PEPPER')) {
+        errorMessage = '서버 설정 오류: 관리자에게 문의하세요';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return {
       ...prevState,
-      error: error instanceof Error ? error.message : '데이터 저장 중 알 수 없는 오류가 발생했습니다.',
+      success: false,
+      error: errorMessage,
     };
   }
 }
@@ -56,7 +94,7 @@ export async function deleteGuestEntry(prevState: GuestbookState, formData: Form
       return { ...prevState, success: false, error: '해당 글이 존재하지 않습니다.' };
     }
 
-    const passwordMatch = await bcrypt.compare(password, existing?.password || '');
+    const passwordMatch = await verifyPassword(password, existing.password);
     if (!passwordMatch) {
       return { success: false, error: '비밀번호가 일치하지 않습니다.' };
     }
@@ -69,10 +107,20 @@ export async function deleteGuestEntry(prevState: GuestbookState, formData: Form
 
     return { success: true, id };
   } catch (error) {
+    let errorMessage = '삭제 중 알 수 없는 오류가 발생했습니다.';
+
+    if (error instanceof Error) {
+      if (error.message.includes('PASSWORD_PEPPER')) {
+        errorMessage = '서버 설정 오류: 관리자에게 문의하세요';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return {
       ...prevState,
       success: false,
-      error: error instanceof Error ? error.message : '삭제 중 알 수 없는 오류가 발생했습니다.',
+      error: errorMessage,
     };
   }
 }
@@ -115,7 +163,7 @@ export async function verifyPrivateEntry(formData: FormData) {
       return { success: true };
     }
 
-    const passwordMatch = await bcrypt.compare(password, entry.password);
+    const passwordMatch = await verifyPassword(password, entry.password);
 
     if (!passwordMatch) {
       return { success: false, error: '비밀번호가 일치하지 않습니다.' };
@@ -123,10 +171,19 @@ export async function verifyPrivateEntry(formData: FormData) {
 
     return { success: true };
   } catch (error) {
-    console.error('비밀글 확인 중 오류:', error);
+    let errorMessage = '비밀글 확인 중 오류가 발생했습니다.';
+
+    if (error instanceof Error) {
+      if (error.message.includes('PASSWORD_PEPPER')) {
+        errorMessage = '서버 설정 오류: 관리자에게 문의하세요';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return {
       success: false,
-      error: error instanceof Error ? error.message : '비밀글 확인 중 오류가 발생했습니다.',
+      error: errorMessage,
     };
   }
 }
