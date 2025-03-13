@@ -60,19 +60,35 @@ export function ThemeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => changeTheme('light')} data-testid='theme-option-light'>
+        <DropdownMenuItem
+          onClick={() => changeTheme('light')}
+          data-testid='theme-option-light'
+          className='bg-white text-black'
+        >
           <Sun className='mr-2 h-4 w-4' />
           <span>Light</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeTheme('dark')} data-testid='theme-option-dark'>
+        <DropdownMenuItem
+          onClick={() => changeTheme('dark')}
+          data-testid='theme-option-dark'
+          className='bg-black text-white'
+        >
           <Moon className='mr-2 h-4 w-4' />
           <span>Dark</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeTheme('forest')} data-testid='theme-option-forest'>
+        <DropdownMenuItem
+          onClick={() => changeTheme('forest')}
+          data-testid='theme-option-forest'
+          className='bg-green-200 text-black'
+        >
           <TreePine className='mr-2 h-4 w-4' />
           <span>Forest</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeTheme('ocean')} data-testid='theme-option-ocean'>
+        <DropdownMenuItem
+          onClick={() => changeTheme('ocean')}
+          data-testid='theme-option-ocean'
+          className='bg-blue-200 text-black'
+        >
           <Waves className='mr-2 h-4 w-4' />
           <span>Ocean</span>
         </DropdownMenuItem>

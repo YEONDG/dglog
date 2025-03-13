@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { ThemeToggle } from './home/ui/theme-toggle';
+import { ThemeToggle } from './theme-toggle';
 import { MenuIcon, X } from 'lucide-react';
 
 export const NavBar = () => {

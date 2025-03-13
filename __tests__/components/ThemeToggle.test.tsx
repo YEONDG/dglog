@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { ThemeToggle } from '@/components/home/ui/theme-toggle';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 describe('ThemeToggle', () => {
   // localStorage mock 설정
