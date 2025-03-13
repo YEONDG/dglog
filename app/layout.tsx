@@ -7,6 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from 'sonner';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import Footer from '@/components/footer';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -94,6 +95,7 @@ const RootLayout = ({
             <NavBar />
             {process.env.NODE_ENV === 'production' && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />}
             {children}
+            <Footer />
           </div>
           <Toaster richColors />
           <Analytics />
