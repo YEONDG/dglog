@@ -5,9 +5,11 @@ import { NavBar } from '@/components/nav-bar';
 import localFont from 'next/font/local';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from 'sonner';
+import Footer from '@/components/footer';
+
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@next/third-parties/google';
-import Footer from '@/components/footer';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
@@ -99,6 +101,7 @@ const RootLayout = ({
           </div>
           <Toaster richColors />
           <Analytics />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
