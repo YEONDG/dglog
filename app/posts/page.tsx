@@ -4,6 +4,8 @@ import { NotionPosts } from '@/components/posts/notion-posts';
 import { PostsLoadingSkeleton, TagsLoadingSkeleton } from '@/components/ui/loading-skeletons';
 import { TagList } from '@/components/posts/TagList';
 
+export const revalidate = 86400; // 선택적: 24시간마다 재검증
+
 export interface PageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -31,8 +33,5 @@ const PostsPage = async () => {
     </main>
   );
 };
-
-export const dynamic = 'force-static';
-export const revalidate = 86400; // 선택적: 24시간마다 재검증
 
 export default PostsPage;
