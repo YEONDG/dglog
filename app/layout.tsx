@@ -63,8 +63,6 @@ export const metadata: Metadata = {
     ],
   },
 
-  manifest: '/site.webmanifest',
-
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
