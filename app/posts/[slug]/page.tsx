@@ -6,6 +6,8 @@ import { formatDate } from '@/lib/utils';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
+export const revalidate = 86400; // 24시간마다 재검증
+
 export async function generateStaticParams() {
   const posts = await getNotionPosts();
 
@@ -73,7 +75,6 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
 
   return (
     <article className='prose mx-auto'>
-      {/* 구조화된 데이터 추가 */}
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{
@@ -118,8 +119,8 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
           source={post.markdownContent}
           options={{
             mdxOptions: {
-              remarkPlugins: [remarkGfm], // 테이블, 체크박스 등 지원
-              rehypePlugins: [rehypeHighlight], // 코드 하이라이팅
+              remarkPlugins: [remarkGfm],
+              rehypePlugins: [rehypeHighlight],
             },
           }}
         />
@@ -127,8 +128,5 @@ const BlogPostPage = async ({ params }: { params: Promise<{ slug: string }> }) =
     </article>
   );
 };
-
-export const dynamic = 'force-static';
-export const revalidate = 86400; // 선택적: 24시간마다 재검증
 
 export default BlogPostPage;
