@@ -19,10 +19,7 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dglog.vercel.app'),
-  title: {
-    default: '연동근 - 프론트엔드 개발자 포트폴리오',
-    template: '%s | 연동근 포트폴리오',
-  },
+  title: '연동근 - 프론트엔드 개발자 포트폴리오',
   description:
     '프론트엔드 개발자 연동근의 포트폴리오 웹사이트입니다. React, TypeScript, Next.js를 활용한 웹 개발 경험과 프로젝트를 소개합니다. 클린 코드와 사용자 경험을 중시하는 개발자입니다.',
   keywords: [
