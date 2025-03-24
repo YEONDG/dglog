@@ -8,6 +8,9 @@ import { ProjectsTab } from '@/components/about/tabs/ProjectsTab';
 import { ValuesTab } from '@/components/about/tabs/ValuesTab';
 import { profileData, projects, values } from '@/data/home-data';
 
+// 클라이언트 컴포넌트에서는 메타데이터를 직접 export할 수 없어 별도의 메타데이터 파일이 필요합니다.
+// app/about/metadata.ts를 생성해야 합니다.
+
 const AboutPage = () => {
   const [activeTab, setActiveTab] = useState('story');
   // const [isVisible, setIsVisible] = useState(false);
