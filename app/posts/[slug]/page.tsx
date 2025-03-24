@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
     },
     alternates: {
-      canonical: `/posts/${postId}`,
+      canonical: `https://dglog.vercel.app/posts/${postId}`,
     },
   };
 }
