@@ -25,7 +25,7 @@ export const NavBar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className='flex justify-between w-full py-4 items-center relative'>
+    <div className='fixed top-0 left-0 right-0 flex justify-between w-full py-4 items-center  dark:bg-gray-900 shadow-sm z-30 px-4'>
       <Link href='/' className='relative text-3xl font-bold'>
         DGlog<span className='absolute -right-1 -bottom-1 w-2 h-2 bg-orange-500 rounded-full'></span>
       </Link>

@@ -98,7 +98,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: '연동근 - 프론트엔드 개발자 포트폴리오',
-    description: '프론트엔드 개발자 연동근의 포트폴리오 웹사이트입니다. React, TypeScript, Next.js를 활용한 개발 경험과 프로젝트를 소개합니다.',
+    description:
+      '프론트엔드 개발자 연동근의 포트폴리오 웹사이트입니다. React, TypeScript, Next.js를 활용한 개발 경험과 프로젝트를 소개합니다.',
     creator: '@yeondg',
     images: ['https://dglog.vercel.app/og-image.png'], // 이미지가 있다면 주소 확인
   },
@@ -139,7 +140,7 @@ const RootLayout = ({
             {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_ID && (
               <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
             )}
-            {children}
+            <div className='pt-16'>{children}</div>
             <Footer />
           </div>
           <Toaster richColors />
