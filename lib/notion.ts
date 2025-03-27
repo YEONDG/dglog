@@ -1,10 +1,10 @@
-import { Client } from '@notionhq/client';
-import { NotionToMarkdown } from 'notion-to-md';
-import { unstable_cache } from 'next/cache';
-import { revalidateTag } from 'next/cache';
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
-import { MdBlock } from 'notion-to-md/build/types';
-import { cache } from 'react';
+import { Client } from "@notionhq/client";
+import { NotionToMarkdown } from "notion-to-md";
+import { unstable_cache } from "next/cache";
+import { revalidateTag } from "next/cache";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { MdBlock } from "notion-to-md/build/types";
+import { cache } from "react";
 
 // 설정 객체로 분리
 const config = {
@@ -33,14 +33,16 @@ type NotionPost = DatabaseEntry & {
 type NotionQueryResult = DatabaseEntry[];
 
 // 기본 데이터베이스 쿼리 함수
-const queryDatabase = async (options: { tag?: string } = {}): Promise<NotionQueryResult> => {
+const queryDatabase = async (
+  options: { tag?: string } = {},
+): Promise<NotionQueryResult> => {
   try {
-    console.log('🟢 Notion API 호출 발생!', options);
+    console.log("🟢 Notion API 호출 발생!", options);
     const response = await notion.databases.query({
       database_id: config.databaseId,
       ...(options.tag && {
         filter: {
-          property: '태그',
+          property: "태그",
           multi_select: {
             contains: options.tag,
           },
@@ -49,8 +51,8 @@ const queryDatabase = async (options: { tag?: string } = {}): Promise<NotionQuer
     });
     return response.results as NotionQueryResult;
   } catch (error) {
-    console.error('Error querying Notion database:', error);
-    throw new Error('Failed to fetch data from Notion');
+    console.error("Error querying Notion database:", error);
+    throw new Error("Failed to fetch data from Notion");
   }
 };
 
@@ -61,10 +63,10 @@ export const getNotionPosts = unstable_cache(
   async () => {
     return queryDatabase();
   },
-  ['notion_posts'],
+  ["notion_posts"],
   {
     revalidate: config.cacheRevalidate,
-  }
+  },
 );
 
 /**
@@ -72,10 +74,10 @@ export const getNotionPosts = unstable_cache(
  */
 export const getNotionPostsByTag = unstable_cache(
   async (tag: string) => queryDatabase({ tag }),
-  ['notion_posts_by_tag'],
+  ["notion_posts_by_tag"],
   {
     revalidate: config.cacheRevalidate,
-  }
+  },
 );
 
 /**
@@ -87,7 +89,7 @@ export const getNotionTags = unstable_cache(
     const tags = new Set<string>();
 
     posts.forEach((post) => {
-      if ('properties' in post && '태그' in post.properties) {
+      if ("properties" in post && "태그" in post.properties) {
         const postTags = post.properties.태그 as {
           multi_select: Array<{ name: string }>;
         };
@@ -97,35 +99,39 @@ export const getNotionTags = unstable_cache(
 
     return Array.from(tags);
   },
-  ['notion_tags'],
+  ["notion_tags"],
   {
     revalidate: config.cacheRevalidate,
-  }
+  },
 );
 
 /**
  * 특정 글(페이지)의 상세 정보를 가져오는 함수
  */
-export const getPostById = cache(async (pageId: string): Promise<NotionPost | null> => {
-  try {
-    const page = (await notion.pages.retrieve({ page_id: pageId })) as DatabaseEntry;
-    const mdblocks = await n2m.pageToMarkdown(pageId);
-    const newMdBlocks = convertNotionS3ToProxyUrl(mdblocks);
-    const markdownContent = n2m.toMarkdownString(newMdBlocks).parent;
+export const getPostById = cache(
+  async (pageId: string): Promise<NotionPost | null> => {
+    try {
+      const page = (await notion.pages.retrieve({
+        page_id: pageId,
+      })) as DatabaseEntry;
+      const mdblocks = await n2m.pageToMarkdown(pageId);
+      const newMdBlocks = convertNotionS3ToProxyUrl(mdblocks);
+      const markdownContent = n2m.toMarkdownString(newMdBlocks).parent;
 
-    return { ...page, markdownContent };
-  } catch (error) {
-    console.error('Error fetching Notion post:', error);
-    return null;
-  }
-});
+      return { ...page, markdownContent };
+    } catch (error) {
+      console.error("Error fetching Notion post:", error);
+      return null;
+    }
+  },
+);
 
 /**
  * 특정 포스트의 캐시를 무효화하는 함수
  */
 export async function revalidatePost(pageId: string) {
   revalidateTag(`notion_post:${pageId}`);
-  revalidateTag('notion_posts');
+  revalidateTag("notion_posts");
 }
 
 /**
@@ -133,12 +139,12 @@ export async function revalidatePost(pageId: string) {
  */
 const convertNotionS3ToProxyUrl = (mdblocks: MdBlock[]): MdBlock[] => {
   return mdblocks.map((block) => {
-    if (block.type !== 'image') return block;
+    if (block.type !== "image") return block;
 
     const { blockId, parent } = block;
-    const baseUrl = parent.split('?')[0];
-    const filename = baseUrl.split('/').pop();
-    const [imgInfo, , , , imgUrl] = parent.split('/');
+    const baseUrl = parent.split("?")[0];
+    const filename = baseUrl.split("/").pop();
+    const [imgInfo, , , , imgUrl] = parent.split("/");
 
     const newImageUrl = `${imgInfo}//suave-robe-e2b.notion.site/image/attachment%3A${imgUrl}%3A${filename}?table=block&id=${blockId}&width=1060&userId=&cache=v2)`;
 

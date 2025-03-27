@@ -3,21 +3,26 @@ interface TabNavigationProps {
   onTabChange: (tab: string) => void;
 }
 
-export const TabNavigation = ({ activeTab, onTabChange }: TabNavigationProps) => {
+export const TabNavigation = ({
+  activeTab,
+  onTabChange,
+}: TabNavigationProps) => {
   const tabs = [
-    { id: 'story', label: '개발 이야기' },
-    { id: 'projects', label: '프로젝트' },
-    { id: 'values', label: '가치관' },
+    { id: "story", label: "개발 이야기" },
+    { id: "projects", label: "프로젝트" },
+    { id: "values", label: "가치관" },
   ];
 
   return (
-    <div className='flex border-b border-gray-200 mb-6 overflow-x-auto'>
+    <div className="mb-6 flex overflow-x-auto border-b border-gray-200">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`px-4 py-2 font-medium whitespace-nowrap ${
-            activeTab === tab.id ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'
+          className={`whitespace-nowrap px-4 py-2 font-medium ${
+            activeTab === tab.id
+              ? "border-b-2 border-blue-600 text-blue-600"
+              : "text-gray-500"
           }`}
         >
           {tab.label}

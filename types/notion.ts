@@ -1,4 +1,4 @@
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints';
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export type DatabaseEntry = PageObjectResponse & {
   properties: {
