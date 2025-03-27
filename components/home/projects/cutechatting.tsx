@@ -4,17 +4,16 @@ import { Github } from "lucide-react";
 
 const CuteChatting = () => {
   return (
-    <article className="space-y-5 rounded-3xl border-2 p-8">
+    <article className="space-y-5 rounded-3xl border-2 md:p-8 p-2">
+      <h1 className="py-3 text-3xl font-bold md:px-4">큐트채팅</h1>
       <div className="w-full md:px-6">
         <section className="flex justify-center">
           <ProjectCarousel />
         </section>
       </div>
-      <h1 className="py-5 text-3xl font-bold md:px-4">큐트채팅</h1>
-
       <div className="grid px-1 py-4 md:grid-flow-col md:px-4">
-        <section className="border-b pb-2 md:border-b-0 md:border-r md:pb-0">
-          <h3 className="text-xl">프로젝트 소개</h3>
+        <section className="border-b pb-2 md:border-b-0 md:border-r md:pb-0 space-y-2">
+          <h3 className="text-xl font-semibold">프로젝트 소개</h3>
           <ul>
             <li>- 아스키 아트 채팅을 공유하는 커뮤니티 사이트</li>
             <li>
@@ -28,9 +27,12 @@ const CuteChatting = () => {
           </ul>
         </section>
         <header className="flex justify-between gap-10 pt-2 md:flex-col md:pl-2 md:pt-0">
-          <time dateTime="2022-12-06" className="text-sm">
-            2022.12.06 ~ 현재
-          </time>
+          <div>
+            <div>개발 기간</div>
+            <time dateTime="2022-12-06" className="text-sm">
+              2022.12.06 ~ 현재
+            </time>
+          </div>
           <nav className="flex flex-col gap-2">
             <a
               href="#"
@@ -49,17 +51,26 @@ const CuteChatting = () => {
         </header>
       </div>
 
-      <section className="md:px-4">
-        <h3 className="text-xl">프로젝트하면서 만난 문제</h3>
-        <ul>
+      <section className="md:px-4 space-y-2">
+        <h3 className="text-xl font-semibold">프로젝트하면서 만난 문제</h3>
+        <ul className="pl-2 space-y-2">
           <li>
             <div>문제: 웹사이트 초기 응답 5초 지연 문제</div>
-            <div>해결</div>
+            <div>
+              해결: vercel 대시보드에서 region 아시아 설정이 먹히지 않아
+              프로젝트 내부 폴더에 vercel config 설정을 하여 해결하였습니다.
+            </div>
           </li>
-          <li>ㅇㅇㅇㅇㅇ</li>
-          <li>ㅇㅇㅇㅇㅇ</li>
-          <li>ㅇㅇㅇㅇㅇ</li>
-          <li>ㅇㅇㅇㅇㅇ</li>
+          <li>
+            <div>
+              문제: 소셜 로그인 시 자동으로 이전 계정으로 로그인되어 다른
+              계정으로 전환 불가
+            </div>
+            <div>
+              해결: 카카오는 파라미터에 prompt=login 추가, 네이버는
+              auth_type=reprompt 추가로 해결
+            </div>
+          </li>
         </ul>
       </section>
     </article>
