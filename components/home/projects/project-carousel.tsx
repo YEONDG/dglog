@@ -20,7 +20,7 @@ export function ProjectCarousel() {
               <Card>
                 <CardContent className="relative flex aspect-video items-center justify-center p-6">
                   <Image
-                    src={"/project/큐트채팅이미지.webp"}
+                    src={"/project-img/큐트채팅이미지.webp"}
                     fill
                     alt={`${index}`}
                     className="rounded-xl object-fill"
