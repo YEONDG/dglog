@@ -125,14 +125,6 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <head>
-        <link
-          rel="alternate"
-          type="application/rss+xml"
-          title="Dglog RSS Feed"
-          href="/feed.xml"
-        />
-      </head>
       <body className={`${pretendard.className} antialiased`}>
         <ThemeProvider
           attribute="class"
