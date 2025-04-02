@@ -1,9 +1,11 @@
 "use client";
 
-import { Dglog } from "../projects/dglog";
+import Dglog from "../projects/dglog";
 import CuteChatting from "../projects/cutechatting";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
+import PokemonBook from "../projects/pokemon-book";
+import ImageConversionApp from "../projects/image-conversion-app";
 
 export const Section = () => {
   const [elementRef, isIntersection] = useIntersectionObserver();
@@ -25,9 +27,11 @@ export const Section = () => {
           </p>
 
           {/* 프로젝트 카드들 */}
-          <div className="flex w-full flex-col gap-16">
-            <CuteChatting />
+          <div className="flex w-full flex-col gap-8">
             <Dglog />
+            <CuteChatting />
+            <PokemonBook />
+            <ImageConversionApp />
           </div>
         </div>
       </div>
