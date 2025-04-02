@@ -2,7 +2,7 @@ import React from "react";
 
 export const AboutMe = () => {
   return (
-    <div className="">
+    <div className="py-6 md:py-16">
       <p className="px-6 text-xl font-semibold tracking-wide text-gray-900">
         &nbsp;개발에 대한 순수한 호기심으로 시작해 독학으로 3년간 꾸준히 공부해
         온 신입{" "}

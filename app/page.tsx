@@ -76,10 +76,8 @@ const Home = () => {
       />
 
       {/* 히어로 섹션 */}
-      <div className="h-screen">
-        <HeroSection profileData={profileData} />
-        <AboutMe />
-      </div>
+      <HeroSection profileData={profileData} />
+      <AboutMe />
 
       {/* 탭 섹션 */}
       {/* <TabSection techStack={techStack} projects={projects} education={education} /> */}
