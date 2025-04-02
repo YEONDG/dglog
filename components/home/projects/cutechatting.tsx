@@ -1,10 +1,11 @@
 import React from "react";
 import { ProjectCarousel } from "./project-carousel";
 import { Github } from "lucide-react";
+import { ProjectCard } from "./project-card";
 
 const CuteChatting = () => {
   return (
-    <article className="space-y-5 rounded-3xl border-2 p-2 md:p-8">
+    <ProjectCard>
       <h1 className="py-1 text-center text-3xl font-bold md:px-4 md:text-left">
         큐트채팅
       </h1>
@@ -79,7 +80,7 @@ const CuteChatting = () => {
           </li>
         </ul>
       </section>
-    </article>
+    </ProjectCard>
   );
 };
 
