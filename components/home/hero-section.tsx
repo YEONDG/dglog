@@ -16,7 +16,7 @@ interface HeroSectionProps {
 export const HeroSection = ({ profileData }: HeroSectionProps) => {
   return (
     <header className="container mx-auto px-4 py-8 md:py-16">
-      <div className="flex flex-col items-center gap-8 md:gap-16 lg:flex-row">
+      <div className="flex items-center gap-8 md:gap-16 lg:flex-row">
         {/* 프로필 이미지 */}
         <ProfileImage
           src={profileData.image}
