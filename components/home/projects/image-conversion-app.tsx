@@ -35,13 +35,7 @@ const ImageConversionApp = () => {
           </div>
           <nav className="flex flex-col gap-2">
             <a
-              href="#"
-              className="italic text-blue-500 underline transition-transform hover:scale-105 hover:font-semibold"
-            >
-              프로젝트 링크
-            </a>
-            <a
-              href="#"
+              href="https://github.com/YEONDG/image-conversion-app"
               className="italic text-blue-500 underline transition-transform hover:scale-105 hover:font-semibold"
             >
               <Github className="inline-block" />

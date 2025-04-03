@@ -38,13 +38,13 @@ const CuteChatting = () => {
           </div>
           <nav className="flex flex-col gap-2">
             <a
-              href="#"
+              href="https://www.cutechatting.com/"
               className="italic text-blue-500 underline transition-transform hover:scale-105 hover:font-semibold"
             >
               프로젝트 링크
             </a>
             <a
-              href="#"
+              href="https://github.com/YEONDG/cutechatting"
               className="italic text-blue-500 underline transition-transform hover:scale-105 hover:font-semibold"
             >
               <Github className="inline-block" />
