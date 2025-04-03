@@ -11,7 +11,7 @@ const CuteChatting = () => {
       </h1>
       <div className="w-full md:px-6">
         <section className="flex justify-center">
-          <ProjectCarousel />
+          <ProjectCarousel projectName="cutechatting" />
         </section>
       </div>
       <div className="grid px-1 py-4 md:grid-flow-col md:px-4">
