@@ -11,7 +11,7 @@ export interface Education {
 
 export interface SkillCategory {
   title: string;
-  color: 'blue' | 'purple' | 'green';
+  color: "blue" | "purple" | "green";
   skills: string[];
 }
 

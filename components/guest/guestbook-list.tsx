@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Guestbook } from '@prisma/client';
-import { GuestBookEntry } from './guestbook-entry';
-import { useState } from 'react';
+import { Guestbook } from "@prisma/client";
+import { GuestBookEntry } from "./guestbook-entry";
+import { useState } from "react";
 
 interface GuestBookListProps {
   entries: Guestbook[];
@@ -10,8 +10,14 @@ interface GuestBookListProps {
   onViewPrivate: (entry: Guestbook) => Promise<boolean>;
 }
 
-export const GuestBookList = ({ entries, onDelete, onViewPrivate }: GuestBookListProps) => {
-  const [unlockedEntries, setUnlockedEntries] = useState<Set<string>>(new Set());
+export const GuestBookList = ({
+  entries,
+  onDelete,
+  onViewPrivate,
+}: GuestBookListProps) => {
+  const [unlockedEntries, setUnlockedEntries] = useState<Set<string>>(
+    new Set(),
+  );
 
   const handleViewPrivate = async (entry: Guestbook): Promise<boolean> => {
     const isPasswordCorrect = await onViewPrivate(entry);
@@ -29,7 +35,7 @@ export const GuestBookList = ({ entries, onDelete, onViewPrivate }: GuestBookLis
   };
 
   return (
-    <ul className='space-y-3'>
+    <ul className="space-y-3">
       {entries.map((entry) => (
         <GuestBookEntry
           key={entry.id}

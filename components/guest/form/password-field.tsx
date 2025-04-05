@@ -1,24 +1,36 @@
-'use client';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { GuestbookSchema } from '@/schemas/guestbook';
-import { memo } from 'react';
-import { Control } from 'react-hook-form';
+"use client";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { GuestbookSchema } from "@/schemas/guestbook";
+import { memo } from "react";
+import { Control } from "react-hook-form";
 
-export const PasswordField = memo(({ control }: { control: Control<GuestbookSchema> }) => (
-  <FormField
-    control={control}
-    name='password'
-    render={({ field }) => (
-      <FormItem>
-        <FormLabel>비밀번호</FormLabel>
-        <FormControl>
-          <Input type='password' placeholder='비밀번호를 입력하세요...' {...field} />
-        </FormControl>
-        <FormMessage />
-      </FormItem>
-    )}
-  />
-));
+export const PasswordField = memo(
+  ({ control }: { control: Control<GuestbookSchema> }) => (
+    <FormField
+      control={control}
+      name="password"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>비밀번호</FormLabel>
+          <FormControl>
+            <Input
+              type="password"
+              placeholder="비밀번호를 입력하세요..."
+              {...field}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  ),
+);
 
-PasswordField.displayName = 'PasswordField';
+PasswordField.displayName = "PasswordField";

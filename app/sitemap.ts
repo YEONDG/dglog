@@ -1,5 +1,5 @@
-import { getNotionPosts, getNotionTags } from '@/lib/notion';
-import { MetadataRoute } from 'next';
+import { getNotionPosts, getNotionTags } from "@/lib/notion";
+import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 블로그 포스트 가져오기
@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const postEntries = posts.map((post) => ({
     url: `https://dglog.vercel.app/posts/${post.id}`,
     lastModified: post.last_edited_time,
-    changeFrequency: 'weekly' as const,
+    changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
@@ -16,28 +16,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const tagEntries = tags.map((tag) => ({
     url: `https://dglog.vercel.app/tags/${tag}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: 'weekly' as const,
+    changeFrequency: "weekly" as const,
     priority: 0.5,
   }));
 
   // 정적 페이지
   const staticPages = [
     {
-      url: 'https://dglog.vercel.app',
+      url: "https://dglog.vercel.app",
       lastModified: new Date().toISOString(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: "daily" as const,
       priority: 1,
     },
     {
-      url: 'https://dglog.vercel.app/posts',
+      url: "https://dglog.vercel.app/posts",
       lastModified: new Date().toISOString(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: "daily" as const,
       priority: 0.9,
     },
     {
-      url: 'https://dglog.vercel.app/guestbook',
+      url: "https://dglog.vercel.app/guestbook",
       lastModified: new Date().toISOString(),
-      changeFrequency: 'daily' as const,
+      changeFrequency: "daily" as const,
       priority: 0.7,
     },
   ];

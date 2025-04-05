@@ -1,10 +1,10 @@
-import '@testing-library/jest-dom';
-import React from 'react';
+import "@testing-library/jest-dom";
+import React from "react";
 
 global.React = React;
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
     matches: false,
@@ -19,13 +19,13 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock Next.js router
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter() {
     return {
-      route: '/',
-      pathname: '',
-      query: '',
-      asPath: '',
+      route: "/",
+      pathname: "",
+      query: "",
+      asPath: "",
       push: jest.fn(),
       events: {
         on: jest.fn(),
@@ -38,7 +38,7 @@ jest.mock('next/router', () => ({
 }));
 
 // Mock next/navigation
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
   useRouter() {
     return {
       push: jest.fn(),

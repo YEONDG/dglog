@@ -1,16 +1,16 @@
-import { getNotionPosts, getPostById } from '@/lib/notion';
-import RSS from 'rss';
+import { getNotionPosts, getPostById } from "@/lib/notion";
+import RSS from "rss";
 
 export async function GET() {
   const currentDate = new Date().toISOString();
   const currentYear = new Date().getUTCFullYear();
 
   const feed = new RSS({
-    title: 'Dglog',
-    description: '프론트엔드 개발자 연동근의 블로그입니다.',
-    site_url: 'https://dglog.vercel.app',
-    feed_url: 'https://dglog.vercel.app/feed.xml',
-    language: 'ko',
+    title: "Dglog",
+    description: "프론트엔드 개발자 연동근의 블로그입니다.",
+    site_url: "https://dglog.vercel.app",
+    feed_url: "https://dglog.vercel.app/feed.xml",
+    language: "ko",
     pubDate: currentDate,
     copyright: `All rights reserved ${currentYear}, 연동근`,
   });
@@ -22,18 +22,19 @@ export async function GET() {
     if (!fullPost) continue;
 
     feed.item({
-      title: post.properties.제목.title[0]?.plain_text || '제목 없음',
+      title: post.properties.제목.title[0]?.plain_text || "제목 없음",
       url: `https://dglog.vercel.app/posts/${post.id}`,
       date: post.created_time,
-      description: fullPost.markdownContent?.slice(0, 160) || '내용 없음',
-      categories: post.properties.태그?.multi_select.map((tag) => tag.name) || [],
-      author: '연동근',
+      description: fullPost.markdownContent?.slice(0, 160) || "내용 없음",
+      categories:
+        post.properties.태그?.multi_select.map((tag) => tag.name) || [],
+      author: "연동근",
     });
   }
 
   return new Response(feed.xml({ indent: true }), {
     headers: {
-      'Content-Type': 'application/xml',
+      "Content-Type": "application/xml",
     },
   });
 }
