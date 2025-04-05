@@ -25,17 +25,18 @@ if (!PEPPER) {
   }
 }
 
-function applyPepper(password: string): string {
+async function applyPepper(password: string): Promise<string> {
   if (!PEPPER) {
     throw new Error(
       "PASSWORD_PEPPER is not configured. Cannot proceed with password operations.",
     );
   }
-  return crypto.createHmac("sha256", PEPPER).update(password).digest("hex");
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+  return bcrypt.hash(password + PEPPER, salt);
 }
 
 async function hashPassword(password: string): Promise<string> {
-  const pepperedPassword = applyPepper(password);
+  const pepperedPassword = await applyPepper(password);
   return bcrypt.hash(pepperedPassword, SALT_ROUNDS);
 }
 
@@ -44,7 +45,7 @@ async function verifyPassword(
   inputPassword: string,
   hashedPassword: string,
 ): Promise<boolean> {
-  const pepperedPassword = applyPepper(inputPassword);
+  const pepperedPassword = await applyPepper(inputPassword);
   return bcrypt.compare(pepperedPassword, hashedPassword);
 }
 
