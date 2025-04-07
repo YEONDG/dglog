@@ -88,7 +88,7 @@ export const metadata: Metadata = {
     siteName: "Dglog",
     images: [
       {
-        url: "https://dglog.vercel.app/og-image.png", // 이미지가 있다면 주소 확인
+        url: "/images/og-image.png", // 이미지가 있다면 주소 확인
         width: 1200,
         height: 630,
         alt: "연동근 프론트엔드 개발자 포트폴리오",
