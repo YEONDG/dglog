@@ -1,11 +1,12 @@
 "use client";
 
-import Dglog from "./projects-section/dglog";
-import CuteChatting from "./projects-section/cutechatting";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
-import PokemonBook from "./projects-section/pokemon-book";
-import ImageConversionApp from "./projects-section/image-conversion-app";
+
+import Dglog from "@/components/home/projects-section/dglog";
+import CuteChatting from "@/components/home/projects-section/cutechatting";
+import PokemonBook from "@/components/home/projects-section/pokemon-book";
+import ImageConversionApp from "@/components/home/projects-section/image-conversion-app";
 
 export const ProjectsSection = () => {
   const [elementRef, isIntersection] = useIntersectionObserver();

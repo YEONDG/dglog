@@ -1,16 +1,14 @@
-import React from "react";
-import { ProjectCarousel } from "./ui/project-carousel";
+import { ProjectCarousel } from "@/components/home/projects-section/ui/project-carousel";
+import { ProjectCard } from "@/components/home/projects-section/ui/project-card";
 import { Github } from "lucide-react";
-import { ProjectCard } from "./ui/project-card";
 
 const ImageConversionApp = () => {
   return (
     <ProjectCard>
       <header>
-
-      <h1 className="py-1 text-center text-3xl font-bold md:px-4 md:text-left">
-        이미지 변환앱
-      </h1>
+        <h1 className="py-1 text-center text-3xl font-bold md:px-4 md:text-left">
+          이미지 변환앱
+        </h1>
       </header>
       <section className="w-full md:px-6">
         <div className="flex justify-center">

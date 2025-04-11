@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Github, Mail, Copy } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Github, Mail, Copy } from "lucide-react";
 import { toast } from "sonner";
 
 export const SocialButtons = () => {

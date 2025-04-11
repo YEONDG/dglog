@@ -1,4 +1,3 @@
-
 export const AboutMeSection = () => {
   return (
     <section className="py-6 md:py-16">
