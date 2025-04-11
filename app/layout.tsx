@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { NavBar } from "@/components/nav-bar";
-
 import localFont from "next/font/local";
+import "./globals.css";
+
+import { NavBar } from "@/components/nav-bar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "sonner";
 import Footer from "@/components/footer";
 
+import { Toaster } from "sonner";
+
 import { Analytics } from "@vercel/analytics/react";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -138,7 +139,7 @@ const RootLayout = ({
               process.env.NEXT_PUBLIC_GA_ID && (
                 <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
               )}
-            <main className="pt-16 min-h-screen">{children}</main>
+            <main className="min-h-screen pt-16">{children}</main>
             <Footer />
           </div>
           <Toaster richColors />
