@@ -1,8 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuIcon, X } from "lucide-react";
 
 export const NavBar = () => {
@@ -44,12 +44,6 @@ export const NavBar = () => {
           className="px-4 py-2 transition-colors hover:text-orange-500"
         >
           Posts
-        </Link>
-        <Link
-          href="/about"
-          className="px-4 py-2 transition-colors hover:text-orange-500"
-        >
-          About
         </Link>
         <Link
           href="/guest"
@@ -110,13 +104,6 @@ export const NavBar = () => {
               onClick={closeMenu}
             >
               Posts
-            </Link>
-            <Link
-              href="/about"
-              className="rounded-md px-4 py-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-              onClick={closeMenu}
-            >
-              About
             </Link>
             <Link
               href="/guest"
