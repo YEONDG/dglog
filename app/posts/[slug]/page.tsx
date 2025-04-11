@@ -1,10 +1,12 @@
-import { getNotionPosts, getPostById } from "@/lib/notion";
+import { Metadata } from "next";
+import Link from "next/link";
+
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
+
 import { formatDate } from "@/lib/utils";
-import { Metadata } from "next";
-import Link from "next/link";
+import { getNotionPosts, getPostById } from "@/lib/notion";
 
 export const revalidate = 86400; // 24시간마다 재검증
 
@@ -87,7 +89,7 @@ const BlogPostPage = async ({
   const tags = post.properties.태그?.multi_select.map((tag) => tag.name) || [];
 
   return (
-    <article className="prose mx-auto">
+    <article className="prose w-full">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -109,6 +111,7 @@ const BlogPostPage = async ({
           }),
         }}
       />
+      <header>
       <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
       <p className="text-gray-500">{formatDate(post.created_time)}</p>
       {/* 태그 표시 */}
@@ -116,15 +119,16 @@ const BlogPostPage = async ({
         <div className="my-4 flex flex-wrap gap-2">
           {tags.map((tag) => (
             <Link
-              key={tag}
-              href={`/tags/${tag}`}
-              className="rounded-md bg-gray-100 px-2 py-1 text-sm hover:bg-gray-200"
+            key={tag}
+            href={`/tags/${tag}`}
+            className="rounded-md bg-gray-100 px-2 py-1 text-sm hover:bg-gray-200"
             >
               {tag}
             </Link>
           ))}
         </div>
       )}
+      </header>
 
       {/* Markdown 렌더링 */}
       <div className="prose max-w-none dark:prose-invert">

@@ -1,6 +1,10 @@
-import { getNotionPostsByTag, getNotionTags } from "@/lib/notion";
 import Link from "next/link";
+
+import { getNotionPostsByTag, getNotionTags } from "@/lib/notion";
 import { formatDate } from "@/lib/utils";
+
+export const dynamic = "force-static";
+export const revalidate = 86400; // 24시간마다 재검증
 
 export async function generateStaticParams() {
   const tags = await getNotionTags();
@@ -9,18 +13,47 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ tag: string }>}) {
+  const tag = decodeURIComponent((await params).tag);
+  
+  return {
+    title: `${tag} 관련 포스트 | Dglog`,
+    description: `${tag} 태그와 관련된 모든 포스트입니다.`,
+    openGraph: {
+      title: `${tag} 관련 포스트 | Dglog`,
+      description: `${tag} 태그와 관련된 모든 포스트입니다.`,
+    }
+  };
+}
+
 const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
-  const mainTag = decodeURIComponent((await params).tag);
-  const posts = await getNotionPostsByTag(mainTag);
+  const tag = decodeURIComponent((await params).tag);
+  const posts = await getNotionPostsByTag(tag);
+
+  if (posts.length === 0) {
+    return (
+      <section className="mt-10 flex w-full flex-col gap-4">
+        <header className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold">태그: {tag}</h1>
+          <Link href="/posts" className="text-sm text-blue-500 hover:underline">
+            모든 포스트 보기
+          </Link>
+        </header>
+        <p className="py-4 text-center text-gray-500">
+          이 태그와 관련된 포스트가 없습니다.
+        </p>
+      </section>
+    );
+  }
 
   return (
-    <main className="mt-10 flex w-full flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">태그: {mainTag}</h1>
+    <section className="mt-10 flex w-full flex-col gap-4">
+      <header className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">태그: {tag}</h2>
         <Link href="/posts" className="text-sm text-blue-500 hover:underline">
           모든 포스트 보기
         </Link>
-      </div>
+      </header>
       <ul className="w-full list-none space-y-2">
         {posts.map((post) => (
           <li
@@ -29,38 +62,41 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
           >
             {/* 제목과 날짜 행 */}
             <div className="flex items-center justify-between">
-              <Link
-                href={`/posts/${post.id}`}
-                className="text-lg hover:underline"
+            <h2 className="text-lg font-medium">
+                <Link
+                  href={`/posts/${post.id}`}
+                  className="hover:text-blue-600 hover:underline"
+                >
+                  {post.properties.제목.title[0]?.plain_text || "이름 없음"}
+                </Link>
+              </h2>
+              <time 
+                dateTime={post.properties.생성일.created_time}
+                className="text-sm text-gray-600 dark:text-gray-400"
               >
-                {post.properties.제목.title[0]?.plain_text || "이름 없음"}
-              </Link>
-              <div className="text-sm text-gray-700">
                 {formatDate(post.properties.생성일.created_time)}
-              </div>
+              </time>
             </div>
 
             {/* 태그 행 */}
             <div className="mt-1 hidden justify-end gap-1 md:flex">
-              {post.properties.태그.multi_select.map((tag) => (
+              {post.properties.태그.multi_select.map((postTag) => (
                 <Link
-                  key={tag.name}
-                  href={`/tags/${tag.name}`}
+                  key={postTag.name}
+                  href={`/tags/${postTag.name}`}
                   className={`rounded-md px-2 py-1 text-xs hover:bg-gray-100 ${
-                    tag.name === mainTag ? "bg-gray-200" : ""
+                    postTag.name === tag ? "bg-gray-200" : ""
                   }`}
                 >
-                  {tag.name}
+                  {postTag.name}
                 </Link>
               ))}
             </div>
           </li>
         ))}
       </ul>
-    </main>
+    </section>
   );
 };
 
-export const dynamic = "force-static";
-export const revalidate = 86400; // 24시간마다 재검증
 export default TagPage;
