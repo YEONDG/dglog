@@ -4,7 +4,6 @@ import { prisma } from "@/prisma/db";
 import { Guestbook } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcrypt";
-import crypto from "crypto";
 
 type GuestbookState = {
   success?: boolean;
@@ -24,29 +23,23 @@ if (!PEPPER) {
     throw new Error("PASSWORD_PEPPER must be set in production environment");
   }
 }
-
-async function applyPepper(password: string): Promise<string> {
-  if (!PEPPER) {
-    throw new Error(
-      "PASSWORD_PEPPER is not configured. Cannot proceed with password operations.",
-    );
-  }
-  const salt = await bcrypt.genSalt(SALT_ROUNDS);
-  return bcrypt.hash(password + PEPPER, salt);
-}
-
 async function hashPassword(password: string): Promise<string> {
-  const pepperedPassword = await applyPepper(password);
-  return bcrypt.hash(pepperedPassword, SALT_ROUNDS);
+  if (!PEPPER) {
+    throw new Error("PASSWORD_PEPPER is not configured");
+  }
+  // password + PEPPER를 합쳐서 한 번만 해싱
+  return bcrypt.hash(password + PEPPER, SALT_ROUNDS);
 }
 
-// 비밀번호 검증 함수
 async function verifyPassword(
   inputPassword: string,
   hashedPassword: string,
 ): Promise<boolean> {
-  const pepperedPassword = await applyPepper(inputPassword);
-  return bcrypt.compare(pepperedPassword, hashedPassword);
+  if (!PEPPER) {
+    throw new Error("PASSWORD_PEPPER is not configured");
+  }
+  // 입력 비밀번호 + PEPPER를 동일한 방식으로 비교
+  return bcrypt.compare(inputPassword + PEPPER, hashedPassword);
 }
 
 export async function addGuestEntry(
