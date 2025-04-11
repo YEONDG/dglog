@@ -12,8 +12,9 @@ import {
   verifyPrivateEntry,
 } from "@/actions/guestbook";
 import { Guestbook } from "@prisma/client";
-import { GuestBookList } from "./guestbook-list";
-import { GuestBookForm } from "./guestbook-form";
+import { GuestBookList } from "@/components/guest/guestbook-list";
+import { GuestBookForm } from "@/components/guest/guestbook-form";
+
 import { nanoid } from "nanoid";
 import { toast } from "sonner";
 

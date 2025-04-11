@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Guestbook } from "@prisma/client";
-import { GuestBookEntry } from "./guestbook-entry";
+import { GuestBookEntry } from "@/components/guest/guestbook-entry";
 
 interface GuestBookListProps {
   entries: Guestbook[];

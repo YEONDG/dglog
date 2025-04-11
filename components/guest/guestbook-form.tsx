@@ -5,10 +5,10 @@ import { guestbookSchema, GuestbookSchema } from "@/schemas/guestbook";
 import { Form } from "@/components/ui/form";
 import { SubmitButton } from "@/components/guest/submit-btn";
 
-import { NameField } from "./form/name-field";
-import { PasswordField } from "./form/password-field";
-import { MessageField } from "./form/message-field";
-import { PrivateCheckbox } from "./form/private-checkbox-field";
+import { NameField } from "@/components/guest/form/name-field";
+import { PasswordField } from "@/components/guest/form/password-field";
+import { MessageField } from "@/components/guest/form/message-field";
+import { PrivateCheckbox } from "@/components/guest/form/private-checkbox-field";
 
 export const GuestBookForm = ({
   addFormAction,
