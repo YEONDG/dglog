@@ -138,7 +138,7 @@ const RootLayout = ({
               process.env.NEXT_PUBLIC_GA_ID && (
                 <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
               )}
-            <div className="pt-16">{children}</div>
+            <main className="pt-16 min-h-screen">{children}</main>
             <Footer />
           </div>
           <Toaster richColors />

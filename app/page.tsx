@@ -1,15 +1,10 @@
-import { AboutMe } from "@/components/home/about-me/about-me";
-import { HeroSection } from "@/components/home/hero-section";
-import { Section } from "@/components/home/section/section";
-// import { TabSection } from '@/components/home/tab-section';
-import {
-  profileData,
-  // techStack, projects, education
-} from "@/data/home-data";
+import { HeroHeader } from "@/components/home/hero-header";
+import { AboutMeSection } from "@/components/home/about-me-section";
+import { ProjectsSection } from "@/components/home/projects-section";
 
 const Home = () => {
   return (
-    <div className="min-h-screen">
+    <> 
       {/* 스키마 구조화 데이터 추가 */}
       <script
         type="application/ld+json"
@@ -38,13 +33,12 @@ const Home = () => {
       />
 
       {/* 히어로 섹션 */}
-      <HeroSection profileData={profileData} />
-      <AboutMe />
+      <HeroHeader />
+      <AboutMeSection />
 
-      {/* 탭 섹션 */}
-      {/* <TabSection techStack={techStack} projects={projects} education={education} /> */}
-      <Section />
-    </div>
+      {/* 프로젝트 섹션 */}
+      <ProjectsSection />
+    </>
   );
 };
 

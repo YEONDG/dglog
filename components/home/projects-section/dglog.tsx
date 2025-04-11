@@ -1,22 +1,24 @@
-import React from "react";
-import { ProjectCarousel } from "./project-carousel";
+
+import { ProjectCarousel } from "./ui/project-carousel";
 import { Github } from "lucide-react";
-import { ProjectCard } from "./project-card";
+import { ProjectCard } from "./ui/project-card";
 
 const Dglog = () => {
   return (
     <ProjectCard>
+      <header>
       <h1 className="py-1 text-center text-3xl font-bold md:px-4 md:text-left">
         DGlog
       </h1>
-      <div className="w-full md:px-6">
-        <section className="flex justify-center">
+      </header>
+      <section className="w-full md:px-6">
+        <div className="flex justify-center">
           <ProjectCarousel projectName="dglog" />
-        </section>
-      </div>
+        </div>
+      </section>
       <div className="grid px-1 py-4 md:grid-flow-col md:px-4">
         <section className="space-y-2 border-b pb-2 md:border-b-0 md:border-r md:pb-0">
-          <h3 className="text-xl font-semibold">프로젝트 소개</h3>
+          <h2 className="text-xl font-semibold">프로젝트 소개</h2>
           <ul className="list-disc pl-6">
             <li>Next.js 15와 React 19 기반 포트폴리오 웹사이트</li>
             <li>Notion Database를 CMS로 활용한 콘텐츠 관리</li>
@@ -26,9 +28,9 @@ const Dglog = () => {
             <li>Husky와 GitHub Actions로 자동화된 CI/CD 파이프라인 구축</li>
           </ul>
         </section>
-        <header className="flex justify-between gap-10 pt-2 md:flex-col md:pl-2 md:pt-0">
+        <section className="flex justify-between gap-10 pt-2 md:flex-col md:pl-2 md:pt-0">
           <div>
-            <div>개발 기간</div>
+            <h3>개발 기간</h3>
             <time dateTime="2022-12-06" className="text-sm">
               2025.02.10 ~ 현재
             </time>
@@ -48,11 +50,11 @@ const Dglog = () => {
               깃헙 링크
             </a>
           </nav>
-        </header>
+        </section>
       </div>
 
       <section className="space-y-2 md:px-4">
-        <h3 className="text-xl font-semibold">프로젝트하면서 만난 문제</h3>
+        <h2 className="text-xl font-semibold">프로젝트하면서 만난 문제</h2>
         <ul className="space-y-2 pl-2">
           <li>
             <div className="border-l-4 border-l-red-500 pl-2">

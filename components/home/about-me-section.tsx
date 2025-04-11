@@ -1,8 +1,7 @@
-import React from "react";
 
-export const AboutMe = () => {
+export const AboutMeSection = () => {
   return (
-    <div className="py-6 md:py-16">
+    <section className="py-6 md:py-16">
       <p className="px-6 text-xl font-semibold tracking-wide text-gray-900 dark:text-white">
         &nbsp;개발에 대한 순수한 호기심으로 시작해 독학으로 3년간 꾸준히 공부해
         온 신입{" "}
@@ -16,6 +15,6 @@ export const AboutMe = () => {
         </span>
         해 왔습니다.
       </p>
-    </div>
+    </section>
   );
 };

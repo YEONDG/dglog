@@ -1,19 +1,12 @@
-import { ProfileImage } from "./profile-image";
-import { SocialButtons } from "./social-buttons";
+import { ProfileImage } from "@/components/home/hero-section/profile-image";
+import { SocialButtons } from "@/components/home/hero-section/social-buttons";
 import { Badge } from "@/components/ui/badge";
+import {
+  profileData,
+} from "@/data/home-data";
 
-interface ProfileData {
-  name: string;
-  title: string;
-  description: string;
-  image: string;
-}
-
-interface HeroSectionProps {
-  profileData: ProfileData;
-}
-
-export const HeroSection = ({ profileData }: HeroSectionProps) => {
+export const HeroHeader = () => {
+  
   return (
     <header className="container mx-auto px-4 py-8 md:py-16">
       <div className="flex items-center gap-8 md:gap-16 lg:flex-row">
