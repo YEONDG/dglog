@@ -12,10 +12,10 @@ import {
   verifyPrivateEntry,
 } from "@/actions/guestbook";
 import { Guestbook } from "@prisma/client";
-import { toast } from "sonner";
 import { GuestBookList } from "./guestbook-list";
 import { GuestBookForm } from "./guestbook-form";
 import { nanoid } from "nanoid";
+import { toast } from "sonner";
 
 interface GuestBookClientProps {
   initialEntries: Guestbook[];
@@ -109,8 +109,8 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
   }, [deleteState.success, deleteState.error, deleteState.id]);
 
   return (
-    <div className="mx-auto mt-10 flex max-w-lg flex-col gap-4 rounded-lg p-4 shadow-lg dark:bg-gray-700">
-      <h1 className="text-center text-2xl font-bold">📖 Guestbook</h1>
+    <div className="mx-auto mt-6 flex max-w-lg flex-col gap-4 rounded-lg p-4 shadow-lg dark:bg-gray-700">
+      <h2 className="text-center text-2xl font-bold">📖 Guestbook</h2>
 
       {/* 방명록 목록 */}
       <GuestBookList

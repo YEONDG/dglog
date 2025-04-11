@@ -1,8 +1,6 @@
-"use client";
-
-import { X, Lock, Unlock } from "lucide-react";
-import { Guestbook } from "@prisma/client";
 import { useState } from "react";
+import { Guestbook } from "@prisma/client";
+import { X, Lock, Unlock } from "lucide-react";
 
 interface GuestBookEntryProps {
   entry: Guestbook;

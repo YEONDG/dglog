@@ -1,8 +1,6 @@
-"use client";
-
+import { useState } from "react";
 import { Guestbook } from "@prisma/client";
 import { GuestBookEntry } from "./guestbook-entry";
-import { useState } from "react";
 
 interface GuestBookListProps {
   entries: Guestbook[];
@@ -35,7 +33,7 @@ export const GuestBookList = ({
   };
 
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-2">
       {entries.map((entry) => (
         <GuestBookEntry
           key={entry.id}

@@ -1,4 +1,6 @@
-"use client";
+import { memo } from "react";
+import { Control } from "react-hook-form";
+
 import {
   FormControl,
   FormField,
@@ -8,8 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { GuestbookSchema } from "@/schemas/guestbook";
-import { memo } from "react";
-import { Control } from "react-hook-form";
 
 export const MessageField = memo(
   ({ control }: { control: Control<GuestbookSchema> }) => (

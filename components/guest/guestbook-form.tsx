@@ -1,10 +1,10 @@
-"use client";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { guestbookSchema, GuestbookSchema } from "@/schemas/guestbook";
+
 import { Form } from "@/components/ui/form";
 import { SubmitButton } from "@/components/guest/submit-btn";
+
 import { NameField } from "./form/name-field";
 import { PasswordField } from "./form/password-field";
 import { MessageField } from "./form/message-field";
@@ -40,7 +40,7 @@ export const GuestBookForm = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mb-6 space-y-2">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mb-6 space-y-1">
         <NameField control={control} />
         <PasswordField control={control} />
         <MessageField control={control} />

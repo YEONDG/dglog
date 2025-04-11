@@ -14,6 +14,7 @@ type GuestbookState = {
 
 const SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS || "10");
 const PEPPER = process.env.PASSWORD_PEPPER;
+
 if (!PEPPER) {
   console.error(
     "WARNING: PASSWORD_PEPPER is not set. Password security is compromised!",
@@ -23,6 +24,7 @@ if (!PEPPER) {
     throw new Error("PASSWORD_PEPPER must be set in production environment");
   }
 }
+
 async function hashPassword(password: string): Promise<string> {
   if (!PEPPER) {
     throw new Error("PASSWORD_PEPPER is not configured");
