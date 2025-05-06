@@ -28,48 +28,48 @@ const ChatBot = () => {
     setIsOpen(!isOpen);
   };
 
-  // 메시지 전송
-  const handleSend = async () => {
-    if (input.trim() === "") return;
+  // // 메시지 전송
+  // const handleSend = async () => {
+  //   if (input.trim() === "") return;
 
-    // 사용자 메시지 추가
-    const newMessages = [...messages, { role: "user", content: input }];
-    setMessages(newMessages);
-    setInput("");
-    setIsLoading(true);
+  //   // 사용자 메시지 추가
+  //   const newMessages = [...messages, { role: "user", content: input }];
+  //   setMessages(newMessages);
+  //   setInput("");
+  //   setIsLoading(true);
 
-    try {
-      // API 라우트 호출
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ messages: newMessages }),
-      });
+  //   try {
+  //     // API 라우트 호출
+  //     const response = await fetch("/api/chat", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ messages: newMessages }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error("API 응답 오류");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("API 응답 오류");
+  //     }
 
-      const data = await response.json();
-      setMessages([
-        ...newMessages,
-        { role: "assistant", content: data.message },
-      ]);
-    } catch (error) {
-      console.error("챗봇 오류:", error);
-      setMessages([
-        ...newMessages,
-        {
-          role: "assistant",
-          content: "죄송합니다. 요청을 처리하는 중에 오류가 발생했습니다.",
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     const data = await response.json();
+  //     setMessages([
+  //       ...newMessages,
+  //       { role: "assistant", content: data.message },
+  //     ]);
+  //   } catch (error) {
+  //     console.error("챗봇 오류:", error);
+  //     setMessages([
+  //       ...newMessages,
+  //       {
+  //         role: "assistant",
+  //         content: "죄송합니다. 요청을 처리하는 중에 오류가 발생했습니다.",
+  //       },
+  //     ]);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   // 데모용 간단한 챗봇 기능 (API 없이 사용 가능)
   const handleSendDemo = async () => {
