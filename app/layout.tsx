@@ -11,6 +11,7 @@ import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import ChatBot from "@/components/chatbot/chat-bot";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -141,6 +142,7 @@ const RootLayout = ({
               )}
             <main className="min-h-screen pt-16">{children}</main>
             <Footer />
+            <ChatBot />
           </div>
           <Toaster richColors />
           <Analytics />
