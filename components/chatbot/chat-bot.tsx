@@ -1,29 +1,25 @@
 "use client";
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-} from "react";
-import { MessageSquare, X, Send } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { MessageSquare, X } from "lucide-react";
 import { GoogleGenAI } from "@google/genai";
 import { instructions } from "@/data/instructions";
+import { ChatInput } from "./chat-input";
+import { LoadingIndicator } from "./loading-indicator";
+import { ChatMessage } from "./chat-message";
+import { TChatMessage } from "@/types/chat-message";
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<TChatMessage[]>([
     {
       role: "assistant",
       content:
         "안녕하세요! 연동근의 포트폴리오에 방문해 주셔서 감사합니다. 무엇을 도와드릴까요?",
     },
   ]);
-  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   // 메시지 자동 스크롤
   useEffect(() => {
@@ -32,26 +28,20 @@ const ChatBot = () => {
     }
   }, [messages]);
 
-  useEffect(() => {
-    if (!isLoading && isOpen && inputRef.current) {
-      setTimeout(() => {
-        inputRef.current?.focus();
-      }, 0);
-    }
-  }, [isLoading, isOpen]);
-
   // 챗봇 토글
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
 
   // 메시지 전송
-  const handleSend = async () => {
-    if (input.trim() === "") return;
+  const handleSend = async (inputText: string) => {
+    if (inputText.trim() === "") return;
 
-    const userMessage = { role: "user", content: input.trim() };
+    const userMessage: TChatMessage = {
+      role: "user",
+      content: inputText.trim(),
+    };
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
     setIsLoading(true);
 
     try {
@@ -76,11 +66,10 @@ const ChatBot = () => {
       }
 
       // 최종 프롬프트 구성
-      const finalPrompt = `${instructions}\n\n${messageHistory} \n\n사용자: ${input.trim()}\n\n어시스턴트:`;
+      const finalPrompt = `${instructions}\n\n${messageHistory} \n\n사용자: ${inputText.trim()}\n\n어시스턴트:`;
 
       const modelName = "gemini-2.5-flash-preview-04-17";
 
-      console.log(messageHistory);
       // API 호출
       const response = await genAI.models.generateContent({
         model: modelName,
@@ -116,7 +105,7 @@ const ChatBot = () => {
       console.error("챗봇 오류:", error);
       setMessages((prev) => [
         ...prev,
-        { role: "user", content: input },
+        { role: "user", content: inputText },
         {
           role: "assistant",
           content: "죄송합니다. 요청을 처리하는 중에 오류가 발생했습니다.",
@@ -124,18 +113,6 @@ const ChatBot = () => {
       ]);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  // 엔터 키 처리
-  const handleKeyPress = (
-    e: DetailedHTMLProps<
-      InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >,
-  ) => {
-    if (e.key === "Enter") {
-      handleSend();
     }
   };
 
@@ -171,65 +148,14 @@ const ChatBot = () => {
           {/* 메시지 영역 */}
           <div className="flex-1 overflow-y-auto p-4">
             {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`mb-4 ${msg.role === "user" ? "text-right" : "text-left"}`}
-              >
-                <div
-                  className={`inline-block rounded-lg p-3 ${
-                    msg.role === "user"
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-200 text-gray-800"
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              </div>
+              <ChatMessage key={index} msg={msg} />
             ))}
-            {isLoading && (
-              <div className="mb-4 text-left">
-                <div className="inline-block rounded-lg bg-gray-200 p-3 text-gray-800">
-                  <div className="flex space-x-1">
-                    <div className="h-2 w-2 animate-bounce rounded-full bg-gray-500"></div>
-                    <div
-                      className="h-2 w-2 animate-bounce rounded-full bg-gray-500"
-                      style={{ animationDelay: "0.2s" }}
-                    ></div>
-                    <div
-                      className="h-2 w-2 animate-bounce rounded-full bg-gray-500"
-                      style={{ animationDelay: "0.4s" }}
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            )}
+            {isLoading && <LoadingIndicator />}
             <div ref={messagesEndRef} />
           </div>
 
           {/* 입력 영역 */}
-          <div className="flex border-t p-4">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="메시지를 입력하세요..."
-              className="flex-1 rounded-l-lg border p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              disabled={isLoading}
-              ref={inputRef}
-            />
-            <button
-              onClick={handleSend}
-              disabled={isLoading || !input.trim()}
-              className={`rounded-r-lg bg-blue-500 p-2 text-white ${
-                isLoading || !input.trim()
-                  ? "cursor-not-allowed opacity-50"
-                  : "hover:bg-blue-600"
-              }`}
-            >
-              <Send size={20} />
-            </button>
-          </div>
+          <ChatInput onSend={handleSend} isLoading={isLoading} />
         </div>
       )}
     </div>
