@@ -34,7 +34,9 @@ const Home = () => {
 
       {/* 히어로 섹션 */}
       <HeroHeader />
+
       <AboutMeSection />
+
       <ProjectsNewSection />
 
       {/* 블로그 섹션 */}
