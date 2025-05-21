@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { getGuestEntries } from "@/actions/guestbook";
 
 import { GuestBookClient } from "@/components/guest/guestbook-client";
+import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -28,15 +29,17 @@ export const metadata: Metadata = {
   },
 };
 
-const GuestPage = async () => {
-  const entries = await getGuestEntries();
+const GuestPage = () => {
+  const entries = getGuestEntries();
 
   return (
     <section aria-labelledby="guestbook-heading">
       <h1 id="guestbook-heading" className="sr-only">
         방명록
       </h1>
-      <GuestBookClient initialEntries={entries} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <GuestBookClient initialEntries={entries} />
+      </Suspense>
     </section>
   );
 };

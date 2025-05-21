@@ -2,6 +2,7 @@
 
 import {
   startTransition,
+  use,
   useActionState,
   useEffect,
   useOptimistic,
@@ -19,14 +20,16 @@ import { nanoid } from "nanoid";
 import { toast } from "sonner";
 
 interface GuestBookClientProps {
-  initialEntries: Guestbook[];
+  initialEntries: Promise<Guestbook[]>;
 }
 
 export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
+  const initialList: Guestbook[] = use(initialEntries);
+
   const [optimisticList, addOptimisticEntry] = useOptimistic<
     Guestbook[],
     FormData
-  >(initialEntries, (currentList, formData) => {
+  >(initialList, (currentList, formData) => {
     const name = formData.get("name") as string;
     const message = formData.get("message") as string;
     const password = formData.get("password") as string;
