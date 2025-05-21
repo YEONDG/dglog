@@ -1,6 +1,7 @@
 import { HeroHeader } from "@/components/home/hero-header";
 import { AboutMeSection } from "@/components/home/about-me-section";
 import { ProjectsNewSection } from "@/components/home/project-new-section/projects-new-section";
+import StackSection from "@/components/home/stack-section";
 
 const Home = () => {
   return (
@@ -36,6 +37,8 @@ const Home = () => {
       <HeroHeader />
 
       <AboutMeSection />
+
+      <StackSection />
 
       <ProjectsNewSection />
 
