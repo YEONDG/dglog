@@ -1,37 +1,23 @@
-import { ProfileImage } from "@/components/home/hero-section/profile-image";
-import { SocialButtons } from "@/components/home/hero-section/social-buttons";
-import { Badge } from "@/components/ui/badge";
-import {
-  profileData,
-} from "@/data/home-data";
-
 export const HeroHeader = () => {
-  
   return (
-    <header className="container mx-auto px-4 py-8 md:py-16">
-      <div className="flex items-center gap-8 md:gap-16 lg:flex-row">
+    <header className="mx-auto h-[calc(100vh-16px)] px-4 py-8 md:py-16">
+      <div className="flex h-full items-center gap-8 md:gap-16 lg:flex-row">
         {/* 프로필 이미지 */}
-        <ProfileImage
+        {/* <ProfileImage
           src={profileData.image}
           alt={`${profileData.name} 프로필 이미지`}
-        />
+        /> */}
 
         {/* 인트로 텍스트 */}
         <div className="text-center lg:text-left">
-          <Badge variant="outline" className="mb-4 px-3 py-1 text-sm">
-            {profileData.title}
-          </Badge>
-
           <h1 className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent md:text-6xl">
-            {profileData.name}
+            프론트엔드 개발자 연동근입니다.
           </h1>
 
-          <p className="mb-8 text-xl text-gray-600 dark:text-gray-300 md:text-2xl">
-            {profileData.description}
-          </p>
+          <p className="mb-8 text-xl text-gray-600 dark:text-gray-300 md:text-2xl"></p>
 
           {/* 소셜 버튼 영역 - 클라이언트 컴포넌트 */}
-          <SocialButtons />
+          {/* <SocialButtons /> */}
         </div>
       </div>
     </header>
