@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-const Layout = async ({ children }: { children: React.ReactNode }) => {
-  return <section className="mt-10 flex w-full gap-4 ">{children}</section>;
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return <section className="mt-10 flex w-full gap-4">{children}</section>;
 };
 
 export default Layout;

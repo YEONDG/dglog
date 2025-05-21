@@ -9,12 +9,7 @@ import {
 
 export const revalidate = 86400; // 선택적: 24시간마다 재검증
 
-export interface PageProps {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
-
-const PostsPage = async () => {
+const PostsPage = () => {
   return (
     <>
       {/* 게시물 리스트 */}
@@ -27,7 +22,10 @@ const PostsPage = async () => {
         </Suspense>
       </article>
       {/* 태그 리스트 */}
-      <aside className="hidden w-1/5 flex-col gap-4 md:flex"  aria-labelledby="tags-heading">
+      <aside
+        className="hidden w-1/5 flex-col gap-4 md:flex"
+        aria-labelledby="tags-heading"
+      >
         <h2 className="text-xl font-bold">Tags</h2>
         <Suspense fallback={<TagsLoadingSkeleton />}>
           <TagList />
