@@ -22,7 +22,7 @@ describe("NavBar", () => {
     expect(desktopMenu).toBeInTheDocument();
 
     // 데스크톱 메뉴의 링크들 확인
-    const links = ["Home", "Posts", "Guest"];
+    const links = ["Home", "Projects", "Posts", "Guest"];
     links.forEach((link) => {
       const linkElement = within(desktopMenu).getByRole("link", { name: link });
       expect(linkElement).toHaveAttribute(
