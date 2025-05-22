@@ -2,11 +2,12 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { MDXRemote } from "next-mdx-remote/rsc";
-import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
+import rehypeSlug from "rehype-slug";
 
 import { formatDate } from "@/lib/utils";
 import { getNotionPosts, getPostById } from "@/lib/notion";
+import { ClientToc } from "@/components/posts/client-toc";
 
 export const revalidate = 86400; // 24시간마다 재검증
 
@@ -83,12 +84,12 @@ const BlogPostPage = async ({
     );
   }
 
-  console.log(post);
-
   const titleProperty = post.properties.제목;
   const title = titleProperty.title[0]?.plain_text || "제목 없음";
 
   const tags = post.properties.태그?.multi_select.map((tag) => tag.name) || [];
+
+  const markdownSource = post.markdownContent || "";
 
   return (
     <article className="mx-auto flex w-full justify-center">
@@ -97,14 +98,12 @@ const BlogPostPage = async ({
         className="sticky top-20 hidden h-screen w-1/5 flex-col justify-center gap-4 overflow-y-auto bg-red-200 lg:flex"
         aria-labelledby="latest-posts-heading"
       >
-        <h2 id="latest-posts-heading" className="sr-only">
-          최신글
-        </h2>
+        <h2 className="sr-only">최신글</h2>
         안녕하십니까?
         {/* 최신글 목록 */}
       </aside>
       {/* 게시글 내용 */}
-      <section className="prose max-w-none border-x-2 px-6 dark:prose-invert">
+      <section className="prose w-full max-w-6xl border-x-2 px-6 dark:prose-invert">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -147,11 +146,13 @@ const BlogPostPage = async ({
 
         {/* Markdown 렌더링 */}
         <MDXRemote
-          source={post.markdownContent}
+          source={markdownSource}
           options={{
             mdxOptions: {
               remarkPlugins: [remarkGfm],
-              rehypePlugins: [rehypeHighlight],
+              rehypePlugins: [
+                rehypeSlug, // 1. 제목에 ID 추가
+              ],
             },
           }}
         />
@@ -162,11 +163,32 @@ const BlogPostPage = async ({
         className="sticky top-20 hidden h-screen w-1/5 flex-col justify-center gap-4 overflow-y-auto lg:flex"
         aria-labelledby="toc-heading"
       >
-        <h2 id="toc-heading" className="sr-only">
-          목차
-        </h2>
-        <div>이부분은 목차입니다 반갑습니다</div>
+        <h2 className="sr-only">목차</h2>
         {/* 목차 내용 */}
+        <ClientToc />
+        {/* {toc.length > 0 && (
+          <aside className="mt-8 w-full p-4 lg:sticky lg:top-20 lg:h-screen lg:overflow-y-auto">
+            <h2 className="mb-4 text-xl font-semibold">목차</h2>
+            <ul className="space-y-2">
+              {toc.map((entry, idx) => (
+                <li
+                  key={idx}
+                  className={`${entry.level === 1 ? "font-medium" : ""} ${
+                    entry.level === 2 ? "ml-3" : ""
+                  } ${entry.level === 3 ? "ml-6" : ""} truncate`}
+                >
+                  <Link
+                    href={`#${entry.id}`}
+                    className="text-sm text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400"
+                    title={entry.text}
+                  >
+                    {entry.text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )} */}
       </aside>
     </article>
   );
