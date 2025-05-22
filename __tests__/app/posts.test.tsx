@@ -14,7 +14,7 @@ jest.mock("@/lib/notion", () => ({
           multi_select: [{ name: "React" }, { name: "TypeScript" }],
         },
         생성일: {
-          created_time: "2024-03-20T00:00:00.000Z",
+          date: { start: "2025년 05월 15일" },
         },
       },
     },
@@ -28,7 +28,7 @@ jest.mock("@/lib/notion", () => ({
           multi_select: [{ name: "Next.js" }],
         },
         생성일: {
-          created_time: "2024-03-21T00:00:00.000Z",
+          date: { start: "2025년 05월 15일" },
         },
       },
     },
