@@ -1,9 +1,7 @@
-import { SpinSVG } from "@/components/common/spin";
-
 const Loading = () => {
   return (
     <div className="flex h-screen w-full items-center justify-center">
-      <SpinSVG />
+      <div className="text-2xl">잠시만요!</div>
     </div>
   );
 };
