@@ -25,7 +25,7 @@ export const NavBar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className="bg-current/60 fixed left-0 right-0 top-0 z-30 flex w-full items-center justify-between px-4 py-4 shadow-sm backdrop-blur-md">
+    <div className="bg-current/60 fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 shadow-md backdrop-blur-md">
       <Link href="/" className="relative text-3xl font-bold">
         DGlog
         <span className="absolute -bottom-1 -right-1 h-2 w-2 rounded-full bg-orange-500"></span>
