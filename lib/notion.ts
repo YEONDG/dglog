@@ -33,28 +33,28 @@ type NotionPost = DatabaseEntry & {
 type NotionQueryResult = DatabaseEntry[];
 
 // 기본 데이터베이스 쿼리 함수
-const queryDatabase = async (
-  options: { tag?: string } = {},
-): Promise<NotionQueryResult> => {
-  try {
-    console.log("🟢 Notion API 호출 발생!", options);
-    const response = await notion.databases.query({
-      database_id: config.databaseId,
-      ...(options.tag && {
-        filter: {
-          property: "태그",
-          multi_select: {
-            contains: options.tag,
+const queryDatabase = cache(
+  async (options: { tag?: string } = {}): Promise<NotionQueryResult> => {
+    try {
+      console.log("🟢 Notion API 호출 발생!", options);
+      const response = await notion.databases.query({
+        database_id: config.databaseId,
+        ...(options.tag && {
+          filter: {
+            property: "태그",
+            multi_select: {
+              contains: options.tag,
+            },
           },
-        },
-      }),
-    });
-    return response.results as NotionQueryResult;
-  } catch (error) {
-    console.error("Error querying Notion database:", error);
-    throw new Error("Failed to fetch data from Notion");
-  }
-};
+        }),
+      });
+      return response.results as NotionQueryResult;
+    } catch (error) {
+      console.error("Error querying Notion database:", error);
+      throw new Error("Failed to fetch data from Notion");
+    }
+  },
+);
 
 /**
  * 노션 데이터베이스의 모든 포스트를 가져오는 함수
