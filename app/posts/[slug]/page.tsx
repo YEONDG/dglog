@@ -83,55 +83,69 @@ const BlogPostPage = async ({
     );
   }
 
+  console.log(post);
+
   const titleProperty = post.properties.제목;
   const title = titleProperty.title[0]?.plain_text || "제목 없음";
 
   const tags = post.properties.태그?.multi_select.map((tag) => tag.name) || [];
 
   return (
-    <article className="prose w-full">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: title,
-            datePublished: post.created_time,
-            dateModified: post.last_edited_time,
-            author: {
-              "@type": "Person",
-              name: "연동근",
-            },
-            keywords: tags.join(", "),
-            mainEntityOfPage: {
-              "@type": "WebPage",
-              "@id": `https://dglog.vercel.app/posts/${postId}`,
-            },
-          }),
-        }}
-      />
-      <header>
-      <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
-      <p className="text-gray-500">{formatDate(post.created_time)}</p>
-      {/* 태그 표시 */}
-      {tags.length > 0 && (
-        <div className="my-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <Link
-            key={tag}
-            href={`/tags/${tag}`}
-            className="rounded-md bg-gray-100 px-2 py-1 text-sm hover:bg-gray-200"
-            >
-              {tag}
-            </Link>
-          ))}
-        </div>
-      )}
-      </header>
+    <article className="mx-auto flex w-full justify-center">
+      {/* 최신글 목록*/}
+      <aside
+        className="sticky top-20 hidden h-screen w-1/5 flex-col justify-center gap-4 overflow-y-auto bg-red-200 lg:flex"
+        aria-labelledby="latest-posts-heading"
+      >
+        <h2 id="latest-posts-heading" className="sr-only">
+          최신글
+        </h2>
+        안녕하십니까?
+        {/* 최신글 목록 */}
+      </aside>
+      {/* 게시글 내용 */}
+      <section className="prose max-w-none border-x-2 px-6 dark:prose-invert">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: title,
+              datePublished: post.created_time,
+              dateModified: post.last_edited_time,
+              author: {
+                "@type": "Person",
+                name: "연동근",
+              },
+              keywords: tags.join(", "),
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `https://dglog.vercel.app/posts/${postId}`,
+              },
+            }),
+          }}
+        />
+        <header>
+          <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
+          <p className="text-gray-500">{formatDate(post.created_time)}</p>
+          {/* 태그 표시 */}
+          {tags.length > 0 && (
+            <div className="my-4 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/tags/${tag}`}
+                  className="rounded-md bg-gray-100 px-2 py-1 text-sm hover:bg-gray-200 dark:text-black"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
+          )}
+        </header>
 
-      {/* Markdown 렌더링 */}
-      <div className="prose max-w-none dark:prose-invert">
+        {/* Markdown 렌더링 */}
         <MDXRemote
           source={post.markdownContent}
           options={{
@@ -141,7 +155,19 @@ const BlogPostPage = async ({
             },
           }}
         />
-      </div>
+      </section>
+
+      {/* 목차 */}
+      <aside
+        className="sticky top-20 hidden h-screen w-1/5 flex-col justify-center gap-4 overflow-y-auto lg:flex"
+        aria-labelledby="toc-heading"
+      >
+        <h2 id="toc-heading" className="sr-only">
+          목차
+        </h2>
+        <div>이부분은 목차입니다 반갑습니다</div>
+        {/* 목차 내용 */}
+      </aside>
     </article>
   );
 };

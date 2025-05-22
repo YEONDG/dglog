@@ -4,7 +4,7 @@ import { ProjectsSection } from "@/components/home/projects-section";
 
 const Home = () => {
   return (
-    <> 
+    <div className="mx-auto min-h-screen max-w-5xl">
       {/* 스키마 구조화 데이터 추가 */}
       <script
         type="application/ld+json"
@@ -38,7 +38,7 @@ const Home = () => {
 
       {/* 프로젝트 섹션 */}
       <ProjectsSection />
-    </>
+    </div>
   );
 };
 
