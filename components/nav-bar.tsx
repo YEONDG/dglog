@@ -1,31 +1,31 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; // useRef 추가
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuIcon, X } from "lucide-react";
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  // 모바일 메뉴가 열려있을 때 스크롤 방지
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen]);
 
-  // 메뉴 닫기 함수
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className="bg-current/60 fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 shadow-md backdrop-blur-md">
+    <div
+      className={
+        "fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 shadow-md ring-2 backdrop-blur-md transition-all duration-300 ease-in-out"
+      }
+    >
       <Link href="/" className="relative text-3xl font-bold">
         DGlog
         <span className="absolute -bottom-1 -right-1 h-2 w-2 rounded-full bg-orange-500"></span>
