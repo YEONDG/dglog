@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 interface TocEntry {
   id: string;
@@ -46,13 +45,20 @@ export function ClientToc() {
               entry.level === 2 ? "ml-3" : ""
             } ${entry.level === 3 ? "ml-6" : ""} truncate`}
           >
-            <Link
+            <a
               href={`#${entry.id}`}
               className="text-sm text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400"
               title={entry.text}
+              onClick={(e) => {
+                e.preventDefault();
+                const targetElement = document.getElementById(entry.id);
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
             >
               {entry.text}
-            </Link>
+            </a>
           </li>
         ))}
       </ul>
