@@ -11,7 +11,6 @@ interface TocEntry {
 
 export function ClientToc() {
   const [toc, setToc] = useState<TocEntry[]>([]);
-  console.log(toc);
 
   useEffect(() => {
     const headings = document.querySelectorAll("h1, h2, h3");
