@@ -25,7 +25,7 @@ export const NavBar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <div className="fixed left-0 right-0 top-0 z-30 flex w-full items-center justify-between px-4 py-4 dark:bg-gray-900">
+    <div className="bg-current/60 fixed left-0 right-0 top-0 z-30 flex w-full items-center justify-between px-4 py-4 shadow-sm backdrop-blur-md">
       <Link href="/" className="relative text-3xl font-bold">
         DGlog
         <span className="absolute -bottom-1 -right-1 h-2 w-2 rounded-full bg-orange-500"></span>
@@ -57,7 +57,7 @@ export const NavBar = () => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
-          className="p-2"
+          className="p-4 pr-5"
         >
           {isOpen ? <X size={24} /> : <MenuIcon size={24} />}
         </button>
@@ -66,14 +66,14 @@ export const NavBar = () => {
       {/* 모바일 메뉴 오버레이 */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 sm:hidden"
+          className="fixed inset-0 z-40 h-screen bg-black bg-opacity-50 sm:hidden"
           onClick={closeMenu}
         ></div>
       )}
 
       {/* 모바일 메뉴 패널 */}
       <div
-        className={`fixed right-0 top-0 z-50 h-full w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-gray-900 sm:hidden ${
+        className={`fixed right-0 top-0 z-50 h-screen w-64 transform bg-white shadow-lg transition-transform duration-300 ease-in-out dark:bg-black/90 sm:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -90,7 +90,7 @@ export const NavBar = () => {
             </button>
           </div>
 
-          <nav className="flex flex-col space-y-4">
+          <nav className="flex flex-col space-y-4 text-4xl">
             <Link
               href="/"
               className="rounded-md px-4 py-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
