@@ -8,6 +8,7 @@ import rehypeSlug from "rehype-slug";
 import { formatDate } from "@/lib/utils";
 import { getNotionPosts, getPostById } from "@/lib/notion";
 import { ClientToc } from "@/components/posts/client-toc";
+import { BackBtn } from "@/components/posts/back-btn";
 
 export const revalidate = 86400; // 24시간마다 재검증
 
@@ -156,8 +157,8 @@ const BlogPostPage = async ({
         className="sticky top-20 hidden h-screen w-1/5 flex-col justify-center gap-4 overflow-y-auto lg:flex"
         aria-labelledby="toc-heading"
       >
+        <BackBtn />
         <h2 className="sr-only">목차</h2>
-
         <ClientToc />
       </aside>
     </article>
