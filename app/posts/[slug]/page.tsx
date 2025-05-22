@@ -77,7 +77,6 @@ const BlogPostPage = async ({
   const postId = (await params).slug;
   const currentPost = await getPostById(postId);
   const allPosts = await getNotionPosts();
-  console.log(allPosts, "포스트");
 
   if (!currentPost) {
     return (
