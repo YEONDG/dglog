@@ -2,9 +2,13 @@ import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
 import { unstable_cache } from "next/cache";
 import { revalidateTag } from "next/cache";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { MdBlock } from "notion-to-md/build/types";
 import { cache } from "react";
+import {
+  TDatabaseEntry,
+  TNotionPost,
+  TNotionQueryResult,
+} from "@/types/notion";
 
 // 설정 객체로 분리
 const config = {
@@ -17,24 +21,9 @@ const config = {
 const notion = new Client({ auth: config.notionApiKey });
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
-// 타입 정의
-type DatabaseEntry = PageObjectResponse & {
-  properties: {
-    제목: { title: Array<{ plain_text: string }> };
-    태그: { multi_select: Array<{ name: string }> };
-    생성일: { created_time: string };
-  };
-};
-
-type NotionPost = DatabaseEntry & {
-  markdownContent: string;
-};
-
-type NotionQueryResult = DatabaseEntry[];
-
 // 기본 데이터베이스 쿼리 함수
 const queryDatabase = cache(
-  async (options: { tag?: string } = {}): Promise<NotionQueryResult> => {
+  async (options: { tag?: string } = {}): Promise<TNotionQueryResult> => {
     try {
       console.log("🟢 Notion API 호출 발생!", options);
       const response = await notion.databases.query({
@@ -48,7 +37,7 @@ const queryDatabase = cache(
           },
         }),
       });
-      return response.results as NotionQueryResult;
+      return response.results as TNotionQueryResult;
     } catch (error) {
       console.error("Error querying Notion database:", error);
       throw new Error("Failed to fetch data from Notion");
@@ -109,11 +98,11 @@ export const getNotionTags = unstable_cache(
  * 특정 글(페이지)의 상세 정보를 가져오는 함수
  */
 export const getPostById = cache(
-  async (pageId: string): Promise<NotionPost | null> => {
+  async (pageId: string): Promise<TNotionPost | null> => {
     try {
       const page = (await notion.pages.retrieve({
         page_id: pageId,
-      })) as DatabaseEntry;
+      })) as TDatabaseEntry;
       const mdblocks = await n2m.pageToMarkdown(pageId);
       const newMdBlocks = convertNotionS3ToProxyUrl(mdblocks);
       const markdownContent = n2m.toMarkdownString(newMdBlocks).parent;

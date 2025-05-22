@@ -75,10 +75,10 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
                 </Link>
               </h2>
               <time
-                dateTime={post.properties.생성일.created_time}
+                dateTime={post.properties.생성일.date.start}
                 className="text-sm text-gray-600 dark:text-gray-400"
               >
-                {formatDate(post.properties.생성일.created_time)}
+                {formatDate(post.properties.생성일.date.start)}
               </time>
             </div>
 

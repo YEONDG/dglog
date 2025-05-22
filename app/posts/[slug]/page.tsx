@@ -53,8 +53,7 @@ export async function generateMetadata({
       title: `${title} | Dglog`,
       description,
       type: "article",
-      publishedTime: post.created_time,
-      modifiedTime: post.last_edited_time,
+      publishedTime: post.properties.생성일.date.start,
       authors: ["연동근"],
       tags: keywords,
     },
@@ -92,14 +91,12 @@ const BlogPostPage = async ({
     currentPost.properties.태그?.multi_select.map((tag) => tag.name) || [];
   const markdownSource = currentPost.markdownContent;
 
-  const recentPosts = allPosts
-    .filter((p) => p.id !== postId) // 현재 게시글 제외
-    .slice(0, 5);
+  const recentPosts = allPosts.filter((p) => p.id !== postId).slice(0, 5);
 
   return (
     <article className="mx-auto flex w-full justify-center">
       {/* 최신글 목록*/}
-      <aside className="sticky top-20 hidden h-screen w-64 flex-none flex-col gap-4 overflow-y-auto border-r border-gray-200 p-6 pr-8 dark:border-gray-700 xl:flex">
+      <aside className="sticky top-20 hidden h-screen flex-col items-end justify-center overflow-y-auto border-r border-gray-200 p-6 dark:border-gray-700 lg:flex">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
           최신 글
         </h2>
@@ -130,7 +127,7 @@ const BlogPostPage = async ({
         )}
       </aside>
       {/* 게시글 내용 */}
-      <section className="prose w-full max-w-6xl border-x-2 px-6 dark:prose-invert">
+      <section className="w-full max-w-5xl border-x-2 px-6">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -138,8 +135,7 @@ const BlogPostPage = async ({
               "@context": "https://schema.org",
               "@type": "BlogPosting",
               headline: title,
-              datePublished: currentPost.created_time,
-              dateModified: currentPost.last_edited_time,
+              datePublished: currentPost.properties.생성일.date.start,
               author: {
                 "@type": "Person",
                 name: "연동근",
@@ -152,44 +148,44 @@ const BlogPostPage = async ({
             }),
           }}
         />
-        <header>
-          <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
-          <p className="text-gray-500">
-            {formatDate(currentPost.created_time)}
-          </p>
-          {/* 태그 표시 */}
-          {tags.length > 0 && (
-            <div className="my-4 flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/tags/${tag}`}
-                  className="rounded-md bg-gray-100 px-2 py-1 text-sm hover:bg-gray-200 dark:text-black"
-                >
-                  {tag}
-                </Link>
-              ))}
-            </div>
-          )}
-        </header>
+        <div className="prose max-w-none dark:prose-invert">
+          <header>
+            <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
+            <p className="text-gray-500">
+              {formatDate(currentPost.properties.생성일.date.start)}
+            </p>
+            {/* 태그 표시 */}
+            {tags.length > 0 && (
+              <div className="my-4 flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <Link
+                    key={tag}
+                    href={`/tags/${tag}`}
+                    className="rounded-md bg-gray-100 px-2 py-1 text-sm hover:bg-gray-200 dark:text-black"
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </header>
 
-        {/* Markdown 렌더링 */}
-        <MDXRemote
-          source={markdownSource}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkGfm],
-              rehypePlugins: [
-                rehypeSlug, // 1. 제목에 ID 추가
-              ],
-            },
-          }}
-        />
+          {/* Markdown 렌더링 */}
+          <MDXRemote
+            source={markdownSource}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm],
+                rehypePlugins: [rehypeSlug],
+              },
+            }}
+          />
+        </div>
       </section>
 
       {/* 목차 */}
       <aside
-        className="sticky top-20 hidden h-screen w-1/5 flex-col justify-center gap-4 overflow-y-auto lg:flex"
+        className="sticky top-20 hidden h-screen flex-col justify-center gap-4 overflow-y-auto lg:flex"
         aria-labelledby="toc-heading"
       >
         <BackBtn />

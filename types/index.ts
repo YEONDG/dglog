@@ -28,20 +28,3 @@ export interface NotionTag {
   name: string;
   color?: string;
 }
-
-export interface NotionPost {
-  id: string;
-  properties: {
-    제목: {
-      title: Array<{
-        plain_text: string;
-      }>;
-    };
-    태그: {
-      multi_select: NotionTag[];
-    };
-    생성일: {
-      created_time: string;
-    };
-  };
-}
