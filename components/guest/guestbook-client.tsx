@@ -113,7 +113,7 @@ export const GuestBookClient = ({ initialEntries }: GuestBookClientProps) => {
   }, [deleteState.success, deleteState.error, deleteState.id]);
 
   return (
-    <div className="mx-auto mt-6 flex max-w-lg flex-col gap-4 rounded-lg p-4 shadow-lg dark:bg-gray-700">
+    <div className="mx-auto mt-6 flex max-w-lg flex-col gap-4 rounded-lg p-4 shadow-lg ring-2 dark:bg-gray-700">
       <h2 className="text-center text-2xl font-bold">📖 Guestbook</h2>
 
       {/* 방명록 목록 */}
