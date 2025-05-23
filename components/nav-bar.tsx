@@ -25,7 +25,7 @@ export const NavBar = () => {
   return (
     <div
       className={
-        "fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 shadow-md ring-2 backdrop-blur-md transition-all duration-300 ease-in-out"
+        "fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 shadow-md ring-2 backdrop-blur-md transition-all duration-300 ease-in-out"
       }
     >
       <Link href="/" className="relative text-3xl font-bold">
@@ -33,29 +33,32 @@ export const NavBar = () => {
         <span className="absolute -bottom-1 -right-1 h-2 w-2 rounded-full bg-orange-500"></span>
       </Link>
 
-      <div className="hidden justify-around sm:flex" data-testid="desktop-menu">
+      <div
+        className="hidden items-center justify-around sm:flex"
+        data-testid="desktop-menu"
+      >
         <ThemeToggle />
         <Link
           href="/"
-          className="px-4 py-2 transition-colors hover:text-orange-500"
+          className="px-4 py-6 transition-colors hover:text-orange-500"
         >
           Home
         </Link>
         <Link
           href="/projects"
-          className="px-4 py-2 transition-colors hover:text-orange-500"
+          className="px-4 py-6 transition-colors hover:text-orange-500"
         >
           Projects
         </Link>
         <Link
           href="/posts"
-          className="px-4 py-2 transition-colors hover:text-orange-500"
+          className="px-4 py-6 transition-colors hover:text-orange-500"
         >
           Posts
         </Link>
         <Link
           href="/guest"
-          className="px-4 py-2 transition-colors hover:text-orange-500"
+          className="px-4 py-6 transition-colors hover:text-orange-500"
         >
           Guest
         </Link>
@@ -65,7 +68,7 @@ export const NavBar = () => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
-          className="p-4 pr-5"
+          className="p-6 pr-5"
         >
           {isOpen ? <X size={24} /> : <MenuIcon size={24} />}
         </button>
@@ -93,7 +96,7 @@ export const NavBar = () => {
             <div className="flex items-center">
               <ThemeToggle />
             </div>
-            <button onClick={closeMenu} aria-label="Close menu" className="p-2">
+            <button onClick={closeMenu} aria-label="Close menu" className="p-4">
               <X size={24} />
             </button>
           </div>
