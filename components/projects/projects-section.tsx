@@ -1,7 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-
 import Dglog from "@/components/projects/dglog";
 import CuteChatting from "@/components/projects/cutechatting";
 import PokemonBook from "@/components/projects/pokemon-book";
@@ -10,9 +8,9 @@ import ImageConversionApp from "@/components/projects/image-conversion-app";
 export const ProjectsSection = () => {
   return (
     <section
-      className={cn(
-        "relative z-10 h-screen min-h-screen w-full transition-opacity duration-700",
-      )}
+      className={
+        "relative z-10 min-h-screen w-full transition-opacity duration-700"
+      }
     >
       <div className="container mx-auto px-4 py-24">
         <div className="mx-auto max-w-4xl">

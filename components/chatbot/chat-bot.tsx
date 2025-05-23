@@ -117,7 +117,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-16 right-5 z-50 ring-2">
       {/* 챗봇 아이콘 */}
       {!isOpen && (
         <button
@@ -131,14 +131,16 @@ const ChatBot = () => {
       {/* 챗봇 창 */}
       {isOpen && (
         <div
-          className="flex w-80 flex-col rounded-lg bg-white shadow-xl dark:bg-gray-600 sm:w-96"
+          className="flex w-80 flex-col bg-white shadow-xl dark:bg-slate-600 sm:w-96"
           style={{ height: "500px" }}
         >
           {/* 헤더 */}
-          <div className="flex items-center justify-between border-b p-4">
-            <h3 className="font-medium">포트폴리오 어시스턴트</h3>
-            <button onClick={toggleChat} className="">
-              <X size={20} />
+          <div className="flex items-center justify-between border-b">
+            <h3 className="px-4 text-2xl font-bold">
+              포트폴리오 AI 어시스턴트
+            </h3>
+            <button onClick={toggleChat} className="p-4">
+              <X size={30} />
             </button>
           </div>
 

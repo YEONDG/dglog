@@ -34,7 +34,7 @@ export const ChatInput = ({ onSend, isLoading }: ChatInputProps) => {
   };
 
   return (
-    <div className="flex w-full border-t p-4">
+    <div className="flex w-full border-t p-1">
       <div className="flex w-full">
         <Input
           type="text"
@@ -42,17 +42,17 @@ export const ChatInput = ({ onSend, isLoading }: ChatInputProps) => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="메시지를 입력하세요..."
-          className="flex-1 rounded-l-lg border p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="flex-1 rounded-l-lg border p-6 text-4xl placeholder:text-xl focus:outline-none focus:ring-2 focus:ring-blue-300"
           disabled={isLoading}
           ref={inputRef}
         />
         <Button
           onClick={handleSend}
           disabled={isLoading || !inputValue.trim()}
-          className={`rounded-r-lg bg-blue-500 p-2 text-white ${
+          className={`rounded-r-lg bg-blue-500 p-6 text-white ${
             isLoading || !inputValue.trim()
-              ? "cursor-not-allowed opacity-50"
-              : "hover:bg-blue-600"
+              ? "cursor-not-allowed opacity-80"
+              : "hover:bg-blue-800"
           }`}
         >
           <Send size={20} />

@@ -4,33 +4,35 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "Project 1",
-    description: "Description of project 1",
-    imageUrl: "/path/to/image1.jpg",
-    link: "https://example.com/project1",
+    title: "dglog",
+    description: "포트폴리오 및 블로그",
+    imageUrl: "/project-img/dglog-1webp.webp",
+    link: "/project/dglog",
   },
   {
-    title: "Project 2",
-    description: "Description of project 2",
-    imageUrl: "/path/to/image2.jpg",
-    link: "https://example.com/project2",
+    title: "cutechatting",
+    description: "아스키 채팅 커뮤니티 사이트",
+    imageUrl: "/project-img/cutechatting-1webp.webp",
+    link: "/project/cutechatting",
   },
   {
-    title: "Project 3",
-    description: "Description of project 3",
-    imageUrl: "/path/to/image3.jpg",
-    link: "https://example.com/project3",
+    title: "pokemon",
+    description: "포켓몬 도감 사이트",
+    imageUrl: "/project-img/pokemon-1webp.webp",
+    link: "/project/pokemon",
   },
   {
-    title: "Project 4",
-    description: "Description of project 3",
-    imageUrl: "/path/to/image3.jpg",
-    link: "https://example.com/project3",
+    title: "이미지변환앱",
+    description: "데스크톱 이미지 변환 앱",
+    imageUrl: "/project-img/image-app-1webp.webp",
+    link: "/project/image-conversion-app",
   },
 ];
 export const ProjectsNewSection = () => {
@@ -52,7 +54,7 @@ export const ProjectsNewSection = () => {
           stagger: 0.2,
           scrollTrigger: {
             trigger: containerRef.current,
-            start: "top 50%",
+            start: "top 70%",
             end: "bottom 60%",
             toggleActions: "play reverse play reverse",
           },
@@ -64,7 +66,7 @@ export const ProjectsNewSection = () => {
 
         htmlCard.addEventListener("mouseenter", () => {
           gsap.to(htmlCard, {
-            scale: 1.4,
+            scale: 1.2,
             duration: 0.3,
             ease: "power2.out",
             zIndex: 10,
@@ -88,33 +90,40 @@ export const ProjectsNewSection = () => {
   );
 
   return (
-    <section className="flex h-[calc(100vh-72px)] w-full flex-col items-center justify-center bg-red-100">
+    <section className="flex w-full flex-col items-center justify-center overflow-x-hidden px-4 py-36">
       <h2 className="mb-8 w-full text-start text-3xl font-bold text-gray-900 dark:text-white">
         Projects
       </h2>
-
-      <div ref={containerRef} className="flex justify-center gap-10">
+      <div
+        ref={containerRef}
+        className="grid grid-cols-2 justify-center gap-4 md:grid-cols-4"
+      >
         {projects.map((project, index) => (
           <div
             key={index}
-            className="flex h-96 w-48 flex-col justify-between overflow-hidden rounded-lg border bg-blue-200 p-4 shadow-lg"
+            className="group flex h-96 w-48 flex-col justify-between overflow-hidden rounded-lg border p-4 shadow-lg"
           >
+            <Image
+              src={project.imageUrl}
+              alt={`${project.title} 배경 이미지`}
+              fill
+              className="-z-20 object-cover opacity-20 transition-opacity duration-300 hover:opacity-80"
+            />
             <div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 {project.title}
               </h3>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
+              <p className="mt-2 text-gray-600 opacity-100 hover:inline-block group-hover:opacity-0 dark:text-gray-400">
                 {project.description}
               </p>
             </div>
-            <a
+            <Link
+              scroll={false}
               href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-block self-start rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              className="mt-4 inline-block self-start rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white opacity-0 hover:bg-blue-700 group-hover:opacity-100"
             >
-              View Project
-            </a>
+              자세히 알아보기
+            </Link>
           </div>
         ))}
       </div>

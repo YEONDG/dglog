@@ -4,11 +4,11 @@ import RotatingText from "./hero-section/rotating-text";
 
 export const HeroHeader = () => {
   return (
-    <header className="mx-auto h-[60vh] py-8 md:py-16">
+    <header className="mx-auto h-[80vh] py-8 md:py-16">
       <div className="flex h-full items-center gap-8 md:gap-16 lg:flex-row">
         {/* 인트로 텍스트 */}
         <div className="text-center lg:text-left">
-          <div className="flex items-center gap-5">
+          <div className="flex flex-col items-start gap-5 text-xl md:flex-row md:items-center">
             <span className="text-6xl font-bold">저는</span>
             <RotatingText
               texts={[

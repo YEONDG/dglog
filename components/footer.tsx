@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="mt-auto py-4 text-center text-sm text-gray-500">
+    <footer className="my-4 mt-4 text-center text-sm text-gray-500">
       <div className="mx-auto max-w-5xl px-4">
         <p>© 2025 연동근. All rights reserved.</p>
         <div className="mt-2">

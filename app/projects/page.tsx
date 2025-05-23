@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 const ProjectsPage = () => {
   return (
-    <section aria-labelledby="projects-heading" className="h-screen">
+    <section aria-labelledby="projects-heading">
       <h1 id="projects-heading" className="sr-only">
         프로젝트
       </h1>

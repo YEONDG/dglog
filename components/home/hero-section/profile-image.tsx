@@ -7,7 +7,7 @@ interface ProfileImageProps {
 
 export function ProfileImage({ src, alt }: ProfileImageProps) {
   return (
-    <div className="relative h-60 w-48 overflow-hidden rounded-2xl border-4 border-white shadow-xl dark:border-gray-800">
+    <div className="relative h-60 w-48 overflow-hidden rounded-2xl border-4 shadow-xl ring-2 dark:border-gray-800">
       <Image
         src={src}
         alt={alt}

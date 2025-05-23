@@ -58,7 +58,8 @@ export function ProjectCarousel({ projectName }: ProjectCarouselProps) {
                     src={imageUrl}
                     fill
                     alt={`${projectName} image ${index + 1}`}
-                    className="rounded-xl object-fill"
+                    className="rounded-xl object-contain"
+                    sizes="(max-width: 512px) 100vw, 512px"
                   />
                 </CardContent>
               </Card>

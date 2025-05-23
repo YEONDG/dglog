@@ -1,5 +1,6 @@
 "use client";
 
+import { TistoryLogo } from "@/components/icons/tistory-logo";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -67,6 +68,15 @@ export const SocialButtons = () => {
       >
         <Github size={16} />
         GitHub
+      </Button>
+
+      <Button
+        variant="outline"
+        className="flex items-center gap-2"
+        onClick={() => window.open("https://yeondg.tistory.com/", "_blank")}
+      >
+        <TistoryLogo />
+        티스토리 블로그
       </Button>
     </div>
   );
