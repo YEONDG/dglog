@@ -1,10 +1,10 @@
 import { HeroHeader } from "@/components/home/hero-header";
 import { AboutMeSection } from "@/components/home/about-me-section";
-import { ProjectsNewSection } from "@/components/home/project-new-section/projects-new-section";
+import { ProjectsNewSection } from "@/components/home/projects-new-section";
 
 const Home = () => {
   return (
-    <div className="mx-auto min-h-screen max-w-5xl">
+    <div className="mx-auto min-h-screen max-w-5xl px-4">
       {/* 스키마 구조화 데이터 추가 */}
       <script
         type="application/ld+json"
@@ -32,22 +32,11 @@ const Home = () => {
         }}
       />
 
-      {/* 히어로 섹션 */}
       <HeroHeader />
 
       <AboutMeSection />
 
       <ProjectsNewSection />
-
-      {/* 블로그 섹션 */}
-      {/* <BlogSection /> */}
-
-      {/* 방명록 섹션 */}
-      {/* <GuestBookSection /> */}
-
-      {/* 프로젝트 섹션 */}
-
-      {/* <ProjectsSection /> */}
     </div>
   );
 };
