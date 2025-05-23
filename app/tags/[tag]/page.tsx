@@ -51,18 +51,18 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
   }
 
   return (
-    <section className="mx-auto mt-10 flex min-h-screen w-full max-w-5xl flex-col gap-4">
+    <section className="mx-auto mt-10 flex min-h-screen w-full max-w-5xl flex-col gap-4 px-4">
       <header className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">태그: {tag}</h2>
         <Link href="/posts" className="text-sm text-blue-500 hover:underline">
           모든 포스트 보기
         </Link>
       </header>
-      <ul className="w-full list-none space-y-2">
+      <ul className="w-full space-y-2">
         {posts.map((post) => (
           <li
             key={post.id}
-            className="flex flex-col justify-center rounded-md px-2 py-1 transition-shadow duration-300 hover:shadow-lg"
+            className="flex flex-col justify-center rounded-md px-2 py-1 ring-2 transition-shadow duration-300 hover:shadow-lg"
           >
             {/* 제목과 날짜 행 */}
             <div className="flex items-center justify-between">

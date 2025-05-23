@@ -19,13 +19,13 @@ export const NotionPosts = async () => {
       {posts.map((post) => (
         <li
           key={post.id}
-          className="flex h-16 flex-col justify-start rounded-md border-2 px-2 py-1 transition-shadow duration-300 hover:shadow-lg"
+          className="flex h-16 flex-col justify-start rounded-md px-2 py-1 ring-2 transition-shadow duration-300 hover:shadow-lg"
         >
           <div className="flex items-center justify-between">
             <h2>
               <Link
                 href={`/posts/${post.id}`}
-                className="text-lg hover:underline"
+                className="p-5 text-lg hover:underline"
               >
                 {post.properties.제목.title[0]?.plain_text || "이름 없음"}
               </Link>
