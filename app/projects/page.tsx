@@ -1,3 +1,4 @@
+import { ProjectsSection } from "@/components/projects/projects-section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -24,10 +25,11 @@ export const metadata: Metadata = {
 
 const ProjectsPage = () => {
   return (
-    <section aria-labelledby="projects-heading">
+    <section aria-labelledby="projects-heading" className="h-screen">
       <h1 id="projects-heading" className="sr-only">
         프로젝트
       </h1>
+      <ProjectsSection />
     </section>
   );
 };

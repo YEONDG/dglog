@@ -89,7 +89,7 @@ export const ProjectsNewSection = () => {
 
   return (
     <section className="flex h-[calc(100vh-72px)] w-full flex-col items-center justify-center bg-red-100">
-      <h2 className="mb-8 text-3xl font-bold text-gray-900 dark:text-white">
+      <h2 className="mb-8 w-full text-start text-3xl font-bold text-gray-900 dark:text-white">
         Projects
       </h2>
 

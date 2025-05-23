@@ -2,7 +2,7 @@
 
 export const AboutMeSection = () => {
   return (
-    <section className="flex h-[calc(100vh-72px)] flex-col items-start justify-center py-6 md:py-16">
+    <section className="flex flex-col items-start justify-center py-6 md:py-16">
       <h2 className="mb-4 text-3xl font-bold dark:text-white">About me</h2>
       <p className="text-2xl font-semibold tracking-wide text-gray-900 dark:text-white">
         개발에 대한 순수한 호기심으로 시작해 꾸준히 공부해왔습니다. <br />
