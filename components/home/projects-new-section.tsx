@@ -111,17 +111,14 @@ export const ProjectsNewSection = () => {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div>
-              <h3 className="px-2 text-2xl font-semibold text-gray-900 group-hover:backdrop-blur-sm dark:text-white">
+              <h3 className="px-2 text-center text-2xl font-semibold text-gray-900 backdrop-blur-xl dark:text-white">
                 {project.title}
               </h3>
-              <p className="mt-2 text-gray-600 opacity-100 hover:inline-block group-hover:opacity-0 dark:text-gray-400">
-                {project.description}
-              </p>
             </div>
             <Link
               scroll={false}
               href={project.link}
-              className="mt-4 inline-block w-full self-start rounded-lg bg-blue-600 px-4 py-2 text-center text-sm font-medium text-white opacity-0 hover:bg-blue-700 group-hover:opacity-100"
+              className="mt-4 inline-block w-full self-start rounded-lg bg-blue-600 px-6 py-2 text-center text-sm font-medium text-white opacity-0 hover:bg-blue-700 group-hover:opacity-100"
             >
               알아보기
             </Link>
