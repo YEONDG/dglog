@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { NavBar } from "@/components/nav-bar";
@@ -13,10 +13,8 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import ChatBot from "@/components/chatbot/chat-bot";
 
-const pretendard = localFont({
-  src: "./fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
+const inter = Inter({
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -90,7 +88,7 @@ export const metadata: Metadata = {
     siteName: "Dglog",
     images: [
       {
-        url: "/images/og-image.png", // 이미지가 있다면 주소 확인
+        url: "/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "연동근 프론트엔드 개발자 포트폴리오",
@@ -129,7 +127,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className={`${pretendard.className} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
