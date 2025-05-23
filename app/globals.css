@@ -3,6 +3,13 @@
 @tailwind utilities;
 @plugin "@tailwindcss/typography";
 
+html,
+body {
+  height: 100svh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
