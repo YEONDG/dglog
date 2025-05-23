@@ -122,8 +122,10 @@ export const metadata: Metadata = {
 
 const RootLayout = ({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) => {
   return (
     <html lang="ko" suppressHydrationWarning>
@@ -134,16 +136,20 @@ const RootLayout = ({
           enableSystem
           themes={["light", "dark", "forest", "ocean"]}
         >
-          {/* <div className="mx-auto min-h-screen max-w-5xl"> */}
           <NavBar />
           {process.env.NODE_ENV === "production" &&
             process.env.NEXT_PUBLIC_GA_ID && (
               <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
             )}
-          <main className="min-h-screen pt-16">{children}</main>
+
+          <main className="relative min-h-screen pt-16">
+            {children}
+
+            {modal}
+          </main>
           <Footer />
           <ChatBot />
-          {/* </div> */}
+
           <Toaster richColors />
           <Analytics />
           <SpeedInsights />
