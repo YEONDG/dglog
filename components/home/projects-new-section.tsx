@@ -107,7 +107,7 @@ export const ProjectsNewSection = () => {
               src={project.imageUrl}
               alt={`${project.title} 배경 이미지`}
               fill
-              className="-z-20 object-cover opacity-20 transition-opacity duration-300 hover:opacity-80"
+              className="-z-20 object-cover opacity-20 transition-opacity duration-300 hover:opacity-100"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div>

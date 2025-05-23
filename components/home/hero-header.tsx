@@ -4,11 +4,11 @@ import RotatingText from "./hero-section/rotating-text";
 
 export const HeroHeader = () => {
   return (
-    <header className="mx-auto h-[80vh] py-8 md:py-16">
+    <header className="mx-auto h-screen w-full py-8 md:py-16">
       <div className="flex h-full items-center gap-8 md:gap-16 lg:flex-row">
         {/* 인트로 텍스트 */}
-        <div className="text-center lg:text-left">
-          <div className="flex flex-col items-start gap-5 text-xl md:flex-row md:items-center">
+        <div className="space-y-5 text-left">
+          <div className="flex flex-col items-start gap-5 text-xl lg:flex-row lg:items-center">
             <span className="text-6xl font-bold">저는</span>
             <RotatingText
               texts={[
@@ -30,7 +30,7 @@ export const HeroHeader = () => {
             />
             <span className="text-6xl font-bold">좋아하는</span>
           </div>
-          <h1 className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-4xl font-bold text-transparent md:text-6xl">
+          <h1 className="mb-4 break-keep bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-left text-4xl font-bold text-transparent lg:text-6xl">
             프론트엔드 개발자 연동근입니다.
           </h1>
         </div>

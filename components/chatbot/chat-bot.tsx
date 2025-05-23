@@ -117,7 +117,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-16 right-5 z-50 ring-2">
+    <div className="fixed bottom-16 right-5 z-50">
       {/* 챗봇 아이콘 */}
       {!isOpen && (
         <button
