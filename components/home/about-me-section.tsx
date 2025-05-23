@@ -28,13 +28,15 @@ export const AboutMeSection = () => {
         <h2 className="mb-4 px-4 py-5 text-3xl font-bold dark:text-white">
           About me
         </h2>
-        <div className="flex px-4">
-          <ProfileImage src="/연동근1.webp" alt="profile-img" />
-          <div className="flex items-end px-4">
+        <div className="flex flex-col items-center gap-4 px-4 sm:flex-row sm:items-end">
+          <div className="">
+            <ProfileImage src="/연동근1.webp" alt="profile-img" />
+          </div>
+          <div className="flex px-4">
             <SocialButtons />
           </div>
         </div>
-        <p className="px-4 py-4 text-lg font-semibold tracking-wide text-gray-900 dark:text-white md:text-2xl">
+        <p className="px-4 py-4 text-lg tracking-wide text-gray-900 dark:text-white md:text-2xl">
           개발에 대한 순수한 호기심으로 시작해 꾸준히 공부해왔습니다. <br />
           코딩 자체를 즐기며 올바른 개발 방식을 배우고자 매일 조금씩 성장해
           왔습니다. <br />

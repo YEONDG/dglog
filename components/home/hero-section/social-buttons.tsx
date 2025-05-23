@@ -24,7 +24,7 @@ export const SocialButtons = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 lg:justify-start">
+    <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
       <Dialog>
         <DialogTrigger asChild>
           <Button className="flex items-center gap-2">

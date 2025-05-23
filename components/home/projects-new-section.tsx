@@ -90,28 +90,28 @@ export const ProjectsNewSection = () => {
   );
 
   return (
-    <section className="flex w-full flex-col items-center justify-center overflow-x-hidden px-4 py-36">
+    <section className="flex w-full flex-col items-center justify-center px-4 py-36">
       <h2 className="mb-8 w-full text-start text-3xl font-bold text-gray-900 dark:text-white">
         Projects
       </h2>
       <div
         ref={containerRef}
-        className="grid grid-cols-2 justify-center gap-4 md:grid-cols-4"
+        className="grid grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-4 lg:gap-20"
       >
         {projects.map((project, index) => (
           <div
             key={index}
-            className="group relative flex h-96 w-48 flex-col justify-between overflow-hidden rounded-lg border p-4 shadow-lg"
+            className="hover:shadow-2x group relative flex h-96 w-48 flex-col justify-between p-4 shadow-lg ring-2"
           >
             <Image
               src={project.imageUrl}
               alt={`${project.title} 배경 이미지`}
               fill
-              className="-z-20 object-cover opacity-20 transition-opacity duration-300 hover:opacity-100"
+              className="-z-20 object-cover transition-opacity duration-300 hover:opacity-100"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             <div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h3 className="px-2 text-2xl font-semibold text-gray-900 group-hover:backdrop-blur-sm dark:text-white">
                 {project.title}
               </h3>
               <p className="mt-2 text-gray-600 opacity-100 hover:inline-block group-hover:opacity-0 dark:text-gray-400">
@@ -121,9 +121,9 @@ export const ProjectsNewSection = () => {
             <Link
               scroll={false}
               href={project.link}
-              className="mt-4 inline-block self-start rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white opacity-0 hover:bg-blue-700 group-hover:opacity-100"
+              className="mt-4 inline-block w-full self-start rounded-lg bg-blue-600 px-4 py-2 text-center text-sm font-medium text-white opacity-0 hover:bg-blue-700 group-hover:opacity-100"
             >
-              자세히 알아보기
+              알아보기
             </Link>
           </div>
         ))}
