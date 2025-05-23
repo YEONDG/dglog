@@ -131,14 +131,12 @@ const ChatBot = () => {
       {/* 챗봇 창 */}
       {isOpen && (
         <div
-          className="flex w-80 flex-col bg-white shadow-xl dark:bg-slate-600 sm:w-96"
+          className="flex w-80 flex-col bg-white shadow-xl ring-2 dark:bg-slate-600 sm:w-96"
           style={{ height: "500px" }}
         >
           {/* 헤더 */}
           <div className="flex items-center justify-between border-b">
-            <h3 className="px-4 text-2xl font-bold">
-              포트폴리오 AI 어시스턴트
-            </h3>
+            <h3 className="px-4 text-xl font-bold">포트폴리오 AI 어시스턴트</h3>
             <button onClick={toggleChat} className="p-4">
               <X size={30} />
             </button>

@@ -42,7 +42,7 @@ export const ChatInput = ({ onSend, isLoading }: ChatInputProps) => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder="메시지를 입력하세요..."
-          className="flex-1 rounded-l-lg border p-6 text-4xl placeholder:text-xl focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="flex-1 rounded-l-lg border p-6 text-lg placeholder:text-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
           disabled={isLoading}
           ref={inputRef}
         />
