@@ -11,7 +11,7 @@ export const revalidate = 86400; // 선택적: 24시간마다 재검증
 
 const PostsPage = () => {
   return (
-    <>
+    <div className="mx-auto flex min-h-screen w-full max-w-5xl gap-4 px-2">
       {/* 게시물 리스트 */}
       <article className="flex grow flex-col gap-4">
         <header className="flex items-center justify-between">
@@ -31,7 +31,7 @@ const PostsPage = () => {
           <TagList />
         </Suspense>
       </aside>
-    </>
+    </div>
   );
 };
 

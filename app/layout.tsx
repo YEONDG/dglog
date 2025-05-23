@@ -134,16 +134,16 @@ const RootLayout = ({
           enableSystem
           themes={["light", "dark", "forest", "ocean"]}
         >
-          <div className="mx-auto min-h-screen max-w-5xl px-4 sm:px-6 lg:px-8">
-            <NavBar />
-            {process.env.NODE_ENV === "production" &&
-              process.env.NEXT_PUBLIC_GA_ID && (
-                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-              )}
-            <main className="min-h-screen pt-16">{children}</main>
-            <Footer />
-            <ChatBot />
-          </div>
+          {/* <div className="mx-auto min-h-screen max-w-5xl"> */}
+          <NavBar />
+          {process.env.NODE_ENV === "production" &&
+            process.env.NEXT_PUBLIC_GA_ID && (
+              <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+            )}
+          <main className="min-h-screen pt-16">{children}</main>
+          <Footer />
+          <ChatBot />
+          {/* </div> */}
           <Toaster richColors />
           <Analytics />
           <SpeedInsights />

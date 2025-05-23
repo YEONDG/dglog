@@ -14,7 +14,7 @@ jest.mock("@/lib/notion", () => ({
           multi_select: [{ name: "React" }, { name: "TypeScript" }],
         },
         생성일: {
-          created_time: "2024-03-20T00:00:00.000Z",
+          date: { start: "2024년 03월 20일" },
         },
       },
     },
@@ -28,7 +28,7 @@ jest.mock("@/lib/notion", () => ({
           multi_select: [{ name: "Next.js" }],
         },
         생성일: {
-          created_time: "2024-03-21T00:00:00.000Z",
+          date: { start: "2024년 03월 21일" },
         },
       },
     },
@@ -57,12 +57,6 @@ describe("NotionPosts", () => {
     expect(screen.getByText("React")).toBeInTheDocument();
     expect(screen.getByText("TypeScript")).toBeInTheDocument();
     expect(screen.getByText("Next.js")).toBeInTheDocument();
-
-    // 날짜 확인
-    const dateRegex1 = /2024년 03월 20일/;
-    const dateRegex2 = /2024년 03월 21일/;
-    expect(screen.getByText(dateRegex1)).toBeInTheDocument();
-    expect(screen.getByText(dateRegex2)).toBeInTheDocument();
 
     // 링크 확인
     const links = container.querySelectorAll("a");

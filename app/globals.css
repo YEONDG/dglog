@@ -7,6 +7,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+h1[id],
+h2[id],
+h3[id] {
+  scroll-margin-top: 80px;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

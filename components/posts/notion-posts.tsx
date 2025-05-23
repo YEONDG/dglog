@@ -7,11 +7,15 @@ export const NotionPosts = async () => {
   const posts = await getNotionPosts();
 
   if (posts.length === 0) {
-    return <p className="py-4 text-center text-gray-500">작성된 포스트가 없습니다.</p>;
+    return (
+      <p className="py-4 text-center text-gray-500">
+        작성된 포스트가 없습니다.
+      </p>
+    );
   }
 
   return (
-    <ul className="space-y-4 list-none">
+    <ul className="list-none space-y-4">
       {posts.map((post) => (
         <li
           key={post.id}
@@ -19,18 +23,18 @@ export const NotionPosts = async () => {
         >
           <div className="flex items-center justify-between">
             <h2>
-            <Link
-              href={`/posts/${post.id}`}
-              className="text-lg hover:underline"
+              <Link
+                href={`/posts/${post.id}`}
+                className="text-lg hover:underline"
               >
-              {post.properties.제목.title[0]?.plain_text || "이름 없음"}
-            </Link>
-              </h2>
-              <time 
-              dateTime={post.properties.생성일.created_time}
+                {post.properties.제목.title[0]?.plain_text || "이름 없음"}
+              </Link>
+            </h2>
+            <time
+              dateTime={post.properties.생성일.date.start}
               className="text-sm text-gray-700"
             >
-              {formatDate(post.properties.생성일.created_time)}
+              {formatDate(post.properties.생성일.date.start)}
             </time>
           </div>
 

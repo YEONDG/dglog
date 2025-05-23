@@ -13,16 +13,20 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ tag: string }>}) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}) {
   const tag = decodeURIComponent((await params).tag);
-  
+
   return {
     title: `${tag} 관련 포스트 | Dglog`,
     description: `${tag} 태그와 관련된 모든 포스트입니다.`,
     openGraph: {
       title: `${tag} 관련 포스트 | Dglog`,
       description: `${tag} 태그와 관련된 모든 포스트입니다.`,
-    }
+    },
   };
 }
 
@@ -47,7 +51,7 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
   }
 
   return (
-    <section className="mt-10 flex w-full flex-col gap-4">
+    <section className="mx-auto mt-10 flex min-h-screen w-full max-w-5xl flex-col gap-4">
       <header className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">태그: {tag}</h2>
         <Link href="/posts" className="text-sm text-blue-500 hover:underline">
@@ -62,7 +66,7 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
           >
             {/* 제목과 날짜 행 */}
             <div className="flex items-center justify-between">
-            <h2 className="text-lg font-medium">
+              <h2 className="text-lg font-medium">
                 <Link
                   href={`/posts/${post.id}`}
                   className="hover:text-blue-600 hover:underline"
@@ -70,11 +74,11 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
                   {post.properties.제목.title[0]?.plain_text || "이름 없음"}
                 </Link>
               </h2>
-              <time 
-                dateTime={post.properties.생성일.created_time}
+              <time
+                dateTime={post.properties.생성일.date.start}
                 className="text-sm text-gray-600 dark:text-gray-400"
               >
-                {formatDate(post.properties.생성일.created_time)}
+                {formatDate(post.properties.생성일.date.start)}
               </time>
             </div>
 
