@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Gothic_A1 } from "next/font/google";
 import "./globals.css";
 
 import { NavBar } from "@/components/nav-bar";
@@ -13,8 +13,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import ChatBot from "@/components/chatbot/chat-bot";
 
-const inter = Inter({
+const inter = Gothic_A1({
   subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
