@@ -1,6 +1,6 @@
 import { HeroHeader } from "@/components/home/hero-header";
 import { AboutMeSection } from "@/components/home/about-me-section";
-import { ProjectsNewSection } from "@/components/home/projects-new-section";
+import { ProjectsSection } from "@/components/home/projects-section";
 
 const Home = () => {
   return (
@@ -36,7 +36,7 @@ const Home = () => {
 
       <AboutMeSection />
 
-      <ProjectsNewSection />
+      <ProjectsSection />
     </div>
   );
 };

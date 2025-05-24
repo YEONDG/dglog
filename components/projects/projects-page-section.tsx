@@ -5,7 +5,7 @@ import CuteChatting from "@/components/projects/cutechatting";
 import PokemonBook from "@/components/projects/pokemon-book";
 import ImageConversionApp from "@/components/projects/image-conversion-app";
 
-export const ProjectsSection = () => {
+export const ProjectsPageSection = () => {
   return (
     <section
       className={

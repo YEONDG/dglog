@@ -1,4 +1,4 @@
-import { ProjectsSection } from "@/components/projects/projects-section";
+import { ProjectsPageSection } from "@/components/projects/projects-page-section";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ const ProjectsPage = () => {
       <h1 id="projects-heading" className="sr-only">
         프로젝트
       </h1>
-      <ProjectsSection />
+      <ProjectsPageSection />
     </section>
   );
 };
