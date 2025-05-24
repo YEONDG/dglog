@@ -60,6 +60,13 @@ const CuteChatting = () => {
       </div>
 
       <section className="space-y-2 md:px-4">
+        <h2 className="text-xl font-semibold">기술 스택</h2>
+        <p>
+          Next.js 14, Typescript, Tailwind CSS v3, NextAuth.js v4, Zustand,
+          Supabase, Prisma, Zod, shadcn/ui, Framer Motion
+        </p>
+      </section>
+      <section className="space-y-2 md:px-4">
         <h2 className="text-xl font-semibold">프로젝트하면서 만난 문제</h2>
         <ul className="space-y-2 pl-2">
           <li>

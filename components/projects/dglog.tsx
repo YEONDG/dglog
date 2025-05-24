@@ -56,6 +56,13 @@ const Dglog = () => {
       </div>
 
       <section className="space-y-2 md:px-4">
+        <h2 className="text-xl font-semibold">기술 스택</h2>
+        <p>
+          Next.js 15, React 19, Typescript, Tailwind CSS v3, Notion API,
+          Supabase, Prisma, Zod, shadcn/ui
+        </p>
+      </section>
+      <section className="space-y-2 md:px-4">
         <h2 className="text-xl font-semibold">프로젝트하면서 만난 문제</h2>
         <ul className="space-y-2 pl-2">
           <li>
