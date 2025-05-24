@@ -1,13 +1,20 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 interface ProfileImageProps {
   src: string;
   alt: string;
+  className?: string;
 }
 
-export function ProfileImage({ src, alt }: ProfileImageProps) {
+export function ProfileImage({ src, alt, className }: ProfileImageProps) {
   return (
-    <div className="relative h-60 w-48 overflow-hidden rounded-2xl border-4 shadow-xl ring-2 dark:border-gray-800">
+    <div
+      className={cn(
+        "relative h-60 w-48 overflow-hidden rounded-2xl border-4 shadow-xl ring-2 dark:border-gray-800",
+        className,
+      )}
+    >
       <Image
         src={src}
         alt={alt}
