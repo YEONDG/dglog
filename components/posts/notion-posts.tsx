@@ -31,10 +31,14 @@ export const NotionPosts = async () => {
               </Link>
             </h2>
             <time
-              dateTime={post.properties.생성일.date.start}
+              dateTime={
+                post.properties["생성일"]?.date?.start || post.created_time
+              }
               className="text-sm text-gray-700"
             >
-              {formatDate(post.properties.생성일.date.start)}
+              {formatDate(
+                post.properties["생성일"]?.date?.start || post.created_time,
+              )}
             </time>
           </div>
 
