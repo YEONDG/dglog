@@ -7,17 +7,16 @@ import { ProfileImage } from "./hero-section/profile-image";
 import { cn } from "@/lib/utils";
 
 export const AboutMeSection = () => {
-  const [elementRef, isIntersecting] = useIntersectionObserver({
-    rootMargin: "0px 0px -300px 0px",
-  });
+  const [elementRef, isIntersecting] = useIntersectionObserver();
+
   return (
     <section
-      className="flex h-full flex-col items-start justify-center py-36"
+      className="flex flex-col items-start justify-center"
       ref={elementRef}
     >
       <div
         className={cn(
-          "transition-all duration-700 ease-in-out",
+          "flex flex-col items-start transition-all duration-500 ease-in-out",
 
           {
             "translate-y-5 opacity-0": !isIntersecting,
@@ -25,12 +24,16 @@ export const AboutMeSection = () => {
           },
         )}
       >
-        <h2 className="mb-4 px-4 py-5 text-3xl font-bold dark:text-white">
+        <h2 className="mb-4 px-2 py-5 text-3xl font-bold dark:text-white">
           About me
         </h2>
-        <div className="flex flex-col items-center gap-4 px-4 sm:flex-row sm:items-end">
+        <div className="flex items-center gap-2 px-4 sm:flex-row sm:items-end">
           <div className="">
-            <ProfileImage src="/연동근1.webp" alt="profile-img" />
+            <ProfileImage
+              src="/연동근1.webp"
+              alt="profile-img"
+              className="w-40 sm:w-48"
+            />
           </div>
           <div className="flex px-4">
             <SocialButtons />
