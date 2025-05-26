@@ -59,45 +59,48 @@ const TagPage = async ({ params }: { params: Promise<{ tag: string }> }) => {
         </Link>
       </header>
       <ul className="w-full space-y-2">
-        {posts.map((post) => (
-          <li
-            key={post.id}
-            className="flex flex-col justify-center rounded-md px-2 py-1 ring-2 transition-shadow duration-300 hover:shadow-lg"
-          >
-            {/* 제목과 날짜 행 */}
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-medium">
-                <Link
-                  href={`/posts/${post.id}`}
-                  className="hover:text-blue-600 hover:underline"
-                >
-                  {post.properties.제목.title[0]?.plain_text || "이름 없음"}
-                </Link>
-              </h2>
-              <time
-                dateTime={post.properties.생성일.date.start}
-                className="text-sm text-gray-600 dark:text-gray-400"
-              >
-                {formatDate(post.properties.생성일.date.start)}
-              </time>
-            </div>
+        {posts.map((post) => {
+          const dateValue =
+            post.properties["생성일"]?.date?.start || post.created_time;
+          return (
+            <li
+              key={post.id}
+              className="flex flex-col justify-center rounded-md px-2 py-1 ring-2 transition-shadow duration-300 hover:shadow-lg"
+            >
+              {/* 제목과 날짜 행 */}
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-medium">
+                  <Link
+                    href={`/posts/${post.id}`}
+                    className="hover:text-blue-600 hover:underline"
+                  >
+                    {post.properties.제목.title[0]?.plain_text || "이름 없음"}
+                  </Link>
+                </h2>
+                {dateValue && (
+                  <time dateTime={dateValue} className="text-sm text-gray-700">
+                    {formatDate(dateValue)}
+                  </time>
+                )}
+              </div>
 
-            {/* 태그 행 */}
-            <div className="mt-1 hidden justify-end gap-1 md:flex">
-              {post.properties.태그.multi_select.map((postTag) => (
-                <Link
-                  key={postTag.name}
-                  href={`/tags/${postTag.name}`}
-                  className={`rounded-md px-2 py-1 text-xs hover:bg-gray-100 ${
-                    postTag.name === tag ? "bg-gray-200" : ""
-                  }`}
-                >
-                  {postTag.name}
-                </Link>
-              ))}
-            </div>
-          </li>
-        ))}
+              {/* 태그 행 */}
+              <div className="mt-1 hidden justify-end gap-1 md:flex">
+                {post.properties.태그.multi_select.map((postTag) => (
+                  <Link
+                    key={postTag.name}
+                    href={`/tags/${postTag.name}`}
+                    className={`rounded-md px-2 py-1 text-xs hover:bg-gray-100 ${
+                      postTag.name === tag ? "bg-gray-200" : ""
+                    }`}
+                  >
+                    {postTag.name}
+                  </Link>
+                ))}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
