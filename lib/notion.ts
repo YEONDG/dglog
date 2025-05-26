@@ -21,26 +21,37 @@ const config = {
 const notion = new Client({ auth: config.notionApiKey });
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
-// 기본 데이터베이스 쿼리 함수
-const queryDatabase = cache(
-  async (options: { tag?: string } = {}): Promise<TNotionQueryResult> => {
+const queryAllPosts = cache(async (): Promise<TNotionQueryResult> => {
+  try {
+    console.log("🟢 전체 포스트 Notion API 호출!");
+    const response = await notion.databases.query({
+      database_id: config.databaseId,
+    });
+    return response.results as TNotionQueryResult;
+  } catch (error) {
+    console.error("Error querying all posts:", error);
+    throw new Error("Failed to fetch all posts from Notion");
+  }
+});
+
+// 특정 태그의 포스트를 가져오는 함수 (태그별로 별도 캐시)
+const queryPostsByTag = cache(
+  async (tag: string): Promise<TNotionQueryResult> => {
     try {
-      console.log("🟢 Notion API 호출 발생!", options);
+      console.log(`🟢 태그(${tag}) 포스트 Notion API 호출!`);
       const response = await notion.databases.query({
         database_id: config.databaseId,
-        ...(options.tag && {
-          filter: {
-            property: "태그",
-            multi_select: {
-              contains: options.tag,
-            },
+        filter: {
+          property: "태그",
+          multi_select: {
+            contains: tag,
           },
-        }),
+        },
       });
       return response.results as TNotionQueryResult;
     } catch (error) {
-      console.error("Error querying Notion database:", error);
-      throw new Error("Failed to fetch data from Notion");
+      console.error(`Error querying posts by tag ${tag}:`, error);
+      throw new Error(`Failed to fetch posts with tag ${tag} from Notion`);
     }
   },
 );
@@ -50,7 +61,7 @@ const queryDatabase = cache(
  */
 export const getNotionPosts = unstable_cache(
   async () => {
-    return queryDatabase();
+    return queryAllPosts();
   },
   ["notion_posts"],
   {
@@ -60,21 +71,25 @@ export const getNotionPosts = unstable_cache(
 
 /**
  * 특정 태그의 포스트를 가져오는 함수
+ * 각 태그별로 별도의 캐시 키를 가지도록 수정
  */
-export const getNotionPostsByTag = unstable_cache(
-  async (tag: string) => queryDatabase({ tag }),
-  ["notion_posts_by_tag"],
-  {
-    revalidate: config.cacheRevalidate,
-  },
-);
+export const getNotionPostsByTag = (tag: string) => {
+  return unstable_cache(
+    async () => queryPostsByTag(tag),
+    [`notion_posts_by_tag_${tag}`],
+    {
+      revalidate: config.cacheRevalidate,
+      tags: ["notion_posts", `notion_posts_tag_${tag}`],
+    },
+  )();
+};
 
 /**
  * 노션 데이터베이스의 모든 태그를 가져오는 함수
  */
 export const getNotionTags = unstable_cache(
   async () => {
-    const posts = await queryDatabase();
+    const posts = await queryAllPosts();
     const tags = new Set<string>();
 
     posts.forEach((post) => {
@@ -91,35 +106,62 @@ export const getNotionTags = unstable_cache(
   ["notion_tags"],
   {
     revalidate: config.cacheRevalidate,
+    tags: ["notion_tags", "notion_posts"], // notion_posts 변경 시 함께 무효화
   },
 );
 
 /**
  * 특정 글(페이지)의 상세 정보를 가져오는 함수
  */
-export const getPostById = cache(
-  async (pageId: string): Promise<TNotionPost | null> => {
-    try {
-      const page = (await notion.pages.retrieve({
-        page_id: pageId,
-      })) as TDatabaseEntry;
-      const mdblocks = await n2m.pageToMarkdown(pageId);
-      const newMdBlocks = convertNotionS3ToProxyUrl(mdblocks);
-      const markdownContent = n2m.toMarkdownString(newMdBlocks).parent;
+export const getPostById = (pageId: string) => {
+  return unstable_cache(
+    async (): Promise<TNotionPost | null> => {
+      try {
+        console.log(`🟢 포스트(${pageId}) 상세 정보 API 호출!`);
+        const page = (await notion.pages.retrieve({
+          page_id: pageId,
+        })) as TDatabaseEntry;
+        const mdblocks = await n2m.pageToMarkdown(pageId);
+        const newMdBlocks = convertNotionS3ToProxyUrl(mdblocks);
+        const markdownContent = n2m.toMarkdownString(newMdBlocks).parent;
 
-      return { ...page, markdownContent };
-    } catch (error) {
-      console.error("Error fetching Notion post:", error);
-      return null;
-    }
-  },
-);
+        return { ...page, markdownContent };
+      } catch (error) {
+        console.error("Error fetching Notion post:", error);
+        return null;
+      }
+    },
+    [`notion_post_${pageId}`],
+    {
+      revalidate: config.cacheRevalidate,
+      tags: [`notion_post_${pageId}`, "notion_posts"],
+    },
+  )();
+};
 
 /**
  * 특정 포스트의 캐시를 무효화하는 함수
  */
 export async function revalidatePost(pageId: string) {
   revalidateTag(`notion_post:${pageId}`);
+  revalidateTag("notion_posts");
+  revalidateTag("notion_tags"); // 태그 목록도 함께 무효화
+}
+
+/**
+ * 모든 Notion 관련 캐시를 무효화하는 함수
+ */
+export async function revalidateAllNotionCache() {
+  revalidateTag("notion_posts");
+  revalidateTag("notion_tags");
+  revalidateTag("notion_posts_by_tag");
+}
+
+/**
+ * 특정 태그의 캐시를 무효화하는 함수
+ */
+export async function revalidateTagCache(tag: string) {
+  revalidateTag(`notion_posts_tag_${tag}`);
   revalidateTag("notion_posts");
 }
 
