@@ -21,6 +21,11 @@ const config = {
 const notion = new Client({ auth: config.notionApiKey });
 const n2m = new NotionToMarkdown({ notionClient: notion });
 
+// 한글을 안전한 ASCII 문자열로 변환하는 함수
+const sanitizeTagForCache = (tag: string): string => {
+  return encodeURIComponent(tag);
+};
+
 const queryAllPosts = cache(async (): Promise<TNotionQueryResult> => {
   try {
     console.log("🟢 전체 포스트 Notion API 호출!");
@@ -74,12 +79,13 @@ export const getNotionPosts = unstable_cache(
  * 각 태그별로 별도의 캐시 키를 가지도록 수정
  */
 export const getNotionPostsByTag = (tag: string) => {
+  const safeTag = sanitizeTagForCache(tag);
   return unstable_cache(
     async () => queryPostsByTag(tag),
-    [`notion_posts_by_tag_${tag}`],
+    [`notion_posts_by_tag_${safeTag}`],
     {
       revalidate: config.cacheRevalidate,
-      tags: ["notion_posts", `notion_posts_tag_${tag}`],
+      tags: ["notion_posts", `notion_posts_tag_${safeTag}`],
     },
   )();
 };
@@ -140,15 +146,6 @@ export const getPostById = (pageId: string) => {
 };
 
 /**
- * 특정 포스트의 캐시를 무효화하는 함수
- */
-export async function revalidatePost(pageId: string) {
-  revalidateTag(`notion_post:${pageId}`);
-  revalidateTag("notion_posts");
-  revalidateTag("notion_tags"); // 태그 목록도 함께 무효화
-}
-
-/**
  * 모든 Notion 관련 캐시를 무효화하는 함수
  */
 export async function revalidateAllNotionCache() {
@@ -158,11 +155,21 @@ export async function revalidateAllNotionCache() {
 }
 
 /**
+ * 특정 포스트의 캐시를 무효화하는 함수
+ */
+export async function revalidatePost(pageId: string) {
+  revalidateTag(`notion_post:${pageId}`);
+  revalidateTag("notion_posts");
+  revalidateTag("notion_tags"); // 태그 목록도 함께 무효화
+}
+
+/**
  * 특정 태그의 캐시를 무효화하는 함수
  */
 export async function revalidateTagCache(tag: string) {
-  revalidateTag(`notion_posts_tag_${tag}`);
-  revalidateTag("notion_posts");
+  const safeTag = sanitizeTagForCache(tag);
+  revalidateTag(`notion_posts_tag_${safeTag}`);
+  revalidateTag("notion_posts"); // 전체 목록도 함께 무효화
 }
 
 /**
