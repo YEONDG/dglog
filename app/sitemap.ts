@@ -1,5 +1,6 @@
 import { getNotionPosts, getNotionTags } from "@/lib/notion";
 import { MetadataRoute } from "next";
+import { projectsMetadata } from "@/data/project-metadata"; // Added import
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 블로그 포스트 가져오기
@@ -20,6 +21,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
+  // 프로젝트 페이지 가져오기 - Added section
+  const projectSlugs = Object.keys(projectsMetadata);
+  const projectEntries = projectSlugs.map((slug) => ({
+    url: `https://dglog.vercel.app/project/${slug}`,
+    lastModified: new Date().toISOString(), // Assuming projects are updated less frequently
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   // 정적 페이지
   const staticPages = [
     {
@@ -35,6 +45,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: "https://dglog.vercel.app/projects", // Added main projects page
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly" as const, 
+      priority: 0.8, 
+    },
+    {
       url: "https://dglog.vercel.app/guestbook",
       lastModified: new Date().toISOString(),
       changeFrequency: "daily" as const,
@@ -42,5 +58,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  return [...staticPages, ...postEntries, ...tagEntries];
+  return [...staticPages, ...postEntries, ...tagEntries, ...projectEntries]; // Added projectEntries
 }

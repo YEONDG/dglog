@@ -1,5 +1,7 @@
 import { projectComponentMap } from "@/components/projects";
 import React from "react";
+import type { Metadata } from 'next';
+import { projectsMetadata } from '@/data/project-metadata';
 
 type TProjects = "dglog" | "cutechatting" | "pokemon" | "image-conversion-app";
 
@@ -8,6 +10,48 @@ export function generateStaticParams() {
   return slugs.map((slug) => ({
     slug: slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const slug = params.slug;
+  // Ensure the slug is one of the expected project slugs to leverage projectsMetadata typing
+  const projectKey = slug as keyof typeof projectsMetadata;
+  const project = projectsMetadata[projectKey];
+
+  if (!project) {
+    return {
+      title: 'Project Not Found',
+      description: 'The requested project does not exist.',
+    };
+  }
+
+  const pageTitle = `${project.title} | Project`;
+  const pageDescription = project.description;
+
+  return {
+    title: pageTitle,
+    description: pageDescription,
+    keywords: project.keywords,
+    openGraph: {
+      title: pageTitle,
+      description: pageDescription,
+      type: 'article',
+      // images are handled by app/project/[slug]/opengraph-image.tsx
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: pageDescription,
+      // images are handled by app/project/[slug]/opengraph-image.tsx
+    },
+    alternates: {
+      canonical: `https://dglog.vercel.app/project/${slug}`,
+    },
+  };
 }
 
 const ProjectPage = async ({
