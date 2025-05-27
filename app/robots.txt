@@ -1,13 +1,15 @@
+# Allow all crawlers full access by default
 User-agent: *
 Allow: /
 
-User-agent: Googlebot-Image
-Disallow: /
+# Optionally, you can disallow specific paths if they exist and should not be crawled.
+# For example, if you had an admin area:
+# Disallow: /admin/
+# Or API routes that don't need to be indexed:
+# Disallow: /api/
 
-User-agent: Googlebot
-Disallow: /images/
-Disallow: /*.jpg$
-Disallow: /*.jpeg$
-Disallow: /*.png$
-Disallow: /*.gif$
-Disallow: /*.webp$
+# Allow Googlebot (and Googlebot-Image by inheritance) to crawl images.
+# By removing the specific Disallow rules for images, they become allowed due to "Allow: /" above.
+
+# Point crawlers to the sitemap
+Sitemap: https://dglog.vercel.app/sitemap.xml

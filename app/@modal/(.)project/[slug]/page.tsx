@@ -15,7 +15,7 @@ const ProjectPage = async ({
 }: {
   params: Promise<{ slug: TProjects }>;
 }) => {
-  const { slug } = await params;
+  const slug = (await params).slug;
   const ProjectComponent = projectComponentMap[slug];
   return (
     <Modal>

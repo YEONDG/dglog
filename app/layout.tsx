@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     siteName: "Dglog",
     images: [
       {
-        url: "/images/og-image.png",
+        url: "/og-image.png", // Corrected path
         width: 1200,
         height: 630,
         alt: "연동근 프론트엔드 개발자 포트폴리오",
@@ -102,7 +102,7 @@ export const metadata: Metadata = {
     description:
       "프론트엔드 개발자 연동근의 포트폴리오 웹사이트입니다. React, TypeScript, Next.js를 활용한 개발 경험과 프로젝트를 소개합니다.",
     creator: "@yeondg",
-    images: ["https://dglog.vercel.app/og-image.png"], // 이미지가 있다면 주소 확인
+    images: ["/og-image.png"], // Changed to relative path
   },
   alternates: {
     canonical: "https://dglog.vercel.app",
