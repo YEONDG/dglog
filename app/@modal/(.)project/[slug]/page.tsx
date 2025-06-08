@@ -1,5 +1,10 @@
 import { Modal } from "@/components/modal";
-import { projectComponentMap } from "@/components/projects";
+import { ComponentType } from "react";
+
+import CuteChatting from "@/components/projects/cutechatting";
+import Dglog from "@/components/projects/dglog";
+import Pokemon from "@/components/projects/pokemon-book";
+import ImageConversionApp from "@/components/projects/image-conversion-app";
 
 type TProjects = "dglog" | "cutechatting" | "pokemon" | "image-conversion-app";
 
@@ -9,6 +14,13 @@ export function generateStaticParams() {
     slug: slug,
   }));
 }
+
+const projectComponentMap: Record<string, ComponentType> = {
+  dglog: Dglog,
+  cutechatting: CuteChatting,
+  pokemon: Pokemon,
+  "image-conversion-app": ImageConversionApp,
+};
 
 const ProjectPage = async ({
   params,
