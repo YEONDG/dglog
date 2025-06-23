@@ -34,7 +34,10 @@ const GuestPage = () => {
   const entries = getGuestEntries();
 
   return (
-    <section aria-labelledby="guestbook-heading" className="h-screen w-full">
+    <section
+      aria-labelledby="guestbook-heading"
+      className="h-full w-full pb-10"
+    >
       <h1 id="guestbook-heading" className="sr-only">
         방명록
       </h1>
