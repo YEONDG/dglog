@@ -20,12 +20,12 @@ export const HomeProjectCard = ({ project }: HomeProjectCardProps) => {
       className={`group relative flex h-96 w-60 flex-col justify-center shadow-lg transition-transform ${project.bgColor} ${project.hoverBgColor}`}
     >
       <div className="space-y-4 px-4">
-        <h2 className="py-10 text-2xl font-semibold text-gray-900 backdrop-blur-xl dark:text-white">
+        <h2 className="py-10 text-2xl font-semibold text-gray-900 backdrop-blur-xl">
           {project.title}
         </h2>
-        <p>{project.description}</p>
+        <p className="text-gray-900">{project.description}</p>
         <div>
-          <h3>기술스택</h3>
+          <h3 className="text-gray-900">기술스택</h3>
           <div className="flex">
             <TooltipProvider>
               {project.stacks?.map((stack) => {
