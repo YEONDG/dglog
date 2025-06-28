@@ -35,15 +35,14 @@ export function ClientToc() {
   }
 
   return (
-    <div className="px-4">
-      <h3 className="mb-4 text-xl font-semibold">목차</h3>
-      <ul className="space-y-2">
+    <div className="px-2">
+      <ul className="space-y text-xs">
         {toc.map((entry, index) => (
           <li
             key={`${entry.id}-${index}`}
             className={`${entry.level === 1 ? "font-bold" : ""} ${
-              entry.level === 2 ? "ml-3" : ""
-            } ${entry.level === 3 ? "ml-6" : ""} truncate`}
+              entry.level === 2 ? "ml-2" : ""
+            } ${entry.level === 3 ? "ml-5" : ""}`}
           >
             <a
               href={`#${entry.id}`}
