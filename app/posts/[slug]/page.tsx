@@ -8,6 +8,7 @@ import rehypeSlug from "rehype-slug";
 import { formatDate } from "@/lib/utils";
 import { getNotionPosts, getPostById } from "@/lib/notion";
 import { ClientToc } from "@/components/posts/client-toc";
+import { notFound } from "next/navigation";
 
 export const revalidate = 86400; // 24시간마다 재검증
 
@@ -74,15 +75,11 @@ const BlogPostPage = async ({
 }) => {
   const postId = (await params).slug;
   const currentPost = await getPostById(postId);
-  const allPosts = await getNotionPosts();
 
   if (!currentPost) {
-    return (
-      <p className="text-center text-red-500">
-        해당 게시글을 찾을 수 없습니다.
-      </p>
-    );
+    notFound();
   }
+  const allPosts = await getNotionPosts();
 
   const titleProperty = currentPost.properties.제목;
   const title = titleProperty.title[0]?.plain_text || "제목 없음";
