@@ -4,11 +4,12 @@ import { useState, useEffect } from "react"; // useRef 추가
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MenuIcon, X } from "lucide-react";
+import { useNavbarVisibility } from "@/hooks/useNavbarVisibility";
 
 export const NavBar = () => {
+  const isVisible = useNavbarVisibility();
   const [isOpen, setIsOpen] = useState(false);
 
-  // 모바일 메뉴가 열려있을 때 스크롤 방지
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -24,9 +25,7 @@ export const NavBar = () => {
 
   return (
     <div
-      className={
-        "fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 shadow-md ring-2 backdrop-blur-md transition-all duration-300 ease-in-out"
-      }
+      className={`fixed left-0 right-0 top-0 z-30 mx-auto flex w-full max-w-7xl items-center justify-between px-4 shadow-md ring-2 backdrop-blur-md transition-all duration-300 ease-in-out ${isVisible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <Link href="/" className="relative text-3xl font-bold">
         DGlog
