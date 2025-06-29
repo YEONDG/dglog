@@ -4,11 +4,7 @@ import { unstable_cache } from "next/cache";
 import { revalidateTag } from "next/cache";
 import { MdBlock } from "notion-to-md/build/types";
 import { cache } from "react";
-import {
-  TDatabaseEntry,
-  TNotionPost,
-  TNotionQueryResult,
-} from "@/types/notion";
+import { TDatabaseEntry, TNotionPost, TNotionQueryResult } from "@/types";
 
 // 설정 객체로 분리
 const config = {

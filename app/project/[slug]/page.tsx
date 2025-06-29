@@ -2,8 +2,7 @@ import { projectComponentMap } from "@/components/projects";
 import React from "react";
 import type { Metadata } from "next";
 import { projectsMetadata } from "@/data/project-metadata";
-
-type TProjects = "dglog" | "cutechatting" | "pokemon" | "image-conversion-app";
+import { TProjects } from "@/types";
 
 export function generateStaticParams() {
   const slugs = ["dglog", "cutechatting", "pokemon", "image-conversion-app"];

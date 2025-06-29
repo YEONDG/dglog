@@ -5,8 +5,7 @@ import CuteChatting from "@/components/projects/cutechatting";
 import Dglog from "@/components/projects/dglog";
 import Pokemon from "@/components/projects/pokemon-book";
 import ImageConversionApp from "@/components/projects/image-conversion-app";
-
-type TProjects = "dglog" | "cutechatting" | "pokemon" | "image-conversion-app";
+import { TProjects } from "@/types";
 
 export function generateStaticParams() {
   const slugs = ["dglog", "cutechatting", "pokemon", "image-conversion-app"];

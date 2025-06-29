@@ -1,16 +1,9 @@
 "use server";
 
 import { prisma } from "@/prisma/db";
-import { Guestbook } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcrypt";
-
-type GuestbookState = {
-  success?: boolean;
-  error?: string;
-  entry?: Guestbook;
-  id?: string;
-};
+import { GuestbookState } from "@/types";
 
 const SALT_ROUNDS = parseInt(process.env.BCRYPT_SALT_ROUNDS || "10");
 const PEPPER = process.env.PASSWORD_PEPPER;

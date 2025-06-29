@@ -7,7 +7,7 @@ import { instructions } from "@/data/instructions";
 import { ChatInput } from "./chat-input";
 import { LoadingIndicator } from "./loading-indicator";
 import { ChatMessage } from "./chat-message";
-import { TChatMessage } from "@/types/chat-message";
+import { TChatMessage } from "@/types";
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);

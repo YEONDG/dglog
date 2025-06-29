@@ -1,17 +1,15 @@
-import { ImageResponse } from 'next/og';
-import { projectsMetadata } from '@/data/project-metadata'; // Assuming this path is correct as per previous tasks
-
-// Image metadata
-export const alt = 'Project Preview Image'; // Default alt text
+import { ImageResponse } from "next/og";
+import { projectsMetadata } from "@/data/project-metadata";
+export const alt = "Project Preview Image";
 export const size = {
   width: 1200,
   height: 630,
 };
-export const contentType = 'image/png';
+export const contentType = "image/png";
 
 // Image generation
 export default async function Image({ params }: { params: { slug: string } }) {
-  const slug = params.slug as keyof typeof projectsMetadata; // Cast slug to keyof projectsMetadata
+  const slug = params.slug as keyof typeof projectsMetadata;
   const project = projectsMetadata[slug];
 
   if (!project) {
@@ -20,15 +18,15 @@ export default async function Image({ params }: { params: { slug: string } }) {
         <div
           style={{
             fontSize: 48,
-            background: 'black',
-            color: 'white',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textAlign: 'center',
-            padding: '20px'
+            background: "black",
+            color: "white",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "20px",
           }}
         >
           Project Not Found
@@ -36,37 +34,37 @@ export default async function Image({ params }: { params: { slug: string } }) {
       ),
       {
         ...size,
-      }
+      },
     );
   }
 
-  const title = project.title || 'Untitled Project';
+  const title = project.title || "Untitled Project";
 
   return new ImageResponse(
     (
       <div
         style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#222', // Darker background for projects
-          color: 'white',
-          padding: '40px',
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#222", // Darker background for projects
+          color: "white",
+          padding: "40px",
           fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-          border: '20px solid #444' // Border color adjusted for darker theme
+          border: "20px solid #444", // Border color adjusted for darker theme
         }}
       >
         <div
           style={{
             fontSize: 72, // Larger font size for project titles
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '30px',
+            fontWeight: "bold",
+            textAlign: "center",
+            marginBottom: "30px",
             lineHeight: 1.1,
-            maxWidth: '90%'
+            maxWidth: "90%",
           }}
         >
           {title}
@@ -74,8 +72,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
         <div
           style={{
             fontSize: 32, // Sub-heading for "Project"
-            color: '#ccc',
-            textAlign: 'center',
+            color: "#ccc",
+            textAlign: "center",
           }}
         >
           Project Showcase | Dglog
@@ -93,6 +91,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
       //     weight: 400,
       //   }
       // ]
-    }
+    },
   );
 }
