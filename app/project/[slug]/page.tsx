@@ -39,13 +39,11 @@ export async function generateMetadata({
       title: pageTitle,
       description: pageDescription,
       type: "article",
-      // images are handled by app/project/[slug]/opengraph-image.tsx
     },
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
       description: pageDescription,
-      // images are handled by app/project/[slug]/opengraph-image.tsx
     },
     alternates: {
       canonical: `https://dglog.vercel.app/project/${slug}`,
